@@ -105,10 +105,10 @@ create column family data with <span class="nv">column_type</span> <span class="
 <p>I ran the benchmarks above on my old PC. It is configured with a dual core processor and 3GB of memory. A dedicated Seagate HDD is used for data storage. The benchmark results are in the figures below. Given the hardware configuration, these numbers may not be representative. However, the comparation is still interesting.</p>
 <p>The benchmarks use <em>workloada</em> with 1,000,000 records and 1,000,000 operations. For Cassandra, <em>concurrent_reads</em> and <em>concurrent_writes</em> are both set to 16, as suggested in cassandra.yaml.</p>
 <div class="figure align-center">
-<img alt="update performance" src="/images/ycsb/update.png" style="width: 80%;" />
+<img alt="update performance" src="http://seth-images.qiniudn.com/ycsb/update.png" style="width: 80%;" />
 </div>
 <div class="figure align-center">
-<img alt="read performance" src="/images/ycsb/read.png" style="width: 80%;" />
+<img alt="read performance" src="http://seth-images.qiniudn.com/ycsb/read.png" style="width: 80%;" />
 </div>
 <p>Although both databases are built on the same data structure(SSTable), their performance differs significantly. As we can see, Cassandra is surprisingly fast for updates and this is constant. But its read performance is poor and long spikes appears periodically. On contrary, MapKeeper is much faster for reads and a lot slower for updates. Anyway, it took only half the time of Cassandra to complete the 1,000,000 operations.</p>
 <p>Also, it is a little wired that the performance of MapKeeper increases with time. I ran the benchmark several times and kept getting similar results. I've got no idea why this happens.</p>
