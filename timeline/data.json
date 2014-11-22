@@ -1,0 +1,243 @@
+{
+    "timeline":
+    {
+        "headline":"Pearls & Sand of My Life",
+        "type":"default",
+	"startDate":"1985",
+	"text":"something to say",
+	"asset":
+        {
+            "media":"",
+            "credit":"",
+            "caption":""
+        },
+        "date": [
+            {
+                "startDate":"1986,1,23",
+                "headline":"Birth",
+                "text":"I was born in a rural area in Hubei, China. My father is a doctor and my mother is a nurse. I am the only child.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/baby.jpg",
+                    "credit":"",
+                    "caption":"Definitely I was well-fed."
+                }
+            },
+            {
+                "startDate":"1992",
+                "endDate":"2001",
+                "headline":"Brush Calligraphy",
+                "text":"I used to practice brush calligraphy for more than 9 years. I followed the <a href='http://en.wikipedia.org/wiki/Yan_Zhenqing'>Yan Style</a>.",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2001,6",
+                "headline":"My first PC",
+                "text":"Got my first PC, with a Celeron II processor at 633 MHz and 128MB of memory.",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":"the Celeron processor"
+                }
+            },
+            {
+                "startDate":"2001,9",
+                "endDate":"2004",
+                "headline":"High School",
+                "text":"Went to No.5 High School of Xiangfan, which is the best local high school.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/bridge.jpg",
+                    "credit":"",
+                    "caption":"The famous <em>Zhuangyuan Bridge</em> in the campus of No.5 High School. which is said to have magic power and will bless every students."
+                }
+            },
+            {
+                "startDate":"2004,6",
+                "headline":"College Entrance Examination",
+                "text":"A painful but inevitable experience for every youngster in China. Most parents still believe this examination will decide the rest of their children's life.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/cee.jpg",
+                    "credit":"",
+                    "caption":"A fake movie poster about the CEE."
+                }
+            },
+            {
+                "startDate":"2004,9",
+                "endDate":"2008,6",
+                "headline":"College",
+                "text":"Went to <a href='http://www.hust.edu.cn'>HUST</a> with proud and ambition.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/d9.jpg",
+                    "credit":"",
+                    "caption":"One of the teaching building in HUST. It's also claimed to be the largest one in Asia."
+                }
+            },
+            {
+                "startDate":"2005,4",
+                "endDate":"2006,1",
+                "headline":"Taekwondo Training",
+                "text":"Practice Taekwondo for two semesters.",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":"One of the teaching building in HUST. It's also claimed to be the largest one in Asia."
+                }
+            },
+            {
+                "startDate":"2008,4",
+                "headline":"Huangshi Mine Park",
+                "text":"A theme park at Daye, Huangshi. All staffs here are related to ore extraction. Part of the Chow Yan-fat movie \"The Children of Huang Shi\" was filmed here.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/huangshi.png",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2008,8",
+                "headline":"Travel to Ezhou & Huanggang",
+                "text":"Ezhou and Huanggang are two small city not far from Wuhan. They are seperated by the Yangtze River.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/redcliff.jpg",
+                    "credit":"",
+                    "caption":"This is where the famous litterateur Su Dongpo(苏东坡) wrote \"Fu on Red Cliff(赤壁赋)\", one of his magnum opus."
+                }
+            },
+            {
+                "startDate":"2008,9",
+                "headline":"Grad School",
+                "text":"Began to struggle for my Ph.D. degree, at <a href='http://storage.hust.edu.cn/stlab/'>DSAL</a>, HUST.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/n1.jpg",
+                    "credit":"",
+                    "caption":"My office is in the building behind the statue."
+                }
+            },
+            {
+                "startDate":"2009,7",
+                "endDate":"2009,10",
+                "headline":"3 months in Beijing",
+                "text":"Work in Beijing for 3 months.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/gw.jpg",
+                    "credit":"",
+                    "caption":"The Great Wall(@Si Ma Tai), which is a must for every tough guy."
+                }
+            },
+            {
+                "startDate":"2010,5",
+                "headline":"I Can ~Swim~!",
+                "text":"Learn to swim, breaststroke.",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2010,7",
+                "headline":"Mountain Tai",
+                "text":"Travel to Jinan, the City of Springs, and then the most famous mountain in East China, Mountain Tai.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/tai.jpg",
+                    "credit":"",
+                    "caption":"Yu Huang Ding(玉皇顶), the highest peak of Mountain Tai, which is 1545 meters above sea level. I walked for more than 12km to get there."
+                }
+            },
+            {
+                "startDate":"2010,11,5",
+                "headline":"My website is online",
+                "text":"Finally made my decesion to do something.",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2011,11,19",
+                "headline":"Marksim's Concert",
+                "text":"A fascinating experience. I really love his music.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/marksim.jpg",
+                    "credit":"",
+                    "caption":"Marksim Mrvica meditating on the concert."
+                }
+            },
+	    {
+                "startDate":"2012,3,30",
+                "headline":"Creation of this timeline",
+                "text":"Create this page to track my life. Many thanks for <a href=http://timeline.verite.co>VéritéCo</a>.",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+	    {
+                "startDate":"2012,4,20",
+                "endDate":"2012,4,22",
+                "headline":"Travel to Wuyuan, Jiangxi",
+                "text":"Wuyuan is said to be the most beautiful countryside in China. It attracts many tourists and photographers every year, especially in late March and early April when the rape flowers are in full bloom.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/li.jpg",
+                    "credit":"",
+                    "caption":"A bird view of Likeng village."
+                }
+            },
+	    {
+                "startDate":"2012,8,30",
+                "headline":"Internship @ DSI, Singapore",
+                "text":"Start my internship at DSI. It is also my first time being abroad.",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/merlion.jpg",
+                    "credit":"",
+                    "caption":"Merlion, the landmark of Singapore."
+                }
+            },
+	    {
+                "startDate":"2013,3,21",
+                "headline":"My first paper!",
+                "text":"My paper is accepted by MSST 2013!",
+                "asset":
+                {
+                    "media":"",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+	    {
+                "startDate":"2013,5,19",
+                "headline":"Navy Open House @ Singapore",
+                "text":"Meet navy ships!",
+                "asset":
+                {
+                    "media":"http://seth-images.qiniudn.com/timeline/navy.png",
+                    "credit":"",
+                    "caption":"Some of the ships I could remember."
+                }
+            }
+	]
+    }
+}
