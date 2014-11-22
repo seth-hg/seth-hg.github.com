@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 文件系统一致性机制 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 文件系统一致性机制</h1>
+    <p class=date> Jun 03, 2012 </p>
+    <p>文件系统存储在设备上的数据主要包括两部分，一部分是用户数据，另一部分是管理用户数据所需的元数据，主要包括三种信息：一是资源（主要是存储空间）的分配情况；二是文件系统的名字空间，也就是目录结构；三是文件索引，记录了文件内偏移地址和磁盘块地址的映射关系。由于一个文件系统操作通常涉及多个数据结构，需要修改多个磁盘扇区。以创建文件为例，既要分配和初始化索引节点，又要在父目录中插入新的目录项，还有可能要预分配一些磁盘块，这一个操作需要修改索引节点表、索引节点位图、父目录、磁盘块位图等等。但是磁盘并不支持跨越多个扇区的原子更新，要保证这个操作的原子性（操作或者成功，或者完全没有发生），就必须在文件系统中提供额外的机制，否则就有可能造成数据不一致。</p>
+<p>文件系统一致性可以分成三个层次。第一个层次是元数据一致，即元数据中的各种数据结构之间没有冲突，不存在已被分配但没有被引用的孤立inode或者block，也不存在错误或者重复的引用。仍然以创建文件为例，如果索引节点分配并初始化成功，但是父目录还没有修改，这个索引节点就成了孤立的，既不能被访问，也不能被回收。第二个层次是数据一致，不但要求元数据一致，还要求元数据中引用的数据块必须是属于该文件的，而不是垃圾数据，或者其他文件的数据。</p>
+<p>对于多数应用，达到第二层次就已经足够了。但是在某些特殊应用下，对文件的版本有比较严格的要求，比如用make编译软件，要根据源码文件的版本确定是否需要重新编译该文件。因此就有了第三个层次——版本一致，要求元数据中引用的数据块不但属于该文件，还要跟元数据中所标明的版本保持一致。虽然多数文件系统并不支持多版本，没有显式的版本号，但是inode中还有一个最后修改时间可以表示文件当前版本。</p>
+<p>常用的文件系统一致性机制有下面几种。</p>
+<div class="section" id="fsck">
+<h2>fsck</h2>
+<p>扫描文件系统的所有元数据，逐个检查各个数据结构之间是否匹配，修正可能存在的不一致。这种方法最简单，而且只有发生故障之后才需要进行，对文件系统的性能没有影响。不过缺点也很明显，一是必须离线进行，检查过程中不能提供服务；二是耗时长，由于要扫描整个卷，数据量越大，耗时越久；最后，这种方法只能保证元数据一致。常用的文件系统都提供了fsck工具。Valerie Henson设计了chunkfs <a class="footnote-reference" href="#id9" id="id2">[1]</a> ，用分治的策略改进一致性检查过程。把一个卷划分成若干相对独立的chunk，一个文件操作只需要更新一个chunk之内的磁盘块。这样即使更新操作意外中断，也只有少数几个chunk是不一致的，只需要扫描这些chunk即可，大大缩短了检查的时间。</p>
+<p>Fsck是基于预先制定的规则的，而这些规则往往是来自于经验，比如指向文件数据块的指针不能超过设备地址范围，标记为已分配的资源必须被引用等等。根据这些规则进行的一致性检查，缺乏全局观，只能发现局部问题，而对某些问题则无能为力。比如，文件A的inode中的块指针出错，原本该指向一个间接块的，现在指向了一个错误的数据块，在进行fsck时，只能发现这个数据块中的内容违背了规则，但无法查出错误的原因是inode的错误。为了解决这个问题，Wang et al. <a class="footnote-reference" href="#id10" id="id3">[2]</a> 提出了利用快照，通过比较structural edit distance，找到跟文件系统当前状态最为接近的快照，辅助进行修复。</p>
+</div>
+<div class="section" id="journaling">
+<h2>Journaling</h2>
+<p>Journal又称作Write-ahead log，即在实际更新数据之前先把更新操作记录在日志里，这种方法严格要求日志的更新在实际更新操作之前完成。这种方法能达到的一致性层次取决与日志里记录的内容，如果日志中只记录元数据操作，则只能保证元数据一致，如果记录日志中包含数据，就可以保证版本一致。由于每次更新操作都要增加额外的写日志开销，对文件系统写性能的影响比较大。Ext3/4文件系统采用了这种方法。</p>
+</div>
+<div class="section" id="copy-on-write">
+<h2>Copy-on-write</h2>
+<p>每次更新操作都复制原有数据并把更新写到新的位置，而不会覆盖旧数据，因而能够保证版本一致，也没有额外的写日志开销。支持CoW的文件系统通常又称作write anywhere file system <a class="footnote-reference" href="#id11" id="id4">[3]</a> 。由于文件系统中的数据是采用树状结构进行索引的，对其中一个数据块的CoW，会导致更新操作逐层向上扩散直到树根。例如，在文件写操作的时候修改了一个数据块，进行CoW的同时，需要修改文件索引节点中的指针以指向新的磁盘块，又会触发对索引节点的CoW，接着又要触发对父目录的CoW……一直到根目录，因此目录层次越深，更新的开销也就越大。为了解决这个问题，支持CoW的文件系统通常采用B+树作为磁盘索引结构 <a class="footnote-reference" href="#id12" id="id5">[4]</a> ，所有的数据都存放在叶子节点中，当修改一个叶子节点时，需要拷贝从根结点到该节点之间的整条路径，这样更新操作的开销只取决于树的深度，也就是文件系统中实际存储数据的多少。CoW的实现通常比较复杂，需要大量的代码，支持这种方式的文件系统有Solaris的ZFS和Linux的btrfs。</p>
+</div>
+<div class="section" id="soft-updates">
+<h2>Soft updates</h2>
+<p>这是BSD大牛Marshall Kirk McKusick <a class="footnote-reference" href="#id13" id="id6">[5]</a> 提出的方法，通过跟踪缓存在内存里的文件系统数据结构之间的依赖关系，控制磁盘更新的顺序，以保证磁盘上的数据总是处于一致的状态。相比前面两种方法，即没有写日志的开销，也不会造成链式的更新，只有在某些情况下可能需要对更新操作进行回滚，然后重新执行，因此这种方法的性能开销是最低的。由于正确的控制磁盘更新的顺序非常复杂，目前只有BSD的UFS里实现了这种算法。</p>
+<p>从以上这些常用的方法中不难看出，磁盘块的更新顺序是保证文件系统一致性的一个重要的问题，因为文件系统本质上是依靠指针关系建立起来的索引结构，所以要保证一致性，必须要被引用的数据块在指针更新之前到达磁盘。基于这个观点，Frost et al. <a class="footnote-reference" href="#id14" id="id7">[6]</a> 提出了一种通用的write-before语义，并实现了基于patch的更新方法，在保证一致性的基础上，简化了文件系统的开发。另一方面，Chidambaram et al. <a class="footnote-reference" href="#id15" id="id8">[7]</a> 通过实验发现，严格要求磁盘块按照一定的顺序进行更新会限制磁盘带宽的利用率，降低文件系统的性能，因此提出了用反向指针（back pointer）保证一致性的方法，这种方法为每一个inode、dentry和数据块增加一个指向其引用者的反向指针，在更新的时候，只需要一个I/O操作就可以同时更新被引用对象和其反向指针，通过对比指针和反向指针，可以实时发现文件系统的异常，并修正某些错误，避免了耗时的离线fsck，同时也提升了写性能。</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference</h2>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="http://static.usenix.org/events/hotdep06/tech/prelim_papers/henson/henson.pdf">Chunkfs: using divide-and-conquer to improve file system reliability and repair</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="http://research.microsoft.com/apps/pubs/?id=80943">Crystal: The Power of Structure Against Corruptions</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td><a class="reference external" href="https://ng.gnunet.org/sites/default/files/10.1.1.40.3691.pdf">File system design for an NFS file server appliance</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[4]</a></td><td><a class="reference external" href="http://static.usenix.org/event/lsf07/tech/rodeh.pdf">B-trees, shadowing, and clones</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[5]</a></td><td><a class="reference external" href="http://static.usenix.org/event/usenix99/full_papers/mckusick/mckusick.pdf">Soft updates: A technique for eliminating most synchronous writes in the fast filesystem</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[6]</a></td><td><a class="reference external" href="http://www.sosp2007.org/papers/sosp169-frost.pdf">Generalized File System Dependencies</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[7]</a></td><td><a class="reference external" href="http://static.usenix.org/events/fast12/tech/full_papers/Chidambaram.pdf">Consistency Without Ordering</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/file-system.html">file system</a>
+      <a href="/blog/tag/reliability.html">reliability</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

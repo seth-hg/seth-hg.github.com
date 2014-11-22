@@ -1,1 +1,63 @@
-hello, world!
+<html>
+  <head>
+    <title>life sucks</title>
+    <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+    <style type="text/css" media="screen">
+      #background {
+          margin-left: auto;
+          margin-right: auto;
+          text-align: center;
+          width: 800px;
+          display: table-cell;
+          vertical-align:middle;
+      }
+
+      #menu {
+          width: 150px;
+          position:relative;
+          top:-600;
+          left:600;
+          text-align:right;
+          font-family: 'Fredericka the Great', cursive;
+          font-size: 28px;
+      }
+
+      #menu li {
+          list-style-type:none;
+      }
+
+      a:link { text-decoration: none;color: black}
+      a:active { text-decoration:blink}
+      a:hover { text-decoration:none;color: red}
+      a:visited { text-decoration: none;color: grey}
+
+    </style>
+    <script type="text/javascript" src="timeline/jquery-min.js"></script>
+    <script type="text/javascript">
+      $(document).ready( function() {
+          width = 800;
+          cWidth = parseInt(document.body.clientWidth);
+          if (cWidth > 800) {
+              width = cWidth;
+          }
+          $("#background").width(width);
+          $("#menu").css({left: width/2 + 80});
+      });
+    </script>
+  </head>
+  <body>
+    <div id="background">
+      <img src="http://seth-images.qiniudn.com/background.png" usemap="#sephiroth"/>
+      <map name="sephiroth">
+        <area shape="poligon" coords="164,36,410,288,440,490,290,318,200,200" href="http://en.wikipedia.org/wiki/Sephiroth_(Final_Fantasy)">
+      </map>
+      <div id="menu">
+        <ul>
+          <li><a href="timeline">Timeline</a></li>
+          <li><a href="notes">Notes</a></li>
+          <li><a href="blog">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 关于CPU Cache零碎 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 关于CPU Cache零碎</h1>
+    <p class=date> Oct 05, 2012 </p>
+    <p>读SCM方面的paper，经常要涉及到CPU Cache的一些东西，以前只关注外存了，对这些方面了解很少，这里把一些知识记录下来备忘。</p>
+<div class="section" id="cache-mode">
+<h2>Cache Mode</h2>
+<p>CPU Cache通常支持三种模式，Write-through、Write-back和Write-combining。前两种就比较常见，不需要解释了。Write-combining就比较特殊，按照我的理解它是一种针对大量写操作而优化的模式。对于写，它跟WB类似，把数据缓存起来，然后用burst方式一起写到memory，提高带宽的利用率。但是这种模式不保证指令按正确顺序执行，特别是对于读写混合的操作，比如写/读/写这样的指令序列，实际执行起来可能变成了读/写/写，如果前后指令之间存在数据依赖，执行结果就会出错。所以Write-combining不能用于普通的内存。目前这种模式的唯一应用是显存，因为有大量数据要写，而且对顺序性要求不高。</p>
+</div>
+<div class="section" id="mtrr-pat">
+<h2>MTRR &amp; PAT</h2>
+<p>现代处理器通常都支持对不同的内存地址范围指定不同的cache模式，实现的方法就是MTRR和PAT。MTRR全称是Memory Type Range Registers，是CPU提供的一组特殊寄存器，用来指定某些内存地址范围的缓存模式。在Linux下可以通过/proc/mtrr文件查看当前的状体。比如我的是这样的：</p>
+<pre class="literal-block">
+reg00: base=0x000000000 (    0MB), size= 2048MB, count=1: write-back
+reg01: base=0x07ff00000 ( 2047MB), size=    1MB, count=1: uncachable
+reg02: base=0x0d0000000 ( 3328MB), size=  256MB, count=1: write-combining
+</pre>
+<p>前面2GB是主存，之后的1MB大概是映射给了BIOS ROM，最后256MB是显存。</p>
+<p>PAT全称是Page Attribute Table，可以认为是MTRR的升级版，二者的关系类似于分段(segmentation)和分页(paging)的关系，MTRR只能粗粒度的指定某个地址范围，而且数量有限，但是PAT可以跟页表一样精确到页，为每个页面分别设置缓存模式。Intel从Pentium III开始支持PAT，很多其他CPU也支持。</p>
+</div>
+<div class="section" id="physically-or-virtually-indexed">
+<h2>Physically or Virtually Indexed</h2>
+<p>CPU Cache是用地址来索引的，当访问某个内存地址时，只要在索引里查找是否有这个地址，就知道请求的数据在不在cache里。但是现代处理器都是有分页机制的，内存地址有物理地址和虚拟地址两种，用哪种地址来做cache索引就成了一个问题。Either way has its pros and cons. Physically indexed cache is simple, but it's also slow for lookups. Because it depends on MMU to translate virtual address to physical address. Things will get worse when TLB miss. Virtually indexed cache is much faster. However, it must deal with alias problem, i.e. a single physical address is mapped to multiple virtual addresses.</p>
+<p>x86是用物理地址做索引的 <a class="footnote-reference" href="#id2" id="id1">[1]</a> 。</p>
+</div>
+<div class="section" id="clflush-mfence">
+<h2>clflush &amp; mfence</h2>
+<p>The <em>clflush</em> instruction invalidate a cache line through all cache levels. If the cache line contains uncommited data, it will be written to memory first.</p>
+<p>Similar to barrier I/O(BIO_BARRIER) at block level, the <em>mfence</em> instruction is a mechanism to implement write ordering. It enforces that data updated before the instruction is commited before subsequent ones.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.motherboardpoint.com/l1-l2-caches-and-mmu-t152345.html">http://www.motherboardpoint.com/l1-l2-caches-and-mmu-t152345.html</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/cache.html">cache</a>
+      <a href="/blog/tag/scm.html">scm</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

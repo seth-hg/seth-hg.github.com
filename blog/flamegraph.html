@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 用FlameGraph进行可视化性能分析 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 用FlameGraph进行可视化性能分析</h1>
+    <p class=date> Jul 01, 2012 </p>
+    <p>程序性能分析的一种常用方法是栈采样：定期中断处理器，收集函数调用栈，然后进行分析。一个函数在采样结果中出现的次数越多，说明这个函数被调用的次数越多，或者执行的时间更长，也越有可能成为性能瓶颈。不过采样数据量很大，分析起来很耗时。为此，Dtrace开发人员Brendan Gregg发明了一种 <a class="reference external" href="http://dtrace.org/blogs/brendan/2011/12/16/flame-graphs/">FlameGraph</a> 用来对采样结果进行可视化，使得分析结果变得非常简单直观。</p>
+<p>FlameGraph的例图请看 <a class="reference external" href="http://www.beginningwithi.com/brendan/mysql-flame.svg">这里</a> 。解释如下：</p>
+<ol class="arabic simple">
+<li>图中每一个方块代表栈里的一个函数。</li>
+<li>Y轴代表调用深度，最上面的是当前正在CPU上执行的函数，下面的都是其祖先。每个函数都是由它下方的函数调用的。</li>
+<li>X轴不是按照时间先后排列的，它只代表样本数目。方块越宽，代表该函数出现的次数越多。</li>
+<li>在有多个并发线程同时被采样，样本总数可能超过采样所用的时间。</li>
+</ol>
+<p>使用FlameGraph，需要先用工具对目标程序进行栈采样，然后用Brendan的 <a class="reference external" href="https://github.com/brendangregg/FlameGraph">脚本</a> 对采样结果进行处理并绘图。可以完成采样的工具很多，比如Solaris下的dtrace，linux下的 <a class="reference external" href="http://oprofile.sourceforge.net">oprofile</a> ， <a class="reference external" href="http://sourceware.org/systemtap/">systemtap</a> ， <a class="reference external" href="https://perf.wiki.kernel.org/index.php/Main_Page">perf</a> 等，不过Brendan目前没有提供针对oprofile的脚本。</p>
+<p>具体做法分三步（当然不是把大象关进冰箱那三步）：采样、折叠、绘图。对应的命令如下：</p>
+<div class="highlight"><pre>perf record -a -g -F 1000 sleep 60
+perf script | ./stackcollapse-perf.pl &gt; out.perf-folded
+cat out.perf-folded | ./flamegraph.pl &gt; perf-kernel.svg
+</pre></div>
+<p>第一行是用perf工具进行采样。参数-a表示对整个系统进行采样，如果只需要分析某个进程，可以不要这个选项。-g表示记录函数调用栈。-F 指定采样频率。最后是采样过程中要执行的命令，如果要针对某个程序进行分析，这里就执行你要分析的程序。更详细的用法参考perf的文档。</p>
+<p>后面两行调用Brendan的脚本，依葫芦画瓢即可。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/performance.html">performance</a>
+      <a href="/blog/tag/linux.html">linux</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

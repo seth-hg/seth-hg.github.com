@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> CPU降温 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> CPU降温</h1>
+    <p class=date> May 05, 2012 </p>
+    <p>夏天来了，气温越来越高，笔记本风扇吭哧吭哧的转个不停，听着实在揪心。现在的笔记本处理器都支持频率调整，可以在负载不重的情况下降低运行频率，减少能耗和发热。虽然Linx内核驱动已经相当完善，支持各种主流CPU的调频功能，但是默认的管理策略好像并不给力，总感觉运行Linux的时候温度要比运行windows的时候略高一些，还好可以自己调整。</p>
+<p>Linux内核中管理CPU频率的模块是cpufreq，这个模块提供了sysfs接口，通过/sys/devices/system/cpu/cpu[n]/cpufreq/目录里的文件，可以查看CPU运行状态。修改设置可以用命令行工具cpupower（也就是以前的cpufrequtils）。Fedora 17里这个工具包含在kernel-tools里。</p>
+<p>有两种方式可以达到降温的目的，一是把governor设置为powersave：</p>
+<div class="highlight"><pre>cpupower --cpu [n] frequency-set -g powersave
+</pre></div>
+<p>--cpu指定CPU，对于多核处理器可以为每个核心分别进行设置。一般默认的governor是ondemand，但仍然是性能优先。很多情况下，比如看资料、写文档的时候，CPU的使用率都不是很高，完全可以切换到powersave模式，效果相当明显，在我的笔记本上，把两个核都调成powersave，能降温10度以上。如果这样有点慢的话，可以只调一个核。</p>
+<p>另外一种方法是直接设定CPU的运行频率或者频率上限，频率不能任意调整，CPU支持频率可以在scaling_available_frequencies文件里看到。</p>
+<div class="highlight"><pre>cpupower --cpu[n] --frequency-set -f [freq]
+cpupower --cpu[n] --frequency-set -u [max_freq]
+</pre></div>
+<p>补充一个工具 <a class="reference external" href="http://lm-sensors.org/">lm-sensors</a> ，可以通过硬件传感器监控CPU和显卡等硬件的温度，调整完之后可以用sensors命令看一下效果。</p>
+<p>补充：</p>
+<p>2013-10-30</p>
+<p>从3.9开始，Linux内核对比较新的Intel处理器（Sandy Bridge和Ivy Bridge）提供了专门的模块intel_pstat进行管理，只有powersave和performance两种governor可以选择。</p>
+<p>参考资料：
+<a class="reference external" href="https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling">https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling</a></p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/linux.html">linux</a>
+      <a href="/blog/tag/cooling.html">cooling</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

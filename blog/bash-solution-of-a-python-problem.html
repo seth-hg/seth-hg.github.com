@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 用Bash解一道编程题 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 用Bash解一道编程题</h1>
+    <p class=date> Mar 31, 2012 </p>
+    <p>EuroPython 2011的 <a class="reference external" href="https://code.google.com/codejam/contest/1277486/dashboard">一道题目</a> 。大意是说：半人马座统一之前由很多小国家组成，如果一个国家的名字是辅音字母结尾，那么这个国家由国王统治；如果是元音结尾，就是女王统治；如果是y结尾，则处在混乱状态，无人统治。输入文件是一个国家名字的列表，要求输出每个国家的统治者。题目不难，所以我想用bash来解决。</p>
+<div class="highlight"><pre><span class="c">#!/bin/sh</span>
+
+<span class="nv">i</span><span class="o">=</span>0
+
+<span class="k">for </span>l in <span class="sb">`</span>cat <span class="nv">$1</span><span class="sb">`</span>
+<span class="k">do</span>
+<span class="k">    if</span> <span class="o">[</span> <span class="nv">$i</span> <span class="o">==</span> 0 <span class="o">]</span>; <span class="k">then</span>
+        <span class="o">((</span>i+<span class="o">=</span>1<span class="o">))</span>
+        <span class="k">continue</span>
+<span class="k">    fi</span>
+<span class="k">    </span><span class="nb">echo</span> -n <span class="s2">&quot;Case #&quot;</span><span class="nv">$i</span><span class="s2">&quot;: &quot;</span><span class="nv">$l</span><span class="s2">&quot; is ruled by &quot;</span>
+    <span class="nv">lower</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$l</span>|tr <span class="s1">&#39;[A-Z]&#39;</span> <span class="s1">&#39;[a-z]&#39;</span><span class="sb">`</span>
+    <span class="k">if  </span><span class="nb">echo</span> <span class="nv">$lower</span>|grep <span class="s1">&#39;y$&#39;</span>&gt;/dev/null; <span class="k">then</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;nobody.&quot;</span>
+    <span class="k">elif </span><span class="nb">echo</span> <span class="nv">$lower</span>|grep <span class="s1">&#39;[a|e|i|o|u]$&#39;</span>&gt;/dev/null; <span class="k">then</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;a queen.&quot;</span>
+    <span class="k">else</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;a king.&quot;</span>
+    <span class="k">fi</span>
+    <span class="o">((</span>i+<span class="o">=</span>1<span class="o">))</span>
+<span class="k">done</span>
+</pre></div>
+<p>用cat读取输入文件，然后逐行处理。第12行用tr命令把国家名字替换成小写。第13和16行分别用grep进行正则表达式匹配，判断是否以y或者元音字母结尾。</p>
+<p>这段代码的输出结果通过了检查，但是比较了一下性能，发现跟相应的python版本差距很大，执行时间相差50倍。</p>
+<div class="highlight"><pre><span class="o">[</span>temp 11:17:16<span class="o">]</span><span class="nv">$ </span><span class="nb">time</span> ./contries.sh A-small-practice1.in &gt; sh.out
+
+real    0m1.991s
+user    0m0.198s
+sys 0m0.842s
+<span class="o">[</span>temp 11:17:44<span class="o">]</span><span class="nv">$ </span><span class="nb">time </span>python a.py A-small-practice1.in py.out
+
+real    0m0.040s
+user    0m0.032s
+sys 0m0.003s
+</pre></div>
+<p>造成性能差的原因，可能是因为bash脚本中调用了其他的程序，每一次调用都需要创建新进程，并且要通过管道进行进程间通信。在上面脚本里，每次循环至少要调用echo4次、grep一次、tr一次，使用管道3次，这些操作都需要进行系统调用，带来极大的性能开销，反映在time结果上就是sys时间是python版本的280倍之多。由此得到性能优化的方向：尽量使用bash的内置功能，减少外部程序调用。</p>
+<p>Bash其实已经提供了内建正则表达式匹配功能，通过=~运算符实现。用法如下：</p>
+<div class="highlight"><pre><span class="o">[[</span> <span class="nv">$str</span> <span class="o">=</span>~ <span class="nv">$regexp</span> <span class="o">]]</span>
+</pre></div>
+<p>这样就可以把脚本中的grep调用全部去掉。另外脚本中每一行结果分两次输出，可以合并成一次，减少一次echo调用。新的脚本如下：</p>
+<div class="highlight"><pre><span class="c">#!/bin/sh</span>
+
+<span class="nv">i</span><span class="o">=</span>0
+<span class="k">for </span>l in <span class="sb">`</span>cat <span class="nv">$1</span><span class="sb">`</span>
+<span class="k">do</span>
+<span class="k">    if</span> <span class="o">[</span> <span class="nv">$i</span> <span class="o">==</span> 0 <span class="o">]</span>; <span class="k">then</span>
+        <span class="o">((</span>i+<span class="o">=</span>1<span class="o">))</span>
+        <span class="k">continue</span>
+<span class="k">    fi</span>
+<span class="k">    </span><span class="nv">lower</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$l</span>|tr <span class="s1">&#39;[A-Z]&#39;</span> <span class="s1">&#39;[a-z]&#39;</span><span class="sb">`</span>
+    <span class="nv">reg1</span><span class="o">=</span><span class="s1">&#39;y$&#39;</span>
+    <span class="nv">reg2</span><span class="o">=</span><span class="s1">&#39;[a|e|i|o|u]$&#39;</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$lower</span> <span class="o">=</span>~ <span class="nv">$reg1</span> <span class="o">]]</span>; <span class="k">then</span>
+<span class="k">        </span><span class="nv">who</span><span class="o">=</span><span class="s2">&quot;nobody.&quot;</span>
+    <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$lower</span> <span class="o">=</span>~ <span class="nv">$reg2</span> <span class="o">]]</span>; <span class="k">then</span>
+<span class="k">        </span><span class="nv">who</span><span class="o">=</span><span class="s2">&quot;a queen.&quot;</span>
+    <span class="k">else</span>
+<span class="k">        </span><span class="nv">who</span><span class="o">=</span><span class="s2">&quot;a king.&quot;</span>
+    <span class="k">fi</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Case #&quot;</span><span class="nv">$i</span><span class="s2">&quot;: &quot;</span><span class="nv">$l</span><span class="s2">&quot; is ruled by $who&quot;</span>
+    <span class="o">((</span>i+<span class="o">=</span>1<span class="o">))</span>
+<span class="k">done</span>
+</pre></div>
+<p>再测性能：</p>
+<div class="highlight"><pre><span class="o">[</span>temp 11:46:44<span class="o">]</span><span class="nv">$ </span><span class="nb">time</span> ./contries-tuned.sh A-small-practice1.in &gt; sh.out
+
+real    0m0.820s
+user    0m0.101s
+sys 0m0.151
+</pre></div>
+<p>性能提高了不少，但是执行时间仍然是python版本的20倍！看起来性能瓶颈可能在tr。一方面是前面分析的创建进程和管道通信的开销，反映在sys时间上；另一方面，user时间也比较大，可能是tr的实现机制所致，这种基于正则表达式的替换用来进行大小写转换有点儿杀鸡用牛刀的感觉。Bash里面没有找到比较简单的办法替代tr，但是可以修改reg1和reg2，在条件判断的时候把大小写考虑进去，同样可以达到目的。</p>
+<div class="highlight"><pre><span class="nv">reg1</span><span class="o">=</span><span class="s1">&#39;[y|Y]$&#39;</span>
+<span class="nv">reg2</span><span class="o">=</span><span class="s1">&#39;[a|e|i|o|u|A|E|I|O|U]$&#39;</span>
+</pre></div>
+<p>再测性能：</p>
+<div class="highlight"><pre><span class="o">[</span>temp 11:56:14<span class="o">]</span><span class="nv">$ </span><span class="nb">time</span> ./contries-tuned2.sh A-small-practice1.in &gt; sh.out
+
+real    0m0.056s
+user    0m0.043s
+sys 0m0.003s
+</pre></div>
+<p>已经相当接近了，不过总的执行时间仍然比python多出了40%，多出来的部分主要在usr，应该是Bash本身的问题了。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/bash.html">bash</a>
+      <a href="/blog/tag/programming.html">programming</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

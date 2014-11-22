@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 十分钟Emacs入门 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 十分钟Emacs入门</h1>
+    <p class=date> Mar 16, 2012 </p>
+    <p>本文的主要内容来自John M. Gabriele所写的 <a class="reference external" href="http://www.unexpected-vortices.com/clojure/10-minute-emacs-for-clojure.html">Clojure简明入门教程</a> ，其中关于Emacs的部分写得简洁明了，最适合像我一样心急又想吃热豆腐的癞蛤蟆，特地拿来收藏学习。</p>
+<p>在Emacs里，文件在buffer里进行编辑。Emacs主窗口一次只显示一个buffer，但是可以对窗口进行分割。同时还有一些其他的缓冲区显示文件以外的信息（比如，某个缓冲区会显示你当前打开的所有文件）。</p>
+<p>Emacs编辑命令都是Ctrl和Alt的组合键，但是Alt通常被称作Meta。Emacs用户习惯把Ctrl-a写成C-a，把Alt-x写成M-x。</p>
+<p>如果你还在学习中，对编辑命令的键盘绑定还不熟的话，可以通过菜单来运行命令，对应的键盘绑定就显示在菜单项的旁边。Emacs可以像普通的GUI编辑器一样使用：方向键、Home、End、PgUp/PgDn的用法都完全相同。用“Ctrl-方向键”将以单词和段落为单位移动光标。鼠标是OK的。不过，每一个Emacs用户上辈子都是折翼的天使（这句是我自己加的），到最后你可能还是要学习emacs的快捷键，这样来得更high。</p>
+<p>Emacs采用层次化的方式把一些命令安排在其他命令的“下面”（类似于菜单）。也就是说，要执行某些命令，必须先执行一条前缀命令，然后在这个上下文环境下才能执行需要的命令。比如，文件操作的前缀命令是C-x，先按下C-x，然后Emacs会等待下一个快捷键。C-x C-f打开文件，C-x C-s保存文件。再举个例子：C-h是帮助命令的前缀，C-h t打开内置的Emacs指南。</p>
+<p>在放手去do之前，再给个提示：C-g可以终止任何命令，帮你摆脱困境（有时候需要连按两次才行）。</p>
+<p>下面是一些常用的快捷键：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>C-x C-f</td>
+<td>打开文件</td>
+</tr>
+<tr><td>C-x k Ret</td>
+<td>关闭当前文件（关闭缓冲区）</td>
+</tr>
+<tr><td>C-x C-s</td>
+<td>保存文件</td>
+</tr>
+<tr><td>C-x C-c</td>
+<td>退出</td>
+</tr>
+<tr><td>C-Space</td>
+<td>开始文本选择</td>
+</tr>
+<tr><td>C-g</td>
+<td>取消当前命令</td>
+</tr>
+<tr><td>C-s</td>
+<td>增量搜索</td>
+</tr>
+<tr><td>C-w</td>
+<td>剪切</td>
+</tr>
+<tr><td>M-w</td>
+<td>复制</td>
+</tr>
+<tr><td>C-y</td>
+<td>粘贴</td>
+</tr>
+<tr><td>C-/</td>
+<td>撤销（undo）</td>
+</tr>
+<tr><td>M-/</td>
+<td>自动补全</td>
+</tr>
+<tr><td>C-f</td>
+<td>向前移动光标</td>
+</tr>
+<tr><td>C-b</td>
+<td>向后移动光标</td>
+</tr>
+<tr><td>M-f</td>
+<td>向前移动一个单词</td>
+</tr>
+<tr><td>M-b</td>
+<td>向后移动一个单词</td>
+</tr>
+<tr><td>C-n</td>
+<td>移动到下一行</td>
+</tr>
+<tr><td>C-p</td>
+<td>移动到上一行</td>
+</tr>
+<tr><td>M-n</td>
+<td>向下滚动视窗</td>
+</tr>
+<tr><td>M-p</td>
+<td>向上滚动视窗</td>
+</tr>
+<tr><td>C-a</td>
+<td>移动到行首</td>
+</tr>
+<tr><td>C-e</td>
+<td>移动到行尾</td>
+</tr>
+<tr><td>M-{</td>
+<td>向上移动一个段落</td>
+</tr>
+<tr><td>M-}</td>
+<td>向下移动一个段落</td>
+</tr>
+<tr><td>C-v</td>
+<td>下翻页</td>
+</tr>
+<tr><td>M-v</td>
+<td>上翻页</td>
+</tr>
+<tr><td>M-&lt;</td>
+<td>移动到缓冲区顶部（文件头）</td>
+</tr>
+<tr><td>M-&gt;</td>
+<td>移动到缓冲区底部（文件尾）</td>
+</tr>
+<tr><td>C-x 2</td>
+<td>水平分割窗口</td>
+</tr>
+<tr><td>C-x 3</td>
+<td>垂直分割窗口</td>
+</tr>
+<tr><td>C-x o</td>
+<td>移动光标到另一窗口</td>
+</tr>
+<tr><td>C-x b Ret</td>
+<td>在当前显示其他缓冲区</td>
+</tr>
+<tr><td>C-x 0</td>
+<td>关闭一个窗口（分割之后）</td>
+</tr>
+</tbody>
+</table>
+<p>再补充几个：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="47%" />
+<col width="53%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>C-d</td>
+<td>删除光标上的字符</td>
+</tr>
+<tr><td>DEL</td>
+<td>删除光标前的字符</td>
+</tr>
+<tr><td>M-d</td>
+<td>删除光标后的单词</td>
+</tr>
+<tr><td>M-DEL</td>
+<td>删除光标前的单词</td>
+</tr>
+<tr><td>C-k</td>
+<td>从光标位置删除到行尾</td>
+</tr>
+<tr><td>C-y</td>
+<td>恢复最近一次删除的内容</td>
+</tr>
+<tr><td>C-S-Backspace</td>
+<td>删除整行</td>
+</tr>
+<tr><td>C-h b</td>
+<td>显示所有的快捷键</td>
+</tr>
+</tbody>
+</table>
+<p>最后，记住输入“M-x 命令名称”可以执行任何命令。比如，删除文件里所有行末的空白：“M-x delete-trailing-whitespace”。</p>
+<p>补充：</p>
+<ol class="arabic simple">
+<li>在X下，Ctrl+Space通常被占用作输入法切换，所以最好重新定义这个快捷键。Emacs里各种快捷键组合几乎都给占用了，找了半天才有一个Ctrl+tab，将就用把。把下面这行加到~/.emacs文件里。</li>
+</ol>
+<p>(global-set-key [(control tab)] ‘set-mark-command)</p>
+<ol class="arabic simple" start="2">
+<li>学习Emacs的一个好办法：把主窗口分成左右两边，在一边打开常用快捷键列表，另一边编辑文件，边用边学。</li>
+<li>一些不错的参考资料</li>
+</ol>
+<p><a class="reference external" href="http://www.unexpected-vortices.com/emacs/quick-ref.html">http://www.unexpected-vortices.com/emacs/quick-ref.html</a></p>
+<p><a class="reference external" href="http://www.nongnu.org/emacs-tiny-tools/keybindings/">http://www.nongnu.org/emacs-tiny-tools/keybindings/</a></p>
+<p><a class="reference external" href="http://lifegoo.pluskid.org/wiki/Emacs.html">http://lifegoo.pluskid.org/wiki/Emacs.html</a></p>
+<p><a class="reference external" href="http://www.cs.rutgers.edu/LCSR-Computing/some-docs/emacs-chart.html">http://www.cs.rutgers.edu/LCSR-Computing/some-docs/emacs-chart.html</a></p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/emacs.html">emacs</a>
+      <a href="/blog/tag/tutorial.html">tutorial</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

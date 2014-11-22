@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 移植owncloud到SAE | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 移植owncloud到SAE</h1>
+    <p class=date> Feb 02, 2012 </p>
+    <p>寒假在家无聊，找点事情打发一下时间。最近比较关注新浪的App Engine，想在上面做点儿什么。写新的东西吧，一是目前没想法，二是设计比较麻烦，还是移植吧。于是想到了owncloud，KDE的一个子项目，貌似还没有人移植。如果能在SAE上运行owncloud，就可以用很低的成本拥有一个私有的云存储服务器，还是挺吸引人的。</p>
+<p>大致看了一下OC的代码和SAE的文档，移植的主要难点在文件存储这一块。OC需要用服务器的本地文件系统存储文件，但是SAE不支持本地文件系统写操作，文件只能存储到它的分布式文件系统里。这个系统目前很不完善，缺乏POSIX的很多特性，比如很多文件属性没有，而且对目录的支持也不完善，这个是最关键的。先从简单的开始做起，完成一个不支持层次目录的版本。</p>
+<p>OC的代码层次比较清晰，其中文件存储这一块分了两层。一层是抽象层（lib/files.php和lib/filestorage.php），为OC的各个app提供跟底层无关的文件访问API。另外一层是后端存储引擎（lib/filestorage/），就是跟存储方式相关的具体实现。目前有两个引擎：local.php和remote.php。前者就是用本地文件系统做存储后端，后者是远程存储，具体是个什么东东我还不是很清楚。</p>
+<p>那么主要任务就是添加一个SAE的专用存储后端（sae.php）。先把local.php整个copy过来，里面其实就是定义了一个OC_Filestorage的子类OC_Filestorage_Local，各个方法的含义基本上很明确了。参考这个，实现一个新的类OC_Filestorage_SAE。之后还要在lib/base.php里加上一句registerStorageType，注册新的存储后端。</p>
+<p>因为不支持目录，所以其它有些地方还需要进行一些相应的修改。比如OC里默认在DATADIR/files/目录下为每个用户创建一个目录用于存储文件，现在只能全部存储在根目录下。</p>
+<p>另外，OC在安装的时候通过交互式界面（lib/setup.php）填写配置信息，然后把配置信息写到config/config.php文件里。而SAE里不能修改本地文件。目前的做法是事先写好配置，然后调用一个新的setup.php，根据配置信息进行初始化。</p>
+<p>完成的代码发布在github，基于最新发布的owncloud3，详细说明见README。</p>
+<p>不知道SAE近期有没有继续完善其分布式存储系统的计划，不过通过这个移植过程，我倒是产生了一个想法：用SAE的kvdb和storage实现一个功能完善的分布式文件系统。用kvdb存储元数据（inode和目录等等），storage存储数据，通过php streamWrapper进行封装，这样就可以像本地文件一样通过open()，read()，write()等函数来访问。如果有了这个东东，再移植OC或者类似的系统，难度应该会小很多。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/cloud.html">cloud</a>
+      <a href="/blog/tag/php.html">php</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

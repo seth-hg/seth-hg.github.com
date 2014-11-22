@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 闪存的工作原理 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 闪存的工作原理</h1>
+    <p class=date> Aug 24, 2014 </p>
+    <p>闪存时当下非常热门的存储介质之一，不论是在工业界还是学术界，都</p>
+<p>闪存是用半导体集成电路实现非非易失性数据存储的设备，其基本单元是浮栅晶体管。</p>
+<p>浮栅晶体管是一种特殊结构的MOSFET。普通的MOSFET（图1）有源极、漏极和栅极三个端口，嵌在半导体硅基质里，互不联通，因此在通常情况下，MOSFET是不导电的。如果在栅极和源极之间加上一个电压Vgs，硅基质受到电场的感应就会产生自由电子，当Vgs高于某个值的时候，MOSFET变成导体，电流可以通过沟道在源极和漏极之间流通。这个电压值就是MOSFET的开启电压，也叫阈值电压，用符号VT表示。浮栅晶体管（图2）的结构跟普通MOSFET类似，不同的是它有两个栅极，上面是控制栅，下面是浮动栅。这个结构的特点是它的阈值电压VT是可变的，可以通过在浮栅中存储一定量的电子来改变阈值电压。浮栅的周围包裹这一层二氧化硅绝缘层，</p>
+<p>初始情况下，浮栅中没有电子，VT较低。</p>
+<p>如果在漏极和栅极加上高电压，使沟道是打开的，电子从源极流向漏极。由于热电子注入效应，部分高能电子会穿过硅基质和二氧化硅绝缘层之间的势垒，进入浮栅。当栅极高电压撤去之后，这些电子就被困在浮栅里，达到存储数据的目的。</p>
+<p>当浮栅中有电子时，</p>
+<p>阈值电压就会升高。浮栅其中电子的多少，决定了晶体管的阈值电压Vth的高低，闪存就是通过这种方式来存储数据的。浮栅周围包裹着一层二氧化硅绝缘层，进入其中的电子会被困住，因此可以实现非易失性存储。</p>
+<p>SLC闪存和MLC闪存在物理结构上是一样的，区别是</p>
+<p>Page 3
+编程操作：在</p>
+<p>对于MLC闪存，如果要存储n个bit的信息，Vth就要有至少2^n种不同的取值。MLC闪存在进行编程的时候，采用递增的方式，逐步提高Vth到需要的值。每次的增量是∆VP，因此MLC闪存的写速度要比SLC闪存慢得多，而且写操作的时间跟∆VP成正比。</p>
+<p>擦除操作：在源极和栅极之间加上反向高电压，利用量子隧道效应将浮栅中的电子吸引到源极，Vth回复到初始状态。</p>
+<p>编程完成之后，浮栅晶体管并不能永久的保持这个状态，经过足够长的时间，FG中的电子会逐渐逸出，Vth会逐渐降低。而且擦写的过程会对器件造成破坏性的影响（热电子退化），擦写次数越多，Vth能够维持的时间也就越短。这也是闪存寿命有限的物理根源。</p>
+<p>Page 4/5
+闪存中保存数据有一定的出错率，这个概率称作原始位错误率（RBER）。</p>
+<p>所谓写穿状态，是指在一定的时间范围内，发生不可纠正错误的概率高于某个阈值。</p>
+<p>近年来对闪存的研究不断升温</p>
+<p>台湾xxx使用二氧化硫做绝缘层，结合热辅助技术，实现了闪存的自我修复，将最大擦写次数提升至1亿次以上，大大延长了闪存的寿命。</p>
+
+    
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

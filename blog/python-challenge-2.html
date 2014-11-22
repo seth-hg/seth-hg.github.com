@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Python Challenge 2 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Python Challenge 2</h1>
+    <p class=date> Oct 29, 2013 </p>
+    <div class="section" id="whom">
+<h2>15. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/uzi.html">whom?</a></h2>
+<p>这一关的提示信息主要来自图片中的日历，上面圈出的日期是1*6年1月26日。既然问题是“whom?”，那么答案一定是跟这一天有关的某个人。网页的源文件里有两行注释:</p>
+<div class="highlight"><pre><span class="c">&lt;!-- he ain&#39;t the youngest, he is the second --&gt;</span>
+...
+<span class="c">&lt;!-- todo: buy flowers for tomorrow --&gt;</span>
+</pre></div>
+<p>不是最年轻的，是第二年轻的，那么这一天应该是生日。网上查了一下，1月26日出生的名人，出生年份末位是6的，只有几个，明显都不靠谱。再看第二条注释里写得是为明天买花，也许应该是1月27日出生的人。再查一下，还真有一个比较靠谱的：莫扎特。试试mozart.html，果然进入了下一关。不过这里根本没有用到任何编程。其实这题的本意，应该是让我们推算出年份，而不是直接去上网搜索。日历上显示1月26日是星期一，所以我们先要找出以1开头以6结尾并且1月26日是星期一的所有年份，然后其中倒数第二个就是我们要的答案。另外还有一个线索，日历右下角显示2月份有29天，那么这一年必须是闰年。我的代码如下：</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span><span class="o">,</span> <span class="nn">calendar</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">1996</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">calendar</span><span class="o">.</span><span class="n">isleap</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">26</span><span class="p">)</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">y</span>
+</pre></div>
+</div>
+<div class="section" id="let-me-get-this-straight">
+<h2>16. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/mozart.html">let me get this straight</a></h2>
+<p>同样是图片题，图中有很多的粉红色线段，看起来每条长度应该是一样的，并且两端都白点。“get this straight”，是不是就是指把每一行中的粉红色线段对齐呢？试一下，结果就出来了，下一关是romance。</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;mozart.gif&#39;</span><span class="p">)</span>
+<span class="n">pix</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">new</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pix</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="mi">195</span><span class="p">:</span>
+            <span class="k">print</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+            <span class="k">break</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="n">new</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">pix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">new</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="n">w</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">pix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+
+<span class="n">new</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;new.gif&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="eat">
+<h2>17. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/romance.html">eat?</a></h2>
+<p>&lt;to be continued&gt;</p>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/python.html">python</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 有图有真相：实验分析Google按图搜索 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 有图有真相：实验分析Google按图搜索</h1>
+    <p class=date> Jun 19, 2011 </p>
+    <p>Google推出按图搜索，貌似效果比较震撼。Google的搜索算法真的强大到能像人一样仅凭图片就识别出内容吗？我对此表示怀疑。Google的搜索引擎又是怎么做到按图搜索的？我不是研究这个的，只能做几个简单的实验进行分析，管中窥豹，贻笑大方。</p>
+<div class="section" id="first-blood">
+<h2>实验1 First Blood</h2>
+<p>图片 苍井老师的写真</p>
+<div class="figure align-center">
+<img alt="苍老师" src="/images/search-by-img-exp/1_1.jpg" />
+</div>
+<p>结果</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/1_2.jpg" />
+</div>
+<p>这里Google给出的搜索结果包括三个方面（对应图中1, 2, 3）：</p>
+<ol class="arabic simple">
+<li>Best guess for this image，Google“猜”出来的图片内容</li>
+<li>Visually similar images，相似图片</li>
+<li>Pages that include matching images，包含该匹配图片的页面</li>
+</ol>
+<p>很显然，得到结果的顺序应该是3→1→2（这在后面的实验里会得到验证）。首先搜索图片库，寻找相同的图片（判断两张图片是否相同的方法很可能是通过比较像素来进行的），然后得到包含这些图片的网页。再根据网页里的文本信息推测图片的含义，所以在这里才能推测出图片里的人是我们敬爱的苍井老师。最后根据图片本身的特征（比如色彩、灰度、轮廓什么的，我不是太懂）搜索类似的图片，再辅以前面的推测结论进行筛选，得到相似图片。</p>
+<p>这张图片本身就是从网上找来的，所以找到比较多的结果也并不奇怪。</p>
+<p>这里可以看到，虽然有了aoi sora作为关键字，还是没有能完全剔除掉4这样的无关结果。这跟文本搜索是类似的。</p>
+</div>
+<div class="section" id="id1">
+<h2>实验2 部分匹配</h2>
+<p>从实验1的图片里截取部分，进行搜索。</p>
+<p>图片1 大半张脸</p>
+<div class="figure align-center">
+<img alt="大半张脸" src="/images/search-by-img-exp/2_1.jpg" />
+</div>
+<p>结果</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/2_2.jpg" />
+</div>
+<p>图片2 整个胸部</p>
+<div class="figure align-center">
+<img alt="整个胸部" src="/images/search-by-img-exp/2_3.jpg" />
+</div>
+<p>结果</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/2_4.jpg" />
+</div>
+<p>通过这个实验，应该可以断定，像素匹配的比例是判断两个图片是否相同的重要依据。只要匹配的像素达到一定比例，就认为两张图片匹配。图片1因为截取的部分少，匹配的比例也小，所以图片索引里的那些相同图片都被认为是不同的；而图片2截取的部分多，匹配比例也大，就能够成功的找到相同图片。</p>
+<p>不过图片1虽然没有成功的找到匹配的结果，但是成功的识别出了人脸，所以相似图片结果里没有出现很离谱的物体。</p>
+<p>另外这里也可以看到，如果成功匹配，就会找到很多包含相同图片的网页（Pages that include matching images），根据这些网页上频繁出现的关键词，就可以推测出图片的内容；反之则只有一些看起来相似的图片（Visually similar images）。这充分说明1的结果是根据3来的，同时会作用于2。</p>
+<p>BTW：不得不佩服google的强大，仅凭胸部就能认出苍井老师。</p>
+</div>
+<div class="section" id="id2">
+<h2>实验3 干扰因素</h2>
+<p>图片1 添加文字</p>
+<div class="figure align-center">
+<img alt="苍老师+文字" src="/images/search-by-img-exp/3_1.jpg" />
+</div>
+<p>图片2 添加图形</p>
+<div class="figure align-center">
+<img alt="苍老师+凤姐" src="/images/search-by-img-exp/3_2.jpg" />
+</div>
+<p>为了偷懒，这两个结果我就不贴图了，想看可以自己去试。一句话，不管是办证还是凤姐，都没能掩盖苍井老师的光芒。原理应该跟实验2的部分匹配类似，只要匹配部分达到一定比例，就认为是相同的，这样自然就把我添加的那些干扰因素排除在外了。</p>
+</div>
+<div class="section" id="id3">
+<h2>实验4 变形</h2>
+<p>改变图片的宽高比进行，用加长版苍井老师去搜索。</p>
+<p>图片 加长夜用型的苍井老师</p>
+<div class="figure align-center">
+<img alt="加长夜用型的苍井老师" src="/images/search-by-img-exp/4_1.jpg" />
+</div>
+<p>结果</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/4_2.jpg" />
+</div>
+<p>这里就不太明白是怎么搜出这个结果的，而且还就单单搜出这么一个结果。由于匹配结果太少，而且还是中文，所以Google终于没能认出苍井老师来，看来Google真的要好好学学中文了。</p>
+</div>
+<div class="section" id="id4">
+<h2>实验5 变色</h2>
+<p>改变图片的颜色位数进行搜索。</p>
+<p>图片1 256色复古版苍老师</p>
+<div class="figure align-center">
+<img alt="256色苍老师" src="/images/search-by-img-exp/5_1.jpg" />
+</div>
+<p>图片2 16色复古苍老师</p>
+<div class="figure align-center">
+<img alt="16色苍老师" src="/images/search-by-img-exp/5_2.jpg" />
+</div>
+<p>16色搜索结果</p>
+<div class="figure align-center">
+<img alt="16色搜索结果" src="/images/search-by-img-exp/5_3.jpg" />
+</div>
+<p>256色的情况下，图片失真还比较小，仍然可以正确匹配；16色的情况下，也没有完全失败，还是找到了少量的结果，不过相似图片的结果，就差得相当远了。可见颜色在相似图片搜索中的重要作用。</p>
+</div>
+<div class="section" id="id5">
+<h2>实验6 更复杂的变化</h2>
+<p>用Photoshop的一些特效对原始图片进行处理，然后进行搜索。</p>
+<p>图片1 50%杂色</p>
+<div class="figure align-center">
+<img alt="50%杂色" src="/images/search-by-img-exp/6_1.jpg" />
+</div>
+<p>杂色搜索结果</p>
+<div class="figure align-center">
+<img alt="杂色50搜索结果" src="/images/search-by-img-exp/6_2.jpg" />
+</div>
+<p>图片2 距离25的动感模糊</p>
+<div class="figure align-center">
+<img alt="距离25的动感模糊" src="/images/search-by-img-exp/6_3.jpg" />
+</div>
+<p>动感模糊搜索结果</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/6_4.jpg" />
+</div>
+<p>图片1色彩组成要比原图复杂很多，但基本轮廓仍然比较清晰，所以相似图片里基本还都是人形，而且肉眼上来看，色彩也跟图片1比较接近。这说明色彩是相似图片搜索的重要依据，专业术语我讲不清楚，不过原理可能跟gift类似。</p>
+<p>图片2色彩构成基本没变，只是轮廓模糊了许多，所以相似图片里面多了些猫猫狗狗。这从反面说明，Google对轮廓识别也有一套。另外这里图片模糊了，guess的结果也模糊了，这个太囧了。看一下这里的结果数，只有72，由于结果相关页面太少，因此推测的结果也不够准确，结合前面的实验，充分说明Google的guess，是基于大量相关页面进行。</p>
+<p>这两个都能正确搜索出结果，看起来很强大。不过仔细思考一下，可能还是个比例问题。这两个PS特效无非是修改原图上的部分像素来造成视觉效果，只要修改的像素不超过一定比例，在Google的匹配算法里仍然会被认为是和原图相同的。</p>
+<p>时间关系，PS里其他的效果，就不一一测试了。</p>
+</div>
+<div class="section" id="id6">
+<h2>实验7 终极挑战</h2>
+<p>从电影里截取一张苍井老师的面部特写进行搜索。</p>
+<p>图片 《复仇者之死》截图</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/2_1.jpg" />
+</div>
+<p>电影截图</p>
+<p>结果</p>
+<div class="figure align-center">
+<img alt="搜索结果" src="/images/search-by-img-exp/2_1.jpg" />
+</div>
+<p>截图结果</p>
+<p>这个结果毫不意外，就算是Google，现在也不可能强大到真的根据图片的“内容”去搜索。不过我觉得，这种情况恰恰是人们最需要的。比如你走在路上，发现一个不明物体，兴致勃勃的拍张照片想去Google一下，结果得到的只是形状或颜色相似的另一些不明物体，这个时候你一定会对所谓的按图搜索感到无比失望。不过这确实是目前技术所限，不能奢求太多。</p>
+<p>不过这里还是要说Google对轮廓的识别还是比较强大的，相似图片里虽然没有苍井老师，但也没有出现比较离谱的。</p>
+</div>
+<div class="section" id="id7">
+<h2>结论</h2>
+<p>通过前面的实验，应该可以说明按图搜索到底是个什么东东了。其功能无外乎三点：相同图片的搜索、相似图片的搜索和图片内容的推测。而原理就是通过对图片的像素进行比较，根据匹配的比例判断两张图片是否相同。用这个方法在Google庞大的图片库里进行搜索，找出相关的图片，然后顺藤摸瓜，在找到相关的网页，如果运气好，就可以根据这些网页推测出图片的含义。如果找不到相同的结果，就根据图片的色彩和轮廓，找相似的结果。</p>
+<p>目前来看，相同图片的搜索已经做得很不错。相似图片搜索的结果虽然也不错，但其实并没有太大的实用价值。虽然距离理想的状态仍然很远，不过我们应该肯定它的贡献。从一个外行的角度来看，至少在三点上做得很不错：</p>
+<p>一是不同尺寸的图片之间的比较。虽然都是像素比较，但是两张尺寸完全相同的图片对比起来，肯定比经过缩放/裁剪之后再比较要容易很多。</p>
+<p>二是轮廓的识别和分类，这个前面已经说过了，确实比较强大。</p>
+<p>三是根据结果页面推断图片内容。这个我同样外行，估计是根据关键词来的。在所有这些结果页面重复出现的关键词，很可能就是这个图片的内容。当然，也有可能结合了词性（比如说只选择名词）以及图片的轮廓类型（就像前面的实验里，能识别出人形，就不会找一些猫猫狗狗来充数）。</p>
+<p>总而言之，图像搜索任重而道远，革命尚未成功，IT仍需努力。</p>
+</div>
+<div class="section" id="id8">
+<h2>番外</h2>
+<p>讲了Google，就不能不提百度。百度也已经推出了类似的功能“识图”，貌似还在不断的改进之中，前几天甚至连上传图片都还没有搞定。详细的实验不做了，大致试用了一下，截止到今天晚上，应该基本上实现了相同图片的搜索，效果跟Google已经比较接近了。但是另外两项功能就完全木有啦。</p>
+</div>
+<div class="section" id="update">
+<h2>Update</h2>
+<p>阮一峰老师的博客上有两篇比较好的文章介绍相似图片搜索的原理： <a class="reference external" href="http://www.ruanyifeng.com/blog/2011/07/principle_of_similar_image_search.html">1</a> ,  <a class="reference external" href="http://www.ruanyifeng.com/blog/2013/03/similar_image_search_part_ii.html">2</a> 。</p>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/google.html">google</a>
+      <a href="/blog/tag/search.html">search</a>
+      <a href="/blog/tag/experiment.html">experiment</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

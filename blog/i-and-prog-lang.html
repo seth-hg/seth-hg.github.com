@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 我和编程语言不得不说的故事 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 我和编程语言不得不说的故事</h1>
+    <p class=date> Mar 08, 2012 </p>
+    <p><a class="reference external" href="/blog/i-and-os.html">上回书</a> 说过哥在中学阶段自学BASIC和C语言，这次就从大学开始。正式成为IT学徒之后，自然折腾得更起劲。大一基本上还是C语言，最经典的三本书：C程序设计语言、C专家编程、C和指针，都翻过。虽然看得不扎实，但是也获益非浅，所以说看书一定要看好书。那时候做的都是些很蛋疼的事情，比如在dos下面画图形界面。为了这个还经常在图书馆里翻那种超旧的、落满灰的书找资料。比较难得的是，那时候就已经有了封装的意识。大一下做C语言课设，我暑假的时候在家里就把要用的一些什么数据结构、图形界面都写成函数，调试好了。后来在deadline之前，熬了三个晚上把这些东西捏和成了最后的系统，有窗口有菜单，还支持鼠标和快捷键，并且刻意模仿了windows里的一些效果。居然还用了事件驱动的概念，把键盘和鼠标的中断全部封装成事件放在队列里，然后挨个处理。还是那时候干劲足啊！</p>
+<p>最BT的是，有一段时间做梦都是C语言。</p>
+<p>后来参加社团活动，从某位非计算机专业+Linux爱好者师兄那儿了解到scheme，号称是MIT的编程入门语言。于是整天从抱着图书馆借来的Structure and Interpretation of Computer Program生啃。这种事情，即使放在现在，也是很另类。其实那个时候也没有太多的想法，一是觉得MIT很牛叉，二是觉得scheme里面那些括号很好玩，对于S表达式、lambda算子、尾递归、函数式编程都没有什么概念（其实现在也是半懂不懂）。当时除了看书和偶尔写下小程序之外，也没什么用。后来学计算方法的时候，终于让我逮住机会显摆了一把。哥用scheme写了课程设计的拉格朗日插值算法。因为害怕老师看不懂给0分，所以还用C语言写了另外一个版本一起交上去。</p>
+<p>再然后大概就是python，从图书馆的《python核心编程》开始的（本科的时候超喜欢往图书馆跑）。后来操作系统课程设计，要做图形界面，于是小试牛刀。Python + wxWindow = 搞定！因为这个，也让我对python的印象好很多。大四做编译原理的课程设计，我选了个根据DFA画状态图的题目，又是用python搞定的，不过图形库换成了tk。直到现在，需要写些小程序进行数据处理和分析的时候，python还是我的首选。说实话，最开始用python，是把它当成Java的替代品，图个方便。</p>
+<p>既然折腾linux，就不能不碰shell脚本。这些年一直在用，虽然不算高手，但也颇有心得。经典案例就是大四的时候帮实验室的师兄做性能测试。跑一次少则几十分钟，多则N个小时，全套下来，一共有几十个项目要测。我可不想一直在闹哄哄的机房里泡着。所以哥写了个脚本，只要把测试项目的参数写到文件里，然后启动脚本，就可以回家睡觉了，等程序跑完自动把结果email到邮箱。其实shell脚本就是一种很好的粘合剂。KISS是Unix的一贯原则，每样程序只关注一件事，并且把它做到最好，再用各种粘合剂把它们组合起来，就是一个强大的系统。类似的还有很多，比如perl，还有人在尝试用scheme、lisp、python这些语言来替代shell。</p>
+<p>有一段折腾chrome插件，又去搞了一阵子javascript。倒是挺简单，基本上不用怎么学就可以上手。有人说，javascript是最被误解的一种语言。我曾经一直认为它就是用来做网页动态效果的，没什么大用，确实严重低估了它的重要性。传统b/s模式下计算任务主要在服务器端，浏览器基本就充当一个前端界面的作用，要想充分利用客户端的资源，必须c/s，比如网游。但是Web 2.0之后，浏览器端脚本所占的比重越来越大，所谓的富浏览器端应用，我觉得就是两种模式的融合。其实这个趋势是必然的，现在电脑手机的处理器越来越强，不用浪费。Javascript作为最重要的浏览器脚本语言，恰好成为了沟通二者的桥梁。Html5出来之后，api丰富了很多，能够更加充分的利用浏览器端的本地资源，什么本地存储，音频视频，3D加速，甚至是硬件传感器，统统搞定。最近常常看到一些人用javascript实现了以往只有在桌面应用程序中才能实现的功能，比如 <a class="reference external" href="https://filetea.me/default/">P2P文件传输</a> ，又比如 <a class="reference external" href="http://www.grantgalitz.org/gameboy/">Gameboy模拟器</a> ，甚至是 <a class="reference external" href="http://bellard.org/jslinux/">x86模拟器</a> 。更有甚者，像chrome OS，boot2geko这些项目，直接把浏览器作为用户界面的基础，成为操作系统的核心组件（据说ios也是？）。Google很明显看到了这个趋势，所以大力发展chrome，最近还整了一个新的浏览器脚本语言dart出来。同时还在搞一个叫做native client的技术，虽然走的是另一条路，但出发点是一样的。相信未来的计算系统一定是本地资源和服务器端的高度整合，云中有我，我中有云，水乳交融，缠绵悱恻。</p>
+<p>寒假在家无聊的时候，又开始折腾SAE。Python和java版本还在邀请测试阶段，只能用php。说到SAE，必须多句嘴。虽然跟GAE取了一样的名字，但是差距还是很明显的。SAE基本就是照搬了LAMP那一套，加上一些新浪服务的API，比如微博，充其量就是以前那种虚拟主机的升级版，跟真正的PaaS还是有一定差距。当然这样也有好处，就是现有的东西移植上去很容易。所以哥也找了个开源的项目owncloud，想把它移植到SAE上。Web开发这一块不怎么熟悉，不过php的语法倒是不陌生。对php没有特别深刻的印象，不过作为一种web开发专用语言，php还是相当称职的。另外最近看到有人用它开发ios app，挺神奇的。</p>
+<p>对于另外两个很主流的语言，Java和C++，我一向是比较不屑的。Java之所以流行，在我看来就是因为它把很多功能做成了标准库，原来比较麻烦的事情现在很容易就可以搞定，让程序员有一种自己忽然变强大了的错觉。另外号称的跨平台，也是一个道理。所谓跨平台，就是别人把平台相关的部分都做好了，你只用做平台无关的部分。如果底下没做好，你给我跨一个试试，小心扯着蛋！”一次编译，处处运行”还是挺有吸引力的，但是代价就是JVM造成的性能低下，更何况Java也没有做到真正的“处处运行”。</p>
+<p>当然Java的做法也没错。有位牛人说过： Civilization advances by extending the number of important operations which we can perform without thinking about them。以前处理个字符串还要纠结半天，现在可以信手拈来，这就是进步！</p>
+<p>至于C++，虽然是C语言的近亲，但是我偏偏提不起兴趣。对这个问题，我一直颇为介怀，直到后来看到大神Linus对C++的评论，批得那叫一个惨啊！C++脱胎于C，跟C兼容，但是这个不但没有成为优势，反而拖了后腿。相比C，它多了面向对象，但是面向对象里面的最常用的那一部分东西，用C语言一样可以做到，详情参见Linux内核。相比Java和一些更高级的语言，它又缺少自动内存管理这样重要的机制。C++里的指针经常被人诟病，因为它是C语言的遗留物。在一个纯粹的面向对象环境里，指针操作是很荒谬的。C++就像是新旧两代语言之间的一个过渡产品，高不成低不就的感觉。而我欣赏的，是更加纯粹的语言，或者像C语言那样贴近机器，可以精确的控制到内存中每一个bit的使用，又或者像python那样，可以完全抛开物理细节，自由的表达自己的思想。</p>
+<p>巴掌打完，该给甜枣了。C++的贡献还是要肯定的。前面引用了一位外国人的名言，现在要引用一个的中国人的话：文明的进步是新旧势力妥协的结果（好吧，此人正是区区在下）。真正革命性的idea不是那么容易被接受的，往往需要先向下兼容现有技术，才能逐渐取代之。但是即使是妥协，也已经打破了现有的格局，把整个世界拉向了自己的轨道。不仅技术领域如此，社会领域也是一样。期待翻天覆地的革命家往往都失败了，幸存下来的都是懂得妥协的人。巴黎公社这种超前时代的存在，失败是必然的，但是具有××特色的○○主义，却可以延续。所以妥协并不是什么坏事，变和不变相妥协，获胜的永远是变的一方。打江山易，守江山难，当你渴望一切维持现状不再改变的时候，就危险了，因为你没有妥协的余地。不幸的是，哥就是一个不会妥协的人。咱的脑子是纯数码的，非0即1，没有中间值，典型的二元化思维。</p>
+<p>近几年，貌似设计一种语言变得越来越容易，隔三岔五就蹦出个新品种，像什么go，io，dart，julia，zimbu等等等等，动不动就号称是未来的语言或者某某killer这样的。当然，需求多元化之后，确实需要更多的品种来满足大家的口味（即使是 <a class="reference external" href="http://code.google.com/p/grass-mud-horse/">草泥马语</a> 也有它的用武之地），但是这些语言能不能成功，还有待时间的检验。虽然各种语言五花八门，不过有一个趋势还是比较明显，那就是lisp的上镜率正在逐渐升高。函数式编程的思想已经越来越广泛的被接受，很多当下流行的编程语言都从中吸取了养分。Lisp本身也开始在一些产品中的到应用，并且出现了像clojure这样颇具潜力的新型变种。无责任预言一下，lisp很快会火！</p>
+<p>如果说机器是0，人类是1，那么编程语言的发展就是从0逐渐向1移动的过程。越先进的语言，越接近人类的思维方式。当然，不管发展到什么程度，底层的语言都还是需要的，只是出镜率会越来越低，使用的比例会越来越小。我们可以为每种语言取一个0到1之间的值来表示它的进化程度，然后根据各种语言代码所占的比例算出一个数学期望，那么这个期望值一定是从0到1逐渐升高的，最终会无限接近1。Paul Graham说终极编程语言应该是一种类似lisp的东西。我对此表示怀疑。因为lisp虽然表达能力很强，但是它并没有更接近人类的思维，甚至很多方面比结构化的C语言更难理解。我觉得终极编程语言应该是无限接近人类的思维模式，也就是你在编程的时候，根本意识不到自己是在编程！未来的计算机，操作系统就是一个超级解释器加上实现各种功能的library，每个用户都是程序员，每天都在编写自己的程序来解决自己的问题。不过不一定要敲键盘，可以用语音、肢体动作、甚至脑波直接输入。世事都是循环往复的，若干年前在操作系统大器未成的时候，计算机上唯一的软件就是编译器/解释器，用户做什么事情都得自己编程（所以bill gates成立微软的开山之作不是dos，而是basic）。也许以后我们还会回到这样的生活，只是编程的方式已经不可同日而语了。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/programming.html">programming</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Note Anywhere的修改 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Note Anywhere的修改</h1>
+    <p class=date> Apr 14, 2012 </p>
+    <p>Note Anywhere是一个用来做笔记的chrome扩展，可以在网页的任意位置添加便签做笔记。不过在Linux下运行不起来，启动之后立刻崩溃。看了一下它的代码，发现问题出在WebSQL。Note Anywhere用WebSQL存储笔记，但是chrome的Linux版貌似不支持WebSQL。单独写了一个js脚本，结果也一样，只要一执行到WebSQL初始化，立刻会崩溃。</p>
+<p>不过没关系，Note Anywhere功能简单，根本用不到复杂的查询操作，所以完全没有必要动用SQL，直接用html5的local storageh同样可以搞定。</p>
+<p>Note Anywhere只用了一个表来存储笔记，主键是一个全局唯一的note id，其余字段包括网页的url、便签的位置、笔记内容等等。显然，最直接的改法，就是把这个表存到local storage里，用note id做key，剩余字段可以封装成JSON对象存储为value。</p>
+<p>虽然我对数据库并不怎么感冒，不过好歹也是学过的，对关系数据库的哪些个范式还有点印象。这个做法并不好，因为会存储很多冗余数据，如果一个网页上有很多笔记，它的url就会被存储很多次，应该要分表。而且每次载入一个网页的时候，都要用SQL查询url跟这个网页相等的所有记录，效率也比较低。</p>
+<p>我把数据分成了两个表：一个笔记表和一个页面表。笔记表存储笔记，用note id作key。页面表存储页面和笔记之间的关系，用url做key，value是笔记id的数组。虽然有两个表，但是由于两种类型的key很容易区分，所以完全可以一起存在local storage里面。</p>
+<p>另外原本的Note Anywhere没有导入导出的功能，不方便备份。我自己加了一个导出功能。因为html5功能有限的，chrome插件对本地存储的访问只限制在浏览器内进行，不能直接操作本地文件系统，所以无法直接把插件数据写到备份文件。不过这并不表示完全不能导出。我的解决办法是把local storage里的数据转换成json字符串，显示在option页面上，这样用户可以用手动复制粘贴的方法把数据保存到文件里。虽然有点麻烦，但总归是实现了功能。</p>
+<p>修改过之后的版本在这里 <a class="reference external" href="http://life-sucks.net/download/note-anywhere.zip">下载</a> 。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/chrome.html">chrome</a>
+      <a href="/blog/tag/linux.html">linux</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

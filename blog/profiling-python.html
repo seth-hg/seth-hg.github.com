@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Profiling Python | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Profiling Python</h1>
+    <p class=date> Mar 29, 2013 </p>
+    <p>最近用Python写一些实验工具，性能不是很满意。开始以为是I/O问题，后来发现运行的时候CPU wait时间之占很少一部分，看来瓶颈还是在计算本身。于是想profile一下找一找瓶颈。Python下已经又了不少profiling的工具，这里介绍两种：cProfile和Line Profiler。</p>
+<ol class="arabic simple">
+<li>cProfile</li>
+</ol>
+<p>cProfile是Python内置的分析工具，用C语言实现，开销比较小。cProfile可以进行函数级别的profiling，能够统计程序运行过程中在每个函数上花费的时间。</p>
+<p>使用方法：</p>
+<div class="highlight"><pre>python -m cProfile -o output my_script.py
+</pre></div>
+<p>执行该命令，将运行my_script.py脚本，统计每个函数的执行时间并记录在output文件中。</p>
+<p>推荐使用cProfile的另一个原因是它有一个很好的可视化工具，RunSnakeRun。RunSnakeRun可以用pip安装。运行&quot;runsnake output&quot;，可以很直观的看到每个函数花费时间的多少。</p>
+<ol class="arabic simple" start="2">
+<li>Line Profiler</li>
+</ol>
+<p>有时候仅仅进行函数级的profiling还不够，需要更高精度的分析。Line Profiler是一个第三方的工具，可以精确的记录每一行代码的执行时间。</p>
+<p>Line Profiler也可以用pip安装。使用时在需要profiling的函数前面加上decorator: &#64;profile。然后执行：</p>
+<div class="highlight"><pre>kernprof.py -l my_script.py
+</pre></div>
+<p>脚本运行结束后，结果将输出到文件my_script.py.lprof中。查看结果，可以调用命令：</p>
+<div class="highlight"><pre>python -m line_profiler my_script.py.lprof
+</pre></div>
+<p>输出的结果是每一行python代码的运行时间占总时间的百分比。</p>
+<p>使用line profiler进行高精度的分析会增加很多额外的开销，大大的增加程序执行时间。在实际发现，在一个大几百行的程序中，对一个不到十行（有一个循环）的函数进行profiling，居然让整个程序的执行时间增加了几乎一倍。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/performance.html">performance</a>
+      <a href="/blog/tag/python.html">python</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

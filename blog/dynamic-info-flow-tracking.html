@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Dynamic Information Flow Tracking | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Dynamic Information Flow Tracking</h1>
+    <p class=date> May 18, 2012 </p>
+    <p>Dynamic Information Flow Tracking <a class="footnote-reference" href="#id8" id="id1">[1]</a> ，就是通过分析进程执行过程中各个数据对象之间的因果关系（causality），跟踪某些敏感或可疑数据在程序执行过程中的传播，将受到影响的所有数据标记出来，并根据预定的策略执行相应的操作。近几年，有很多研究表明DIFT可以成功的应用在安全领域，有效的提高软件系统抵御入侵的能力。</p>
+<p>用论文 <a class="footnote-reference" href="#id9" id="id2">[2]</a> 中一个例子来说明一下。图中给出的代码存在漏洞，在第5行进行字符串拷贝的时候没有检查参数arg2的长度，攻击者可以用缓冲区溢出的方法，给出一个很长的arg2，从而覆盖掉localIP，获得执行非法操作的权限。</p>
+<img alt="buffer overflow example" src="/images/buffer-overflow-exp.png" style="height: 350px;" />
+<p>有了DIFT，只需要将用户输入的参数当作可疑数据源，这样当字符串拷贝越界时，localIP就会被打上标记，在后面使用localIP的时候，只需要检查localIP的标记，就可以检测到攻击行为。除此之外，如果将网络作为可疑数据源，跟踪从网络获取的数据在进程执行过程中的传播，阻止这些数据被当作指令执行，可以有效的预防很多诸如cross-site scripting和SQL injection之类的入侵。</p>
+<p>DIFT不但可以用于入侵检测，还可以用于被入侵之后的数据恢复 <a class="footnote-reference" href="#id10" id="id3">[3]</a> 。入侵者通常会修改文件系统中的数据，比如删除系统日志隐藏入侵行为或者留个后门什么的。当发现系统被入侵之后，需要及时的将系统恢复到入侵之前的状态。简单的将整个系统回滚到入侵点之前的状态，不但效率低，而且会损失一部分合法的数据。如果能够的识别哪些进程、哪些操作受到了入侵行为的影响，就可以有选择的进行恢复。</p>
+<p>除了抵御入侵，DIFT还可以用来保护用户隐私，防止恶意程序泄露用户数据。比如TaintEraser <a class="footnote-reference" href="#id11" id="id4">[4]</a> 就是通过跟踪数据流，阻止敏感数据向外传输。TaintDroid <a class="footnote-reference" href="#id12" id="id5">[5]</a> 则在Android手机上实现了类似的功能。</p>
+<p>当然，这种技术的用途并不局限于安全领域。比如 <a class="footnote-reference" href="#id13" id="id6">[6]</a> 就把它用在了配置故障诊断上。很多的开源软件都有数量繁多的配置参数，出现配置错误时，诊断和查找错误原因是一个很头疼的工作。通过跟踪配置文件中每个token在进程执行过程中的数据流，以及它们对控制流的影响，可以确定每一个数据对象所依赖的token。如果一个数据对象导致程序执行出错，那么它所依赖的这些token就很可能是造成错误的原因。</p>
+<p>近几年比较热门的Provenance <a class="footnote-reference" href="#id14" id="id7">[7]</a> ，我认为也应该算作是DIFT的一种形式，不过针对的是持久存储的数据对象，比如文件或数据库记录。相对与进程内部的数据流，provenance的粒度要粗一些。</p>
+<div class="section" id="references">
+<h2>References</h2>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://repository.cmu.edu/cgi/viewcontent.cgi?article=1042&amp;context=ece">Dynamic Taint Analysis for Automatic Detection, Analysis, and Signature Generation of Exploits on Commodity Software</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1381306.1382156">From Speculation to Security: Practical and Efficient Information Flow Tracking Using Speculative Hardware</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1924943.1924950">Intrusion recovery using selective re-execution</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1945023.1945039">TaintEraser: protecting sensitive data leaks using application-level taint tracking</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1924943.1924971">TaintDroid: an information-flow tracking system for realtime privacy monitoring on smartphones</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1924943.1924960">Automating configuration troubleshooting with dynamic information flow analysis</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://www.eecs.harvard.edu/syrah/pass/pubs/usenix06.pdf">Provenance-Aware Storage Systems</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/security.html">security</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

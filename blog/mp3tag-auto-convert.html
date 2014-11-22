@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 自动转换MP3的ID3 Tag | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 自动转换MP3的ID3 Tag</h1>
+    <p class=date> Mar 06, 2012 </p>
+    <p>网上下载的mp3良莠不齐，最烦的是id3 tag的编码不统一，很多用的是GBK，在Linux下是乱码。虽然有很多转换工具，但是手动转换实在太麻烦，最好能自动搞定。</p>
+<p>基本思路是在浏览器里下载了mp3文件之后，自动调用tag转换工具。不幸的是浏览器本身没有提供这种功能。好在Linux是强大的，它有另一种更强大的机制： <a class="reference external" href="http://www.ibm.com/developerworks/cn/linux/l-inotifynew/">inotify</a> 。这是一种内核通知机制，允许进程对文件系统事件进行监控。当被监听的文件/目录上发生指定的操作时，它会发送一个消息给监听进程。我们只需要监听浏览器的下载目录，发现新下载的mp3文件就转换一下。Tag的转换推荐使用 <a class="reference external" href="http://linuxtoy.org/archives/mp3tagiconv.html">mp3tagiconv</a> 。</p>
+<p>使用inotify需要内核支持，主流发行版的内核里都已经默认开启。Inotify提供一组系统调用用来设定监听进程，有人已经写好了很方便的命令行工具inotify-tools。这套程序包括两个命令，inotifywait和inotifywatch。前者会阻塞直到收到通知，然后打印通知信息并退出；后者后持续监听，退出的时候把所有的通知一起输出。一般发行版应该都包含了这个工具。</p>
+<p>现在可以对下载目录进行监控了，接下来的问题就是，怎么判断用户刚刚下载了一个文件？第一个想法是根据close来判断，下载的时候必定要write，完成之后要close，inotify可以监听close_write。后来发现chrome下载文件的时候，会创建临时文件.crdownload，完成后重命名。Close看来是不行了，但是既然要重命名，那监听move_to就OK了。如果是其他浏览器，可能要酌情修改。</p>
+<div class="highlight"><pre><span class="nv">event</span><span class="o">=</span><span class="sb">`</span>inotifywait -e moved_to <span class="o">[</span>DIR<span class="o">]</span> 2&gt;/dev/null<span class="sb">`</span>
+</pre></div>
+<p>这行脚本的意思是，调用inotifywait监听[DIR]的move_to事件，然后把输出结果赋值给event变量。2&gt;/dev/null表示把stderr重定向到/dev/null。</p>
+<p>我们知道用户刚下载了一个文件，但是还不知道是不是mp3文件。判断文件类型，比较靠谱的做法是用file命令，它会根据文件的magic number判断类型，不管扩展名改成什么，都逃不过它的法眼。这里就偷个懒，直接根据扩展名来判断。</p>
+<div class="highlight"><pre><span class="nb">echo</span> <span class="nv">$event</span>|grep <span class="s1">&#39;\.mp3$&#39;</span>
+</pre></div>
+<p>这里用 <a class="reference external" href="http://net.pku.edu.cn/~yhf/tutorial/tao_regexps_zh.html">正则表达式</a> 来判断文件的扩展名，’.mp3$’表示所有以.mp3结尾的字符串。如果grep的结果非空，表示这个文件是mp3，转换之。然后循环往复，监而控之。</p>
+<p>完整的bash脚本见 <a class="reference external" href="http://pastebin.com/nPTrjitg">pastebin</a> 。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/linux.html">linux</a>
+      <a href="/blog/tag/bash.html">bash</a>
+      <a href="/blog/tag/automation.html">automation</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

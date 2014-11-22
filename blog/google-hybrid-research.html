@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Google怎样做研究 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Google怎样做研究</h1>
+    <p class=date> Jul 25, 2012 </p>
+    <p>Google的三位大牛Alfred Spector、Peter Norvig、Slav Petrov在7月份的ACM Communication上发表了 <a class="reference external" href="http://cacm.acm.org/magazines/2012/7/151226-googles-hybrid-approach-to-research/fulltext">一篇短文</a> ，探讨在Google公司里如何开展研究工作。Google称自己的研究方法为“混合式研究”（Hybrid Research），即新技术研究和产品开发不做区分，鼓励项目团队在研究和工程之间寻找最合适的平衡点。总结了一下，有几个要点：</p>
+<ol class="arabic simple">
+<li>Google进行的研究目的在于快速改进其产品，为用户提供更高质量的服务。因此Google的研究主要集中在与其产品密切相关的领域，其中大部分都不是特别新的研究领域，但是仍然有改进空间，特别是考虑到Google的数据量和用户规模。过于关注产品本身可能会错失一些发展机会，因此Google也设置了访问学者、实习生、员工科研奖励等一系列的政策，鼓励开拓新的研究领域。</li>
+<li>基于服务的分发模式保证即使一个小团队也能够迅速创建强大的系统，并为用户提供服务。这个一方面得益于强大的基础架构，系统的设计、开发、测试和维护过程都得到了简化。另一方面也得益于庞大的用户群体，Google可以很容易获得数据，方便进行实证研究（empirical research），在系统复杂度越来越高、规模越来越大、分析技术难以描述的情况下，实证研究的方法越来越重要。</li>
+<li>迭代式研究，研究过程从一开始就要求编写产品代码或者接近产品级的代码，不会专门设计一个用于研究的原型系统。通常由一个团队自始至终负责整个迭代过程，从研究思路的探索，到软件的开发和维护，甚至还要帮助服务的运维。这种模式减少了从研究到工程的技术转换风险，也保证了其产品真正能够从研究成果中受益。</li>
+<li>把长期研究任务分割成短期、可度量的部分。这种方法有利于激励团队，同时也能够更早的带来商业效益。如果某个项目过于复杂难以细分，也能够坚持长期的投入力量进行研究，比如Google Translate、Chrome和Google Health。如果长期项目的方向出现问题，敢于调整工作重心，即使项目已经向公众发布。</li>
+<li>鼓励学术交流。Google认为，通过跟学术界的交流，可以获得有益的反馈信息，培养未来的员工，创造合作机会，发现新的研究方向等等。因此Google愿意公开很多研究成果，包括GFS、MapReduce这样的基础性研究的成果。Google衡量一项研究是否成功，标准之一是看其是否对学术接产生了重大的影响。这里的影响一方面是通过发表论文（Google在2003年发表了13篇论文，2006年130篇，2011年279篇，其中很多已经成为准教科书），也包括发布开源项目（最具代表性的莫过于Android和Chromium）以及参与标准的制定(比如spdy协议和webm等)。</li>
+</ol>
+<p>文中列举了Google的五种常见研究模式：</p>
+<ol class="arabic simple">
+<li>以产品开发为主的团队在项目中提出了具有突破性的方案，变成了研究成果。Google的业务需要处理世界上最大的数据集，同时也要为大量用户提供服务，规模可谓空前，因此在产品开发的过程中遇到的问题很可能本身就是一个极有挑战性的研究课题。MapReduce、GFS、BigTable就是典型代表。</li>
+<li>研究团队的项目转化成新的产品或服务。Google翻译和语音搜索就是这样的项目。如果持续的研究能够进一步改进和扩展该产品，那么这种模式最合适不过了。</li>
+<li>研究团队的成果应用到现有的产品里。这是传统的研究模式，Google有大量真实的数据可以为研究提供支持，比如YouTube的声音和视频指纹算法，是在研究人员用大量真实数据进行测试之后，才投入生产应用的。</li>
+<li>工程团队和研究团队的合作项目，成果由工程团队转化到产品中。很多产品都需要新算法来提供高性能，在工程和研究两方面都有很大的挑战性。比如我们的市场算法研究小组和广告系统组，他们一起设计、优化和分析用于广告选择和优化的核心算法和市场机制。</li>
+<li>工程团队中的研究项目移交给研究团队。通常是一些具备通用性的研究项目，对多个产品都有重要意义，这种移交机制可以为这样的项目分配更多的时间和资源。比如YouTube的推荐算法，在多个工程团队里都遇到了同样的问题，于是就被转交给专门的研究小组，进行更加深入的研究。</li>
+</ol>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/google.html">google</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

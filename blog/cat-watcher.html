@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 喵星人偷拍DIY | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 喵星人偷拍DIY</h1>
+    <p class=date> May 02, 2014 </p>
+    <p>去年有只流浪猫在隔壁院生了一窝小猫，我花了几个月成功的把它们勾搭了过来。勾了不能白勾，我决定整一个监控装置观察喵行人的活动。</p>
+<div class="section" id="id1">
+<h2>思路</h2>
+<p>Arduino控制摄像头拍照，并通过串口把照片传输给树莓派。为了避免无意义的拍照，用红外传感器对周围进行检测，只有发现有动物活动时才开始拍照。</p>
+</div>
+<div class="section" id="id2">
+<h2>准备材料</h2>
+<div class="section" id="id3">
+<h3>硬件</h3>
+<ol class="arabic simple">
+<li>Arduino：Uno、Leonardo、Mega都可以，我用的还是11年买的Duemilanove。</li>
+<li>DFRobot传感器扩展板：推荐用这个，接传感器和摄像头都比较方便。</li>
+<li>LinkSprite Y201串口摄像头：VC0706芯片，清晰度尚可，优点是自带红外补光灯，夜视效果不错；缺点是焦距短、视野小，而且价格偏高，普通USB摄像头几十块就可以搞定。</li>
+<li>数字红外传感器</li>
+<li>树莓派：换成其它单板机、Mini PC、机顶盒、路由器基本都可以，只要能运行Linux和下面的软件。</li>
+<li>USB电源：Arduino和摄像头的功耗都不算大，加上树莓派的750mA，1A电源基本够用，如果有2A的更好。</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>软件</h3>
+<ol class="arabic simple">
+<li>Arduino IDE</li>
+<li><a class="reference external" href="https://github.com/adafruit/Adafruit-VC0706-Serial-Camera-Library">Adafruit VC0706 Library</a> ：来自ladyada摄像头驱动。</li>
+<li>Python 2.7: Raspbian系统自带，其它可能需要自行安装。</li>
+<li>pyserial：Python串口通信。</li>
+<li><a class="reference external" href="http://www.phash.org">phash</a> + <a class="reference external" href="https://github.com/acdha/python-phash">python-phash</a> ：检测相似图片。</li>
+<li>Flask + jinja2 + <a class="reference external" href="http://www.doknowevil.net/litebox/">Litebox</a> ：实现一个简单的Web相册。</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>硬件连接</h2>
+<img alt="cat watcher camera" src="/images/cat-watcher-camera.jpg" />
+<p>Y201有4根线，上图所示从右下到左上分别是：电源线（VCC），地线（GND），Tx和Rx，接法如下：</p>
+<ol class="arabic simple">
+<li>VCC接扩展板上的5V电源，必须是5V，接3.3V补光灯不能正常工作。</li>
+<li>GND接扩展板上任意地线。</li>
+<li>Tx, Rx分别接在Arduino两个数字I/O端口上，分别记做PIN_SS_Rx和PIN_SS_Tx。由于Arduino只有一个硬件串口，用来和树莓派通信了，因此和Y201的通信只能用软串口。</li>
+</ol>
+<p>红外传感器有3根线：电源线、地线和一个数字输出口，当探测范围内有人或动物出现时，数字输出口为高电平，否则为低电平。可以直接插在传感器扩展版上的任意空闲数字端口，记做PIN_IR_SENSOR。</p>
+<p>接好线后效果如下图所示：</p>
+<img alt="cat watcher arduino" src="/images/cat-watcher-arduino.jpg" />
+<p>Arduino直接用数据线连接树莓派的USB接口，通信和供电一并解决。</p>
+</div>
+<div class="section" id="id6">
+<h2>软件源码</h2>
+<div class="section" id="arduino">
+<h3>Arduino</h3>
+<div class="highlight"><pre><span class="cp">#include &lt;SoftwareSerial.h&gt;</span>
+<span class="cp">#include &lt;Adafruit_VC0706.h&gt;</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">ir_sensor_pin</span> <span class="o">=</span> <span class="n">PIN_IR_SENSOR</span><span class="p">;</span>
+
+<span class="n">SoftwareSerial</span> <span class="n">cameraconn</span> <span class="o">=</span> <span class="n">SoftwareSerial</span><span class="p">(</span><span class="n">PIN_SS_Rx</span><span class="p">,</span> <span class="n">PIN_SS_Tx</span><span class="p">);</span> <span class="c1">// Rx, Tx</span>
+<span class="n">Adafruit_VC0706</span> <span class="n">camera</span> <span class="o">=</span> <span class="n">Adafruit_VC0706</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cameraconn</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="n">pinMode</span><span class="p">(</span><span class="n">ir_sensor_pin</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">);</span>
+        <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">38400</span><span class="p">);</span>
+
+        <span class="c1">// setup the camera</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">camera</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">camera</span><span class="p">.</span><span class="n">getVersion</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;failed&quot;</span><span class="p">));</span>
+                <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">delay</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="kt">bool</span> <span class="n">ir_detected</span> <span class="o">=</span> <span class="n">digitalRead</span><span class="p">(</span><span class="n">ir_sensor_pin</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ir_detected</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">//Serial.println(&quot;detected&quot;);</span>
+                <span class="c1">// take a photo</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">camera</span><span class="p">.</span><span class="n">takePicture</span><span class="p">())</span> <span class="p">{</span>
+                        <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">));</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;failed taking picture&quot;</span><span class="p">));</span>
+                        <span class="k">return</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="c1">// get image file size</span>
+                <span class="kt">uint16_t</span> <span class="n">imageSize</span> <span class="o">=</span> <span class="n">camera</span><span class="p">.</span><span class="n">frameLength</span><span class="p">();</span>
+                <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">imageSize</span><span class="p">);</span>
+
+                <span class="k">while</span> <span class="p">(</span><span class="n">imageSize</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">buffer</span><span class="p">;</span>
+                        <span class="kt">uint8_t</span> <span class="n">bytesToRead</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">imageSize</span><span class="p">);</span>
+                        <span class="n">buffer</span> <span class="o">=</span> <span class="n">camera</span><span class="p">.</span><span class="n">readPicture</span><span class="p">(</span><span class="n">bytesToRead</span><span class="p">);</span>
+                        <span class="n">Serial</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">bytesToRead</span><span class="p">);</span>
+                        <span class="n">imageSize</span> <span class="o">-=</span> <span class="n">bytesToRead</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="c1">// reset the camera</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">camera</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">camera</span><span class="p">.</span><span class="n">getVersion</span><span class="p">())</span> <span class="p">{</span>
+                        <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">));</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="s">&quot;failed&quot;</span><span class="p">));</span>
+                        <span class="k">return</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">delay</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>用软串口跟相机通信速度很慢，40KB+的一张照片居然要十多秒才能读完。修改SoftwareSerial库的头文件SoftwareSerial.h，加大缓冲区（_SS_MAX_RX_BUFF），可以稍微加快一点儿。</p>
+</div>
+<div class="section" id="id7">
+<h3>树莓派</h3>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">localtime</span><span class="p">,</span> <span class="n">strftime</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">abspath</span>
+
+<span class="n">default_port</span> <span class="o">=</span> <span class="s">&#39;/dev/ttyUSB0&#39;</span>
+<span class="n">default_baud</span> <span class="o">=</span> <span class="mi">38400</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;Taking snapshots with arduino camera.&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-b&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;baud&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&#39;Serial baudrate&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&#39;Output directory&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-p&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s">&#39;Serial port&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">default_port</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">baud</span><span class="p">:</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">baud</span> <span class="o">=</span> <span class="n">default_baud</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">baud</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;setting up camera...&#39;</span><span class="p">,</span>
+<span class="n">ok</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s">&#39;OK&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;failed&#39;</span>
+    <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;ok&#39;</span>
+
+<span class="k">print</span> <span class="s">&#39;waiting...&#39;</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s">&#39;OK&#39;</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;failed to take picture&#39;</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;detected, receiving data...&#39;</span>
+
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.jpg&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s">-%H-%M-%S&#39;</span><span class="p">))</span>
+    <span class="n">framelen</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">framelen</span><span class="p">))</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">print</span> <span class="n">framelen</span><span class="p">,</span> <span class="s">&#39;bytes saved to&#39;</span><span class="p">,</span> <span class="n">filename</span>
+
+    <span class="c"># reset camera</span>
+    <span class="k">print</span> <span class="s">&#39;reseting camera...&#39;</span><span class="p">,</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s">&#39;OK&#39;</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;failed&#39;</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;ok&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="id8">
+<h3>一个简单的相册</h3>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">url_for</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
+
+<span class="n">photos_per_page</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">photo_dir</span> <span class="o">=</span> <span class="s">&#39;static/photos&#39;</span>
+
+<span class="k">class</span> <span class="nc">Pagination</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="p">,</span> <span class="n">total_count</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_page</span> <span class="o">=</span> <span class="n">per_page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_count</span> <span class="o">=</span> <span class="n">total_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_count</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_prev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">&gt;</span> <span class="mi">1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pages</span>
+
+    <span class="k">def</span> <span class="nf">iter_pages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_edge</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">left_current</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">right_current</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">right_edge</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pages</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="n">left_edge</span> <span class="ow">or</span> \
+               <span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">-</span> <span class="n">left_current</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> \
+                <span class="n">num</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">+</span> <span class="n">right_current</span><span class="p">)</span> <span class="ow">or</span> \
+               <span class="n">num</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pages</span> <span class="o">-</span> <span class="n">right_edge</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">last</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">num</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="bp">None</span>
+                <span class="k">yield</span> <span class="n">num</span>
+                <span class="n">last</span> <span class="o">=</span> <span class="n">num</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;page&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&lt;int:page&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+    <span class="n">photos</span> <span class="o">=</span> <span class="n">listdir</span><span class="p">(</span><span class="n">photo_dir</span><span class="p">)</span>
+    <span class="n">photos</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">photos</span> <span class="o">=</span> <span class="n">photos</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">photos_per_page</span>
+    <span class="n">pagination</span> <span class="o">=</span> <span class="n">Pagination</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">photos_per_page</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">photos</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Photos&#39;</span><span class="p">,</span> <span class="n">photos</span><span class="o">=</span><span class="n">photos</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">photos_per_page</span><span class="p">],</span> <span class="n">pagination</span><span class="o">=</span><span class="n">pagination</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">url_for_other_page</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">view_args</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">args</span><span class="p">[</span><span class="s">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span>
+    <span class="k">return</span> <span class="n">url_for</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">jinja_env</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s">&#39;url_for_other_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url_for_other_page</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="s">&#39;0.0.0.0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>改进方案</h2>
+<p>尽管加了红外传感器，在实际使用中还是会拍下很多没有意义的照片，原因有三：</p>
+<ol class="arabic simple">
+<li>红外传感器检测范围比较大，而摄像头视野比较窄，经常拍不到；</li>
+<li>光线暗的时候摄像头会自动打开红外补光灯，可能会干扰红外传感器；</li>
+<li>喵星人长时间呆着不动的时候，连续拍照也没有意义。</li>
+</ol>
+<p>这个问题只有在树莓派上解决了，好在BCM2835还有一定的计算能力。接收到Arduino传过来的照片之后，比较新照片跟前一张照片，如果二者相似，就可以丢弃当前照片。这个可以用pHash来实现。pHash是一个用来检测媒体文件相似度的算法。普通的hash算法为了增加破解的难度需要“雪崩效应”，也就是输入数据发生一点微小的变化，输出指纹也会变得面目全非。pHash则正好相反，相似的输入会产生相似的输出，因此只要比较前后两张照片的指纹，就可以判断是否相似。</p>
+<p>下面代码实现一个异步的图片去重类。由于背景是固定的，任意两张照片之间的相似度都很高，所以这里的过滤相似图片的默认阈值也设得比较高。</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">phash</span> <span class="kn">import</span> <span class="n">cross_correlation</span><span class="p">,</span> <span class="n">image_digest</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="n">tmpfile</span> <span class="o">=</span> <span class="s">&#39;/run/shm/ooxxoo.jpg&#39;</span>
+
+<span class="k">class</span> <span class="nc">pipeline</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmpfile</span><span class="o">=</span><span class="n">tmpfile</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.995</span><span class="p">):</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tmpfile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thresh</span> <span class="o">=</span> <span class="n">thresh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+            <span class="c"># process all submitted jobs</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpfile</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filedata</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="n">digest</span> <span class="o">=</span> <span class="n">image_digest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpfile</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span> <span class="ow">and</span> \
+                        <span class="n">cross_correlation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span><span class="p">,</span> <span class="n">digest</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresh</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filedata</span><span class="p">)</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span> <span class="o">=</span> <span class="n">digest</span>
+</pre></div>
+</div>
+<div class="section" id="id10">
+<h2>完成！</h2>
+<p>成品效果如下图，用一个纸盒子做成Arduino外壳和摄像头支架，丑了点儿，将就能用。摄像头部分放在外面窗台上，窗口留个缝让USB数据线穿过来连到屋里的树莓派。</p>
+<img alt="cat watcher final" src="/images/cat-watcher-final.jpg" />
+<p>这两天刚刚装上，马上就拍到两只喵星人在搞基，( ⊙ o ⊙ )。。。</p>
+<img alt="cat watcher ooxx" src="/images/cat-watcher-ooxx.jpg" />
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/cats.html">cats</a>
+      <a href="/blog/tag/python.html">python</a>
+      <a href="/blog/tag/arduino.html">arduino</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

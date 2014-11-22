@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 自动备份到U盘 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 自动备份到U盘</h1>
+    <p class=date> Mar 21, 2012 </p>
+    <p>手上有几个U盘和存储卡闲着没用，刚好最近写东西比较多，想着用一个U盘来作专用备份盘，既保护了劳动成果，又发挥了余热。</p>
+<p>目标：</p>
+<ol class="arabic simple">
+<li>U盘插上之后自动同步备份目录里的文件到U盘，无需任何手动操作；</li>
+<li>可以指定某个U盘做备份盘，其他盘不受影响；</li>
+<li>可以指定多个需要备份的目录。</li>
+</ol>
+<p>实现文件同步，rsync是当之无愧的首选工具。但是rsync不能实现自动同步。要做到U盘插上之后自动同步，需要借助udev。Udev是Linux的设备管理程序。当有即插即用设备接入系统之后，内核检测到新设备，通过netlink向用户态udev的用户态守护进程udevd发送一个消息，udevd根据用户指定的规则执行相应的操作，动态创建设备文件。只要 <a class="reference external" href="http://www.reactivated.net/writing_udev_rules.html">添加自己的规则</a> ，就可以实现自动备份。</p>
+<p>Udev的规则文件放在/etc/udev/rules.d目录下，规则中每一行包含一个或者多个逗号隔开的语句，其中最后一个语句是执行的操作，前面的语句是执行该操作需要满足的条件。</p>
+<p>规则文件如下：</p>
+<div class="highlight"><pre><span class="c"># avoid system disk</span>
+KERNEL!<span class="o">=</span><span class="s2">&quot;sd[b-z][0-9]&quot;</span>, <span class="nv">GOTO</span><span class="o">=</span><span class="s2">&quot;backup_end&quot;</span>
+<span class="c"># import UUID</span>
+IMPORT<span class="o">{</span>program<span class="o">}=</span><span class="s2">&quot;/sbin/blkid -o udev -s LABEL %N&quot;</span>
+<span class="c"># do something when device added</span>
+ENV<span class="o">{</span>ID_FS_LABEL<span class="o">}==</span><span class="s2">&quot;SETH&quot;</span>, <span class="nv">ACTION</span><span class="o">==</span><span class="s2">&quot;add&quot;</span>, RUN+<span class="o">=</span><span class="s2">&quot;/home/seth/bin/backup.sh %N&quot;</span>
+<span class="c"># exit</span>
+<span class="nv">LABEL</span><span class="o">=</span><span class="s2">&quot;backup_end&quot;</span>
+</pre></div>
+<p>第一行判断设备在内核中的名字，如果不是正则表达式”sd[b-z][0-9]“所描述的形式，则直接跳转到backup_end，结束脚本。这一句用来跳过系统盘sda。</p>
+<p>第二行调用blkid命令获得该设备上文件系统的卷标(label)，并用IMPORT命令将输出结果导入为环境变量。blkid的用法参见man page。注意这里blkid命令必须写完整路径，否则无法执行。</p>
+<p>第三行判断上面导入的环境变量ID_FS_LABEL是否为指定的值，如果是，并且当前动作为add，即添加设备，则执行脚本backup.sh。</p>
+<p>这样我们就实现了对设备的监控，当指定的U盘接入时，就会自动执行备份脚本。脚本backup.sh如下：</p>
+<div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="c"># device used to store duplicates</span>
+<span class="nv">dev</span><span class="o">=</span><span class="nv">$1</span>
+<span class="c"># mount point for the device</span>
+<span class="nv">dst</span><span class="o">=</span>/media/backup
+<span class="c"># a list of directories seperated by colon</span>
+<span class="nv">src</span><span class="o">=</span>/home/seth/Documents/correlation:/home/seth/Documents/datastructure
+mkdir -p <span class="nv">$dst</span>
+mount <span class="nv">$1</span> <span class="nv">$dst</span>
+<span class="nv">IFS</span><span class="o">=</span>: <span class="nv">arr</span><span class="o">=(</span><span class="nv">$src</span><span class="o">)</span>
+<span class="nb">declare</span> -p arr
+<span class="k">for </span>d in <span class="s2">&quot;${arr[@]}&quot;</span>; <span class="k">do</span>
+<span class="k">    </span>rsync -r <span class="nv">$src</span> <span class="nv">$dst</span>
+<span class="k">done</span>
+umount <span class="nv">$dst</span>
+rmdir <span class="nv">$dst</span>
+</pre></div>
+<p>这里主要就是对指定目录逐个进行同步。难点就是对字符串src的处理，需要把它分割转换成数组。具体解释可以参考 <a class="reference external" href="http://codingstandards.iteye.com/blog/1164910">这里</a> 。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/automation.html">automation</a>
+      <a href="/blog/tag/bash.html">bash</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

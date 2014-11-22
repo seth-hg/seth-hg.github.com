@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Fedora下安装Common Lisp开发环境 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Fedora下安装Common Lisp开发环境</h1>
+    <p class=date> Oct 25, 2011 </p>
+    <p>需要用到的软件：</p>
+<p><a class="reference external" href="http://www.sbcl.org/">Sbcl</a> ，比较流行的一种Common Lisp实现；
+Emacs ，用作开发环境，虽然比较复杂，但是比原来的命令行好用多了；
+<a class="reference external" href="http://common-lisp.net/project/slime/">Slime</a> ，Emacs下的一个交互式lisp开发环境；
+<a class="reference external" href="http://www.quicklisp.org/beta/">Quicklisp</a> ，Common Lisp包管理系统。</p>
+<ol class="arabic simple">
+<li>用yum安装emacs和sbcl。</li>
+<li>然后按如下步骤安装quicklisp。</li>
+</ol>
+<p>下载quicklisp安装脚本：
+wget <a class="reference external" href="http://beta.quicklisp.org/quicklisp.lisp">http://beta.quicklisp.org/quicklisp.lisp</a></p>
+<p>启动sbcl：
+sbcl –load quicklisp.lisp</p>
+<p>安装quicklisp：
+(quicklisp-quickstart:install)</p>
+<p>添加quicklisp到启动文件，以后启动sbcl会自动加载quicklisp
+(ql:add-to-init-file)</p>
+<p>3. 用quicklisp安装slime
+(ql:quickload &quot;quicklisp-slime-helper&quot;)</p>
+<p>安装脚本会自动下载需要的文件，执行完之后会给出一段elisp代码，按照说明把代码加入.emacs文件。</p>
+<ol class="arabic simple" start="4">
+<li>启动emacs，M-x slime启动slime，进入交互式cl编程环境，大功告成！</li>
+</ol>
+<p>除了第一步安装sbcl和emacs之外，其他步骤跟发行版无关，应该同样适用于Ubuntu等其他版本。如果还嫌麻烦，直接用Lispbox。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/emacs.html">emacs</a>
+      <a href="/blog/tag/lisp.html">lisp</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

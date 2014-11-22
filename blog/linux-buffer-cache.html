@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Linux中的Buffer和Cache | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Linux中的Buffer和Cache</h1>
+    <p class=date> Oct 04, 2012 </p>
+    <p>在Linux系统中查看内存使用情况（free，vmstat，/proc/meminfo）的时候，会有buffer和cache两项数据，一直搞不清这两个有什么区别，最近看到Robert Love <a class="reference external" href="http://www.quora.com/What-is-the-difference-between-Buffers-and-Cached-columns-in-proc-meminfo-output">在Quora上的解答</a> ，总算是明白了。</p>
+<p>在Linux内核中，cache是指文件系统的page cache，所有对普通文件（不包括设备文件）的I/O都是通过page cache进行的。读文件时，会直接从page cache中返回数据。如果缓存不命中，则从磁盘读取请求的页面并加入到page cache中，然后返回。写文件则直接把page cache中对应的页面标记位dirty，然后由后台线程pdflush完成写回磁盘的操作。有一种情况例外：当进程使用direct I/O方式进行文件读写，此时会不会经过page cache。Linux对page cache采用惰性回收机制，只有当可用内存不足时才会从page cache中回收，因此系统中常常有大量内存空间被page cache占用。这样的做法最大限度的减少了磁盘I/O。</p>
+<p>Buffer则是指块设备I/O的缓冲区，其中保存的是不属于任何文件的一些数据块，比如文件系统的元数据，还有进行direct I/O所产生的缓存数据，也会存储在buffer里。Buffer的寿命要比cache短很多，通常当块级I/O请求完成，buffer就会很快释放，因此buffer所占用的空间通常很小。但是也有例外情况：如果开启了laptop-mode，内核对写入磁盘的数据会缓存比较常的时间，然后再一次性写入磁盘。这种方式适用于笔记本，可以让磁盘较长时间的保持spin down状态，以减少磁盘能耗。从2.4开始的内核实现中，buffer和page cache已经不做区分，可以把buffer理解成属于设备文件的page cache。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/linux.html">linux</a>
+      <a href="/blog/tag/memory.html">memory</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

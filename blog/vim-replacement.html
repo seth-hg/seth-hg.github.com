@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Vim文本替换 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Vim文本替换</h1>
+    <p class=date> Mar 31, 2012 </p>
+    <p>Vim命令s(substitute)用来进行字符串替换。</p>
+<ol class="arabic simple">
+<li>基本模式</li>
+</ol>
+<p>:s/pattern/string</p>
+<p>替换当前行中第一个匹配模式pattern的字符串为string。Pattern可以是正则表达式。</p>
+<ol class="arabic simple" start="2">
+<li>前缀</li>
+</ol>
+<p>在s之前添加前缀可以指定要替换的行范围。前缀 m, n表示对m到n之间所有行执行替换操作。m和n可以为行号或者“.”、“$”，“.”表示当前行，“$”表示最后一行。前缀%表示所有行。</p>
+<p>前缀中也可以使用正则表达式。比如Vim用户手册里的例子：</p>
+<p>: ?^Chapter?,/^Chapter/s=grey=gray=g</p>
+<p>?表示向上搜索（backwards），/表示向下搜索（forward）。这条命令表示在上一个以Chapter开头的行和下一个以Chapter开头的行之间，对所有行执行替换操作。</p>
+<ol class="arabic simple" start="3">
+<li>后缀</li>
+</ol>
+<p>后缀参数/?可以控制替换操作，常用参数有下面几种：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>c</td>
+<td>替换前请求确认</td>
+</tr>
+<tr><td>g</td>
+<td>替换行中所有的匹配</td>
+</tr>
+<tr><td>i</td>
+<td>忽略大小写</td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="3">
+<li>分隔符</li>
+</ol>
+<p>除了/之外，#、+、=等字符也可以用作替换命令中的分隔符。当pattern或者string中有字符“/”时，可以用转义字符“”进行区分，也可以直接用#、+或者=代替/作为命令分隔符。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/vim.html">vim</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

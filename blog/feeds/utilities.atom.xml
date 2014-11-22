@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/utilities.atom.xml" rel="self"></link><id>/blog/</id><updated>2013-10-22T00:00:00+08:00</updated><entry><title>YCSB Benchmark</title><link href="/blog/ycsb-benchmark-en.html" rel="alternate"></link><updated>2013-10-22T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2013-10-22:ycsb-benchmark-en.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://github.com/brianfrankcooper/YCSB"&gt;Yahoo Cloud System Benchmark&lt;/a&gt; is a tool for benchmarking cloud storage services, specifically, NoSQL databases. This article will show how to run YCSB and use it to evaluate two open source NoSQL databases, Cassandra and MapKeeper(with LevelDB backend).&lt;/p&gt;
+&lt;div class="section" id="get-ycsb"&gt;
+&lt;h2&gt;Get YCSB&lt;/h2&gt;
+&lt;p&gt;Use &lt;em&gt;git&lt;/em&gt; to get the latest version of YCSB.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone git://github.com/brianfrankcooper/YCSB.git
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are prebuilt jar files in the repository. To build it for yourself, install &lt;em&gt;maven&lt;/em&gt; and then&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;mvn clean package
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There is a Python wrapper bin/ycsb, which makes it easier to use YCSB. A typical commandline looks like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb &lt;span class="o"&gt;[&lt;/span&gt;load|run&lt;span class="o"&gt;]&lt;/span&gt; DATABASE -P WORKLOAD -p &lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;value -s -target n -threads n
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;em&gt;load&lt;/em&gt; command will populate the database with some random records. The number and size of records are defined in the workload specification. The &lt;em&gt;run&lt;/em&gt; command starts the benchmark.&lt;/p&gt;
+&lt;p&gt;-P gives the workload you want to use in the benchmark. There are predefined workloads in the directory named workloads. And -p is used to override one or more properties of the workload. -target specifies the target throughput of the benchmark. YCSB will stress the system until it reaches the target throughput. -thread is the number of concurrent clent threads.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="benchmark-cassandra"&gt;
+&lt;h2&gt;Benchmark Cassandra&lt;/h2&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Install Cassandra&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The easiest way to install Cassandra on Ubuntu is using the offical package repositories on apache.org. Add the following lines to /etc/apt/sources.list.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;deb http://www.apache.org/dist/cassandra/debian 10x main
+deb-src http://www.apache.org/dist/cassandra/debian 10x main
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And then&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get update
+sudo apt-get install cassandra
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Prepare the Database&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Start Cassandra&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo service cassandra start
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Create the key space and column family using &lt;em&gt;cassandra-cli&lt;/em&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cassandra-cli
+
+connect localhost/9160
+create keyspace usertable;
+use usertable;
+create column family data with &lt;span class="nv"&gt;column_type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Standard&amp;#39;&lt;/span&gt; and &lt;span class="nv"&gt;comparator&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;UTF8Type&amp;#39;&lt;/span&gt;;
+&lt;span class="nb"&gt;exit&lt;/span&gt;;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Load initial data set&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb load cassandra-10 -P workloads/workloada -p &lt;span class="nv"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;localhost -s &amp;gt; load.log
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Run the Benchmark&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb run cassandra-10 -P workloads/workloada -p &lt;span class="nv"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;localhost -s &amp;gt; load.log
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="benchmark-mapkeeper"&gt;
+&lt;h2&gt;Benchmark MapKeeper&lt;/h2&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Build Thrift and MapKeeper&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Follow the &lt;a class="reference external" href="https://github.com/m1ch1/mapkeeper/wiki/Getting-Started"&gt;steps&lt;/a&gt; on the MapKeeper wiki to build Thrift and MapKeeper. Building Java binding of MapKeeper(gen-java) failed on my system, but it dosen't matter since I don't need it.&lt;/p&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Build mapkeeper_leveldb&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Install LevelDB via &lt;em&gt;apt-get&lt;/em&gt; or build it from source.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;apt-get install libleveldb-dev
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then &lt;em&gt;make&lt;/em&gt; in mapkeeper/leveldb. On my system, I have to manually add &lt;em&gt;-lboost_system&lt;/em&gt; to the mapkeeper/leveldb/Makefile to build it successfully.&lt;/p&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Benchmark&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb load mapkeeper -P workloads/workloada -s &amp;gt; mp.load.log
+./bin/ycsb run mapkeeper -P workloads/workloada -s &amp;gt; mp.run.log
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="comparasion"&gt;
+&lt;h2&gt;Comparasion&lt;/h2&gt;
+&lt;p&gt;I ran the benchmarks above on my old PC. It is configured with a dual core processor and 3GB of memory. A dedicated Seagate HDD is used for data storage. The benchmark results are in the figures below. Given the hardware configuration, these numbers may not be representative. However, the comparation is still interesting.&lt;/p&gt;
+&lt;p&gt;The benchmarks use &lt;em&gt;workloada&lt;/em&gt; with 1,000,000 records and 1,000,000 operations. For Cassandra, &lt;em&gt;concurrent_reads&lt;/em&gt; and &lt;em&gt;concurrent_writes&lt;/em&gt; are both set to 16, as suggested in cassandra.yaml.&lt;/p&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="update performance" src="/images/ycsb/update.png" style="width: 80%;" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="read performance" src="/images/ycsb/read.png" style="width: 80%;" /&gt;
+&lt;/div&gt;
+&lt;p&gt;Although both databases are built on the same data structure(SSTable), their performance differs significantly. As we can see, Cassandra is surprisingly fast for updates and this is constant. But its read performance is poor and long spikes appears periodically. On contrary, MapKeeper is much faster for reads and a lot slower for updates. Anyway, it took only half the time of Cassandra to complete the 1,000,000 operations.&lt;/p&gt;
+&lt;p&gt;Also, it is a little wired that the performance of MapKeeper increases with time. I ran the benchmark several times and kept getting similar results. I've got no idea why this happens.&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="Big Data"></category><category term="Benchmark"></category></entry><entry><title>Profiling Python</title><link href="/blog/profiling-python.html" rel="alternate"></link><updated>2013-03-29T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2013-03-29:profiling-python.html</id><summary type="html">&lt;p&gt;最近用Python写一些实验工具，性能不是很满意。开始以为是I/O问题，后来发现运行的时候CPU wait时间之占很少一部分，看来瓶颈还是在计算本身。于是想profile一下找一找瓶颈。Python下已经又了不少profiling的工具，这里介绍两种：cProfile和Line Profiler。&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;cProfile&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;cProfile是Python内置的分析工具，用C语言实现，开销比较小。cProfile可以进行函数级别的profiling，能够统计程序运行过程中在每个函数上花费的时间。&lt;/p&gt;
+&lt;p&gt;使用方法：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;python -m cProfile -o output my_script.py
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;执行该命令，将运行my_script.py脚本，统计每个函数的执行时间并记录在output文件中。&lt;/p&gt;
+&lt;p&gt;推荐使用cProfile的另一个原因是它有一个很好的可视化工具，RunSnakeRun。RunSnakeRun可以用pip安装。运行&amp;quot;runsnake output&amp;quot;，可以很直观的看到每个函数花费时间的多少。&lt;/p&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Line Profiler&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;有时候仅仅进行函数级的profiling还不够，需要更高精度的分析。Line Profiler是一个第三方的工具，可以精确的记录每一行代码的执行时间。&lt;/p&gt;
+&lt;p&gt;Line Profiler也可以用pip安装。使用时在需要profiling的函数前面加上decorator: &amp;#64;profile。然后执行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;kernprof.py -l my_script.py
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;脚本运行结束后，结果将输出到文件my_script.py.lprof中。查看结果，可以调用命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;python -m line_profiler my_script.py.lprof
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;输出的结果是每一行python代码的运行时间占总时间的百分比。&lt;/p&gt;
+&lt;p&gt;使用line profiler进行高精度的分析会增加很多额外的开销，大大的增加程序执行时间。在实际发现，在一个大几百行的程序中，对一个不到十行（有一个循环）的函数进行profiling，居然让整个程序的执行时间增加了几乎一倍。&lt;/p&gt;
+</summary><category term="performance"></category><category term="python"></category></entry><entry><title>用FlameGraph进行可视化性能分析</title><link href="/blog/flamegraph.html" rel="alternate"></link><updated>2012-07-01T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-07-01:flamegraph.html</id><summary type="html">&lt;p&gt;程序性能分析的一种常用方法是栈采样：定期中断处理器，收集函数调用栈，然后进行分析。一个函数在采样结果中出现的次数越多，说明这个函数被调用的次数越多，或者执行的时间更长，也越有可能成为性能瓶颈。不过采样数据量很大，分析起来很耗时。为此，Dtrace开发人员Brendan Gregg发明了一种 &lt;a class="reference external" href="http://dtrace.org/blogs/brendan/2011/12/16/flame-graphs/"&gt;FlameGraph&lt;/a&gt; 用来对采样结果进行可视化，使得分析结果变得非常简单直观。&lt;/p&gt;
+&lt;p&gt;FlameGraph的例图请看 &lt;a class="reference external" href="http://www.beginningwithi.com/brendan/mysql-flame.svg"&gt;这里&lt;/a&gt; 。解释如下：&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;图中每一个方块代表栈里的一个函数。&lt;/li&gt;
+&lt;li&gt;Y轴代表调用深度，最上面的是当前正在CPU上执行的函数，下面的都是其祖先。每个函数都是由它下方的函数调用的。&lt;/li&gt;
+&lt;li&gt;X轴不是按照时间先后排列的，它只代表样本数目。方块越宽，代表该函数出现的次数越多。&lt;/li&gt;
+&lt;li&gt;在有多个并发线程同时被采样，样本总数可能超过采样所用的时间。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用FlameGraph，需要先用工具对目标程序进行栈采样，然后用Brendan的 &lt;a class="reference external" href="https://github.com/brendangregg/FlameGraph"&gt;脚本&lt;/a&gt; 对采样结果进行处理并绘图。可以完成采样的工具很多，比如Solaris下的dtrace，linux下的 &lt;a class="reference external" href="http://oprofile.sourceforge.net"&gt;oprofile&lt;/a&gt; ， &lt;a class="reference external" href="http://sourceware.org/systemtap/"&gt;systemtap&lt;/a&gt; ， &lt;a class="reference external" href="https://perf.wiki.kernel.org/index.php/Main_Page"&gt;perf&lt;/a&gt; 等，不过Brendan目前没有提供针对oprofile的脚本。&lt;/p&gt;
+&lt;p&gt;具体做法分三步（当然不是把大象关进冰箱那三步）：采样、折叠、绘图。对应的命令如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;perf record -a -g -F 1000 sleep 60
+perf script | ./stackcollapse-perf.pl &amp;gt; out.perf-folded
+cat out.perf-folded | ./flamegraph.pl &amp;gt; perf-kernel.svg
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第一行是用perf工具进行采样。参数-a表示对整个系统进行采样，如果只需要分析某个进程，可以不要这个选项。-g表示记录函数调用栈。-F 指定采样频率。最后是采样过程中要执行的命令，如果要针对某个程序进行分析，这里就执行你要分析的程序。更详细的用法参考perf的文档。&lt;/p&gt;
+&lt;p&gt;后面两行调用Brendan的脚本，依葫芦画瓢即可。&lt;/p&gt;
+</summary><category term="performance"></category><category term="linux"></category></entry><entry><title>Linux下音频格式转换</title><link href="/blog/linux-audio.html" rel="alternate"></link><updated>2012-05-13T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-05-13:linux-audio.html</id><summary type="html">&lt;p&gt;网上下载了不少音乐，各种格式都有，为了能够在手机、MP3等各种设备下都能播放，时常需要进行格式转换。这里总结一下常用的音频编解码工具，全部都是开源软件，可以在Linux下使用。&lt;/p&gt;
+&lt;div class="section" id="ffmpeg"&gt;
+&lt;h2&gt;&lt;a class="reference external" href="http://ffmpeg.org"&gt;ffmpeg&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;超强的开源多媒体处理工具，像Kmplayer、暴风影音之类的播放器里面大量盗用了ffmpeg的成果。Ffmpeg集编码、解码、串流、混合、分离等多项功能于一身，音频格式转换当然不成问题。自带的命令行工具可以进行音频和视频的格式转换，ffmpeg -codecs可以看到当前系统支持的格式。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="mac"&gt;
+&lt;h2&gt;&lt;a class="reference external" href="http://supermmx.org/linux/mac/"&gt;mac&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Monkey's Audio（也就是APE格式）的codec，官方只有win版，但是公开了源代码，所以有了非官方的Linux移植版。自带命令行前端可以进行编码和解码，执行mac可以看到用法。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="flac"&gt;
+&lt;h2&gt;&lt;a class="reference external" href="http://flac.sourceforge.net/"&gt;flac&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Flac是开放的格式，自然有相应的开源工具包。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="lame"&gt;
+&lt;h2&gt;&lt;a class="reference external" href="http://lame.sourceforge.net/"&gt;lame&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;开源的mp3编码工具。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="shntool"&gt;
+&lt;h2&gt;&lt;a class="reference external" href="http://www.etree.org/shnutils/shntool/"&gt;shntool&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;多功能音频处理工具，本身只支持wav波形文件，但是通过helper program可以支持多种音频格式。Shntool最有用的功能大概是音频分割了。网上下载的很多音乐都是整张CD一个文件，然后用cue文件区分音轨，shntool可以直接根据cue文件进行分割。&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="linux"></category><category term="audio"></category></entry><entry><title>CPU降温</title><link href="/blog/cpupower.html" rel="alternate"></link><updated>2012-05-05T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-05-05:cpupower.html</id><summary type="html">&lt;p&gt;夏天来了，气温越来越高，笔记本风扇吭哧吭哧的转个不停，听着实在揪心。现在的笔记本处理器都支持频率调整，可以在负载不重的情况下降低运行频率，减少能耗和发热。虽然Linx内核驱动已经相当完善，支持各种主流CPU的调频功能，但是默认的管理策略好像并不给力，总感觉运行Linux的时候温度要比运行windows的时候略高一些，还好可以自己调整。&lt;/p&gt;
+&lt;p&gt;Linux内核中管理CPU频率的模块是cpufreq，这个模块提供了sysfs接口，通过/sys/devices/system/cpu/cpu[n]/cpufreq/目录里的文件，可以查看CPU运行状态。修改设置可以用命令行工具cpupower（也就是以前的cpufrequtils）。Fedora 17里这个工具包含在kernel-tools里。&lt;/p&gt;
+&lt;p&gt;有两种方式可以达到降温的目的，一是把governor设置为powersave：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cpupower --cpu [n] frequency-set -g powersave
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;--cpu指定CPU，对于多核处理器可以为每个核心分别进行设置。一般默认的governor是ondemand，但仍然是性能优先。很多情况下，比如看资料、写文档的时候，CPU的使用率都不是很高，完全可以切换到powersave模式，效果相当明显，在我的笔记本上，把两个核都调成powersave，能降温10度以上。如果这样有点慢的话，可以只调一个核。&lt;/p&gt;
+&lt;p&gt;另外一种方法是直接设定CPU的运行频率或者频率上限，频率不能任意调整，CPU支持频率可以在scaling_available_frequencies文件里看到。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cpupower --cpu[n] --frequency-set -f [freq]
+cpupower --cpu[n] --frequency-set -u [max_freq]
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;补充一个工具 &lt;a class="reference external" href="http://lm-sensors.org/"&gt;lm-sensors&lt;/a&gt; ，可以通过硬件传感器监控CPU和显卡等硬件的温度，调整完之后可以用sensors命令看一下效果。&lt;/p&gt;
+&lt;p&gt;补充：&lt;/p&gt;
+&lt;p&gt;2013-10-30&lt;/p&gt;
+&lt;p&gt;从3.9开始，Linux内核对比较新的Intel处理器（Sandy Bridge和Ivy Bridge）提供了专门的模块intel_pstat进行管理，只有powersave和performance两种governor可以选择。&lt;/p&gt;
+&lt;p&gt;参考资料：
+&lt;a class="reference external" href="https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling"&gt;https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling&lt;/a&gt;&lt;/p&gt;
+</summary><category term="linux"></category><category term="cooling"></category></entry><entry><title>Note Anywhere的修改</title><link href="/blog/note-anywhere.html" rel="alternate"></link><updated>2012-04-14T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-04-14:note-anywhere.html</id><summary type="html">&lt;p&gt;Note Anywhere是一个用来做笔记的chrome扩展，可以在网页的任意位置添加便签做笔记。不过在Linux下运行不起来，启动之后立刻崩溃。看了一下它的代码，发现问题出在WebSQL。Note Anywhere用WebSQL存储笔记，但是chrome的Linux版貌似不支持WebSQL。单独写了一个js脚本，结果也一样，只要一执行到WebSQL初始化，立刻会崩溃。&lt;/p&gt;
+&lt;p&gt;不过没关系，Note Anywhere功能简单，根本用不到复杂的查询操作，所以完全没有必要动用SQL，直接用html5的local storageh同样可以搞定。&lt;/p&gt;
+&lt;p&gt;Note Anywhere只用了一个表来存储笔记，主键是一个全局唯一的note id，其余字段包括网页的url、便签的位置、笔记内容等等。显然，最直接的改法，就是把这个表存到local storage里，用note id做key，剩余字段可以封装成JSON对象存储为value。&lt;/p&gt;
+&lt;p&gt;虽然我对数据库并不怎么感冒，不过好歹也是学过的，对关系数据库的哪些个范式还有点印象。这个做法并不好，因为会存储很多冗余数据，如果一个网页上有很多笔记，它的url就会被存储很多次，应该要分表。而且每次载入一个网页的时候，都要用SQL查询url跟这个网页相等的所有记录，效率也比较低。&lt;/p&gt;
+&lt;p&gt;我把数据分成了两个表：一个笔记表和一个页面表。笔记表存储笔记，用note id作key。页面表存储页面和笔记之间的关系，用url做key，value是笔记id的数组。虽然有两个表，但是由于两种类型的key很容易区分，所以完全可以一起存在local storage里面。&lt;/p&gt;
+&lt;p&gt;另外原本的Note Anywhere没有导入导出的功能，不方便备份。我自己加了一个导出功能。因为html5功能有限的，chrome插件对本地存储的访问只限制在浏览器内进行，不能直接操作本地文件系统，所以无法直接把插件数据写到备份文件。不过这并不表示完全不能导出。我的解决办法是把local storage里的数据转换成json字符串，显示在option页面上，这样用户可以用手动复制粘贴的方法把数据保存到文件里。虽然有点麻烦，但总归是实现了功能。&lt;/p&gt;
+&lt;p&gt;修改过之后的版本在这里 &lt;a class="reference external" href="http://life-sucks.net/download/note-anywhere.zip"&gt;下载&lt;/a&gt; 。&lt;/p&gt;
+</summary><category term="chrome"></category><category term="linux"></category></entry><entry><title>用Pelican建静态博客</title><link href="/blog/blog-with-pelican.html" rel="alternate"></link><updated>2012-04-08T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-04-08:blog-with-pelican.html</id><summary type="html">&lt;p&gt;用了一段时间Wordpress，觉得很不爽。Web编辑环境本来体验就比较差，再加上网络经常不给力，让我实在无法忍受。碰巧在网上看到有人介绍静态blog工具 ，心里有点痒痒。静态博客的好处在于可以完全离线编辑，用任何自己喜欢的编辑器，写好之后转换成网页发布到网站上。另外一方面备份和迁移也比较方便，不像wp还要折腾数据库。以前知道有个Jekyll，是ruby写的，我不会ruby，也懒得去折腾。后来发现了 &lt;a class="reference external" href="http://docs.getpelican.com/en/3.3.0/"&gt;pelican&lt;/a&gt; ，觉得还不错。&lt;/p&gt;
+&lt;p&gt;Pelican是采用Python开发的，跟现在很多python project一样，可以通过 &lt;a class="reference external" href="http://pypi.python.org"&gt;pip&lt;/a&gt; 安装，非常方便。我用virtualenv的方式把它安装在用户主目录下，即使重装系统后也无需重新安装pelican。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~
+virtualenv .pelican
+. .pelican/bin/activate
+pip install pelican
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;安装完成之后，用pelican-quickstart命令可以创建一个新的博客，只需要按照提示回答几个问题。创建完成之后，博客的设置保存在pelican.conf.py文件里，如果需要的话，可以手动修改。同时还会生成一个Makefile（如果没有选N的话），以后生成和发布网页都可以用make命令自动完成。&lt;/p&gt;
+&lt;p&gt;Pelican支持jinja2模板，主题保存在安装目录（通常是python的site-packages）下的themes里。可以在pelican.conf.py里用“THEME = 主题名”来选择要用的主题。最新版本的pelican支持使用路径名，比如“THEME = /path/to/you/theme”，这样就不需要把主题放在安装目录下了。Pelican的是模版系统语法很直白，比较容易看懂，修改起来也很容易。&lt;a class="reference external" href="https://github.com/getpelican/pelican-themes"&gt;这里&lt;/a&gt; 汇集了很多主题，可以选择一款钟意的做样本来构建自己的博客。&lt;/p&gt;
+&lt;p&gt;Pelican支持ReStructuredText和markdown两种标记语言，可以任选一种来撰写博文。个人的感觉是markdown语法比较简单，容易上手，不过ReStrucuturedText的功能更强大，甚至有人可以用它写一整本书的。因为看到关于pelican的资料都是用前者，所以我也就自然而然的选择了这种格式。语法可以参考它的 &lt;a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html"&gt;快速入门&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;静态网页的是无法实现评论功能的，因为评论必须通过CGI将数据POST到服务器上。不过生活在云计算的时代，应该发扬拿来主义，直接使用第三方提供评论系统。好处在于不需要折腾，不担心备份，而且利于推广。第三方评论系统的原理是通过javascript脚本在网页上动态生成评论框，用户提交评论的时候，会把数据POST到第三方评论系统的服务器上，这样即使你的网页空间不支持CGI，也一样可以提供评论功能。使用第三方评论系统，需要通过修改主题里的templates来实现。网上找到的Pelican主题多是老外写的，清一色采用disqus作为评论系统。身在天朝，当然要用充满了乡土气息的朝内版本。这里推荐JiaThis旗下的 &lt;a class="reference external" href="http://uyan.cc"&gt;友言&lt;/a&gt; 。以前在wordpress里用过，感觉不错。注册了友言账号之后，点击“获取代码”，平台选择“通用平台”，会得到下面这样一段html代码。把这段代码添加到theme/templates/article.html里，放在你想要显示评论的地方，通常都是在页面的最后，或者直接替换掉里面disqus的部分。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;&amp;lt;!-- UY BEGIN --&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;uyan_frame&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://v2.uyan.cc/code/uyan.js?uid=xxxxxxx&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;lt;!-- UY END --&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;写技术文章，少不了要帖代码。Pelican可以通过pygments实现语法高亮。Pygments把源码转换成html，源码中的不同元素被赋予不同的class，通过css就可以定制配色方案。写css对我来说相当痛苦，pygments里有一些内置的style，不过好像并没有提供现成的css文件。在github上找到一个 &lt;a class="reference external" href="https://github.com/mhutchin/dump-pygments-css"&gt;zsh脚本&lt;/a&gt; ，可以把pygments里的内置style dump出来保存为css。也可以直接用别人dump出来的 &lt;a class="reference external" href="https://github.com/Anomareh/pygments-styles-dump"&gt;文件&lt;/a&gt; 。把要用的css放在主题里的static/css目录下，然后在theme/templates/base.html里增加对这个css的引用。为了方便尝试不同的配色方案，我还在配置文件里添加一个选项：PYGMENTS_STYLE，然后在模板的base.html里加上下面几句。这样只要修改pelican.conf.py就可以很方便的更换配色方案。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;{% if PYGMENTS_STYLE %}
+&lt;span class="nt"&gt;&amp;lt;link&lt;/span&gt; &lt;span class="na"&gt;rel=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ SITEURL }}/theme/css/pygments/{{ PYGMENTS_STYLE }}.css&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+{% endif %}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pelican创建项目时生成的Makefile包括了上传文件到网站空间的命令，支持ssh、ftp、dropbox三种上传方式。其中ftp是比较常用的，一般的网站空间都会支持ftp上传。上传的方法是用lftp的mirror命令，直接把整个目录同步到服务器。加上--only-newer参数可以只上传更新过的文件，减少重复的传输。&lt;/p&gt;
+&lt;p&gt;补充&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;2012-05-10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在使用pelican一段时间之后，我发现了一个问题：虽然我用了--only-newer参数，但是每次上传的时候依然会把所有的文件都重新上传一次。找了一下原因，发现在用make生成html文件的时候，会先删除整个output目录，然后重新生成全部文件，所以每次make之后，所有文件都是新的，都会重新上传。这大概是静态blog的一个不足之处。想想如果以后积累了成百上千篇博文，每次编译和上传所需要的时间，搞不好会变得很恐怖，不知道有没有办法解决。&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;2013-10-23&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最近用lftp上传的时候出现了下面这样的错误。&lt;/p&gt;
+&lt;p&gt;Fatal error: Certificate verification: certificate common name doesn't match requested host name '...'&lt;/p&gt;
+&lt;p&gt;查了一下，是由于SSL的缘故。修改Makefile里的lftp命令，禁用SSL，问题就解决了。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;lftp ftp://&lt;span class="nv"&gt;$FTP_USER&lt;/span&gt;@&lt;span class="nv"&gt;$FTP_HOST&lt;/span&gt; -e &lt;span class="s2"&gt;&amp;quot;set ftp:ssl-allow no; mirror -R --only-newer $LOCAL_DIR $REMOTE_DIR ; quit&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</summary><category term="python"></category><category term="blog"></category></entry><entry><title>Vim文本替换</title><link href="/blog/vim-replacement.html" rel="alternate"></link><updated>2012-03-31T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-31:vim-replacement.html</id><summary type="html">&lt;p&gt;Vim命令s(substitute)用来进行字符串替换。&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;基本模式&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;:s/pattern/string&lt;/p&gt;
+&lt;p&gt;替换当前行中第一个匹配模式pattern的字符串为string。Pattern可以是正则表达式。&lt;/p&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;前缀&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在s之前添加前缀可以指定要替换的行范围。前缀 m, n表示对m到n之间所有行执行替换操作。m和n可以为行号或者“.”、“$”，“.”表示当前行，“$”表示最后一行。前缀%表示所有行。&lt;/p&gt;
+&lt;p&gt;前缀中也可以使用正则表达式。比如Vim用户手册里的例子：&lt;/p&gt;
+&lt;p&gt;: ?^Chapter?,/^Chapter/s=grey=gray=g&lt;/p&gt;
+&lt;p&gt;?表示向上搜索（backwards），/表示向下搜索（forward）。这条命令表示在上一个以Chapter开头的行和下一个以Chapter开头的行之间，对所有行执行替换操作。&lt;/p&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;后缀&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;后缀参数/?可以控制替换操作，常用参数有下面几种：&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="43%" /&gt;
+&lt;col width="57%" /&gt;
+&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;c&lt;/td&gt;
+&lt;td&gt;替换前请求确认&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;g&lt;/td&gt;
+&lt;td&gt;替换行中所有的匹配&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;忽略大小写&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;分隔符&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;除了/之外，#、+、=等字符也可以用作替换命令中的分隔符。当pattern或者string中有字符“/”时，可以用转义字符“”进行区分，也可以直接用#、+或者=代替/作为命令分隔符。&lt;/p&gt;
+</summary><category term="vim"></category></entry><entry><title>自动备份到U盘</title><link href="/blog/auto-backup-to-usb.html" rel="alternate"></link><updated>2012-03-21T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-21:auto-backup-to-usb.html</id><summary type="html">&lt;p&gt;手上有几个U盘和存储卡闲着没用，刚好最近写东西比较多，想着用一个U盘来作专用备份盘，既保护了劳动成果，又发挥了余热。&lt;/p&gt;
+&lt;p&gt;目标：&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;U盘插上之后自动同步备份目录里的文件到U盘，无需任何手动操作；&lt;/li&gt;
+&lt;li&gt;可以指定某个U盘做备份盘，其他盘不受影响；&lt;/li&gt;
+&lt;li&gt;可以指定多个需要备份的目录。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实现文件同步，rsync是当之无愧的首选工具。但是rsync不能实现自动同步。要做到U盘插上之后自动同步，需要借助udev。Udev是Linux的设备管理程序。当有即插即用设备接入系统之后，内核检测到新设备，通过netlink向用户态udev的用户态守护进程udevd发送一个消息，udevd根据用户指定的规则执行相应的操作，动态创建设备文件。只要 &lt;a class="reference external" href="http://www.reactivated.net/writing_udev_rules.html"&gt;添加自己的规则&lt;/a&gt; ，就可以实现自动备份。&lt;/p&gt;
+&lt;p&gt;Udev的规则文件放在/etc/udev/rules.d目录下，规则中每一行包含一个或者多个逗号隔开的语句，其中最后一个语句是执行的操作，前面的语句是执行该操作需要满足的条件。&lt;/p&gt;
+&lt;p&gt;规则文件如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# avoid system disk&lt;/span&gt;
+KERNEL!&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;sd[b-z][0-9]&amp;quot;&lt;/span&gt;, &lt;span class="nv"&gt;GOTO&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;backup_end&amp;quot;&lt;/span&gt;
+&lt;span class="c"&gt;# import UUID&lt;/span&gt;
+IMPORT&lt;span class="o"&gt;{&lt;/span&gt;program&lt;span class="o"&gt;}=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/sbin/blkid -o udev -s LABEL %N&amp;quot;&lt;/span&gt;
+&lt;span class="c"&gt;# do something when device added&lt;/span&gt;
+ENV&lt;span class="o"&gt;{&lt;/span&gt;ID_FS_LABEL&lt;span class="o"&gt;}==&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SETH&amp;quot;&lt;/span&gt;, &lt;span class="nv"&gt;ACTION&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;add&amp;quot;&lt;/span&gt;, RUN+&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/home/seth/bin/backup.sh %N&amp;quot;&lt;/span&gt;
+&lt;span class="c"&gt;# exit&lt;/span&gt;
+&lt;span class="nv"&gt;LABEL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;backup_end&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;第一行判断设备在内核中的名字，如果不是正则表达式”sd[b-z][0-9]“所描述的形式，则直接跳转到backup_end，结束脚本。这一句用来跳过系统盘sda。&lt;/p&gt;
+&lt;p&gt;第二行调用blkid命令获得该设备上文件系统的卷标(label)，并用IMPORT命令将输出结果导入为环境变量。blkid的用法参见man page。注意这里blkid命令必须写完整路径，否则无法执行。&lt;/p&gt;
+&lt;p&gt;第三行判断上面导入的环境变量ID_FS_LABEL是否为指定的值，如果是，并且当前动作为add，即添加设备，则执行脚本backup.sh。&lt;/p&gt;
+&lt;p&gt;这样我们就实现了对设备的监控，当指定的U盘接入时，就会自动执行备份脚本。脚本backup.sh如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="c"&gt;# device used to store duplicates&lt;/span&gt;
+&lt;span class="nv"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;
+&lt;span class="c"&gt;# mount point for the device&lt;/span&gt;
+&lt;span class="nv"&gt;dst&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/media/backup
+&lt;span class="c"&gt;# a list of directories seperated by colon&lt;/span&gt;
+&lt;span class="nv"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/home/seth/Documents/correlation:/home/seth/Documents/datastructure
+mkdir -p &lt;span class="nv"&gt;$dst&lt;/span&gt;
+mount &lt;span class="nv"&gt;$1&lt;/span&gt; &lt;span class="nv"&gt;$dst&lt;/span&gt;
+&lt;span class="nv"&gt;IFS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;: &lt;span class="nv"&gt;arr&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;&lt;span class="nv"&gt;$src&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;declare&lt;/span&gt; -p arr
+&lt;span class="k"&gt;for &lt;/span&gt;d in &lt;span class="s2"&gt;&amp;quot;${arr[@]}&amp;quot;&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;rsync -r &lt;span class="nv"&gt;$src&lt;/span&gt; &lt;span class="nv"&gt;$dst&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+umount &lt;span class="nv"&gt;$dst&lt;/span&gt;
+rmdir &lt;span class="nv"&gt;$dst&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里主要就是对指定目录逐个进行同步。难点就是对字符串src的处理，需要把它分割转换成数组。具体解释可以参考 &lt;a class="reference external" href="http://codingstandards.iteye.com/blog/1164910"&gt;这里&lt;/a&gt; 。&lt;/p&gt;
+</summary><category term="automation"></category><category term="bash"></category></entry><entry><title>十分钟Emacs入门</title><link href="/blog/10m-emacs-tut.html" rel="alternate"></link><updated>2012-03-16T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-16:10m-emacs-tut.html</id><summary type="html">&lt;p&gt;本文的主要内容来自John M. Gabriele所写的 &lt;a class="reference external" href="http://www.unexpected-vortices.com/clojure/10-minute-emacs-for-clojure.html"&gt;Clojure简明入门教程&lt;/a&gt; ，其中关于Emacs的部分写得简洁明了，最适合像我一样心急又想吃热豆腐的癞蛤蟆，特地拿来收藏学习。&lt;/p&gt;
+&lt;p&gt;在Emacs里，文件在buffer里进行编辑。Emacs主窗口一次只显示一个buffer，但是可以对窗口进行分割。同时还有一些其他的缓冲区显示文件以外的信息（比如，某个缓冲区会显示你当前打开的所有文件）。&lt;/p&gt;
+&lt;p&gt;Emacs编辑命令都是Ctrl和Alt的组合键，但是Alt通常被称作Meta。Emacs用户习惯把Ctrl-a写成C-a，把Alt-x写成M-x。&lt;/p&gt;
+&lt;p&gt;如果你还在学习中，对编辑命令的键盘绑定还不熟的话，可以通过菜单来运行命令，对应的键盘绑定就显示在菜单项的旁边。Emacs可以像普通的GUI编辑器一样使用：方向键、Home、End、PgUp/PgDn的用法都完全相同。用“Ctrl-方向键”将以单词和段落为单位移动光标。鼠标是OK的。不过，每一个Emacs用户上辈子都是折翼的天使（这句是我自己加的），到最后你可能还是要学习emacs的快捷键，这样来得更high。&lt;/p&gt;
+&lt;p&gt;Emacs采用层次化的方式把一些命令安排在其他命令的“下面”（类似于菜单）。也就是说，要执行某些命令，必须先执行一条前缀命令，然后在这个上下文环境下才能执行需要的命令。比如，文件操作的前缀命令是C-x，先按下C-x，然后Emacs会等待下一个快捷键。C-x C-f打开文件，C-x C-s保存文件。再举个例子：C-h是帮助命令的前缀，C-h t打开内置的Emacs指南。&lt;/p&gt;
+&lt;p&gt;在放手去do之前，再给个提示：C-g可以终止任何命令，帮你摆脱困境（有时候需要连按两次才行）。&lt;/p&gt;
+&lt;p&gt;下面是一些常用的快捷键：&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="29%" /&gt;
+&lt;col width="71%" /&gt;
+&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;C-x C-f&lt;/td&gt;
+&lt;td&gt;打开文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x k Ret&lt;/td&gt;
+&lt;td&gt;关闭当前文件（关闭缓冲区）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x C-s&lt;/td&gt;
+&lt;td&gt;保存文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x C-c&lt;/td&gt;
+&lt;td&gt;退出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-Space&lt;/td&gt;
+&lt;td&gt;开始文本选择&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-g&lt;/td&gt;
+&lt;td&gt;取消当前命令&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-s&lt;/td&gt;
+&lt;td&gt;增量搜索&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-w&lt;/td&gt;
+&lt;td&gt;剪切&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-w&lt;/td&gt;
+&lt;td&gt;复制&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-y&lt;/td&gt;
+&lt;td&gt;粘贴&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-/&lt;/td&gt;
+&lt;td&gt;撤销（undo）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-/&lt;/td&gt;
+&lt;td&gt;自动补全&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-f&lt;/td&gt;
+&lt;td&gt;向前移动光标&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-b&lt;/td&gt;
+&lt;td&gt;向后移动光标&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-f&lt;/td&gt;
+&lt;td&gt;向前移动一个单词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-b&lt;/td&gt;
+&lt;td&gt;向后移动一个单词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-n&lt;/td&gt;
+&lt;td&gt;移动到下一行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-p&lt;/td&gt;
+&lt;td&gt;移动到上一行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-n&lt;/td&gt;
+&lt;td&gt;向下滚动视窗&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-p&lt;/td&gt;
+&lt;td&gt;向上滚动视窗&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-a&lt;/td&gt;
+&lt;td&gt;移动到行首&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-e&lt;/td&gt;
+&lt;td&gt;移动到行尾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-{&lt;/td&gt;
+&lt;td&gt;向上移动一个段落&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-}&lt;/td&gt;
+&lt;td&gt;向下移动一个段落&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-v&lt;/td&gt;
+&lt;td&gt;下翻页&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-v&lt;/td&gt;
+&lt;td&gt;上翻页&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-&amp;lt;&lt;/td&gt;
+&lt;td&gt;移动到缓冲区顶部（文件头）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-&amp;gt;&lt;/td&gt;
+&lt;td&gt;移动到缓冲区底部（文件尾）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x 2&lt;/td&gt;
+&lt;td&gt;水平分割窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x 3&lt;/td&gt;
+&lt;td&gt;垂直分割窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x o&lt;/td&gt;
+&lt;td&gt;移动光标到另一窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x b Ret&lt;/td&gt;
+&lt;td&gt;在当前显示其他缓冲区&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-x 0&lt;/td&gt;
+&lt;td&gt;关闭一个窗口（分割之后）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;再补充几个：&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="47%" /&gt;
+&lt;col width="53%" /&gt;
+&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;C-d&lt;/td&gt;
+&lt;td&gt;删除光标上的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;DEL&lt;/td&gt;
+&lt;td&gt;删除光标前的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-d&lt;/td&gt;
+&lt;td&gt;删除光标后的单词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;M-DEL&lt;/td&gt;
+&lt;td&gt;删除光标前的单词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-k&lt;/td&gt;
+&lt;td&gt;从光标位置删除到行尾&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-y&lt;/td&gt;
+&lt;td&gt;恢复最近一次删除的内容&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-S-Backspace&lt;/td&gt;
+&lt;td&gt;删除整行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;C-h b&lt;/td&gt;
+&lt;td&gt;显示所有的快捷键&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;最后，记住输入“M-x 命令名称”可以执行任何命令。比如，删除文件里所有行末的空白：“M-x delete-trailing-whitespace”。&lt;/p&gt;
+&lt;p&gt;补充：&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;在X下，Ctrl+Space通常被占用作输入法切换，所以最好重新定义这个快捷键。Emacs里各种快捷键组合几乎都给占用了，找了半天才有一个Ctrl+tab，将就用把。把下面这行加到~/.emacs文件里。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;(global-set-key [(control tab)] ‘set-mark-command)&lt;/p&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;学习Emacs的一个好办法：把主窗口分成左右两边，在一边打开常用快捷键列表，另一边编辑文件，边用边学。&lt;/li&gt;
+&lt;li&gt;一些不错的参考资料&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.unexpected-vortices.com/emacs/quick-ref.html"&gt;http://www.unexpected-vortices.com/emacs/quick-ref.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.nongnu.org/emacs-tiny-tools/keybindings/"&gt;http://www.nongnu.org/emacs-tiny-tools/keybindings/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://lifegoo.pluskid.org/wiki/Emacs.html"&gt;http://lifegoo.pluskid.org/wiki/Emacs.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.cs.rutgers.edu/LCSR-Computing/some-docs/emacs-chart.html"&gt;http://www.cs.rutgers.edu/LCSR-Computing/some-docs/emacs-chart.html&lt;/a&gt;&lt;/p&gt;
+</summary><category term="emacs"></category><category term="tutorial"></category></entry><entry><title>Linux下自动关机</title><link href="/blog/linux-auto-shutdown.html" rel="alternate"></link><updated>2012-03-14T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-14:linux-auto-shutdown.html</id><summary type="html">&lt;p&gt;为了限制自己熬夜，决定设置电脑自动关机。Windows下用计划任务就可以了，Linux下可以用crond，但是稍微麻烦一点儿。&lt;/p&gt;
+&lt;div class="section" id="version-1"&gt;
+&lt;h2&gt;Version 1&lt;/h2&gt;
+&lt;p&gt;最简单的实现，用crontab定时执行poweroff命令。在shell中运行crontab -e，添加定时关机的任务：&lt;/p&gt;
+&lt;p&gt;0 2 * * 1-5    poweroff&lt;/p&gt;
+&lt;p&gt;crontab的格式可以参考它的manpage，前5项分别是：分钟、小时、日期、月份和星期几，后面是需要执行的命令。上面这一行的意思就是周一至周五的每天凌晨2点执行poweroff。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="version-2"&gt;
+&lt;h2&gt;Version 2&lt;/h2&gt;
+&lt;p&gt;上面这个办法虽然可以实现定时关机的功能，但是缺少点儿用户交互。如果写东西写到到半夜，还没有保存就忽然自动关机了，必定非常郁闷。关机之前最好给个提示，并且允许用户在特殊情况下取消关机操作。Gnome提供了一个很好的命令行工具 &lt;a class="reference external" href="http://library.gnome.org/users/zenity/stable/index.html.en"&gt;zenity&lt;/a&gt; ，可以显示一些常用的对话框并进行简单的交互。我们可以用一个shell脚本对zenity和poweroff命令进行包装实现用户交互。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;:0
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;zh_CN.utf8
+
+zenity --question --title&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;天色不早了&amp;quot;&lt;/span&gt; --text&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;主人，来滚床单吧？&amp;quot;&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; 0 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;poweroff
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里用了zenity的question对话框，如果用户点击了“是”，zenity返回0，否则返回1。根据这个返回值（Bash中变量$?表示上一条命令的返回值）来决定是否关机。&lt;/p&gt;
+&lt;p&gt;注意crond是一个后台守护进程，其运行环境跟图形界面的终端下面不同，如果要正确执行这条命令，需要设置两个环境变量。一个是DISPLAY，指定用于显示的图形前端。具体的值可以在终端里echo $DISPLAY察看。另外一个是LANG，如果要显示中文，需要设置LANG=zh_CN.utf8，否则命令行中的中文字符串不能正确解释，会出现选项错误。我就在这个问题上卡了好半天。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="version-3"&gt;
+&lt;h2&gt;Version 3&lt;/h2&gt;
+&lt;p&gt;版本2会一直等待用户输入，没有输入的情况下不会关机，还是有点儿不给力。最好能够像windows一样，到点儿弹出一个对话框，并且显示一个倒计时。在倒计时结束前，用户可以取消关机操作。用Zenity的progress对话框就可以实现这个功能。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
+
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;:0
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;zh_CN.utf8
+
+&lt;span class="nv"&gt;total&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;30
+&lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
+
+&lt;span class="o"&gt;(&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$count&lt;/span&gt; -lt &lt;span class="nv"&gt;$total&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="k"&gt;$((&lt;/span&gt;count*100/total&lt;span class="k"&gt;))&lt;/span&gt;
+        sleep 1
+        &lt;span class="o"&gt;((&lt;/span&gt;count+&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="o"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="o"&gt;)&lt;/span&gt; | zenity --progress --title&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;天色不早了&amp;quot;&lt;/span&gt; --text&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;主人，苍老师喊你去滚床单！&amp;quot;&lt;/span&gt; --auto-close --auto-kill
+
+poweroff
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Zenity –progress将显示一个带进度条的对话框，并且从标准输入读取一个0-100的数值作为当前进度。–auto-close表示进度到100后自动关闭对话框。–auto-kill表示如果点击“取消”则终止父进程。这样如果用户没有输入，则30秒之后zenity退出，继续执行下一条poweroff命令；如果用户点击“取消”，则脚本被kill掉，不会关机。&lt;/p&gt;
+&lt;p&gt;最终版本的脚本可以在 &lt;a class="reference external" href="http://pastebin.com/hMKRkjQV"&gt;pastebin&lt;/a&gt; 获取。&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="linux"></category><category term="bash"></category><category term="automation"></category></entry><entry><title>自动转换MP3的ID3 Tag</title><link href="/blog/mp3tag-auto-convert.html" rel="alternate"></link><updated>2012-03-06T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-06:mp3tag-auto-convert.html</id><summary type="html">&lt;p&gt;网上下载的mp3良莠不齐，最烦的是id3 tag的编码不统一，很多用的是GBK，在Linux下是乱码。虽然有很多转换工具，但是手动转换实在太麻烦，最好能自动搞定。&lt;/p&gt;
+&lt;p&gt;基本思路是在浏览器里下载了mp3文件之后，自动调用tag转换工具。不幸的是浏览器本身没有提供这种功能。好在Linux是强大的，它有另一种更强大的机制： &lt;a class="reference external" href="http://www.ibm.com/developerworks/cn/linux/l-inotifynew/"&gt;inotify&lt;/a&gt; 。这是一种内核通知机制，允许进程对文件系统事件进行监控。当被监听的文件/目录上发生指定的操作时，它会发送一个消息给监听进程。我们只需要监听浏览器的下载目录，发现新下载的mp3文件就转换一下。Tag的转换推荐使用 &lt;a class="reference external" href="http://linuxtoy.org/archives/mp3tagiconv.html"&gt;mp3tagiconv&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;使用inotify需要内核支持，主流发行版的内核里都已经默认开启。Inotify提供一组系统调用用来设定监听进程，有人已经写好了很方便的命令行工具inotify-tools。这套程序包括两个命令，inotifywait和inotifywatch。前者会阻塞直到收到通知，然后打印通知信息并退出；后者后持续监听，退出的时候把所有的通知一起输出。一般发行版应该都包含了这个工具。&lt;/p&gt;
+&lt;p&gt;现在可以对下载目录进行监控了，接下来的问题就是，怎么判断用户刚刚下载了一个文件？第一个想法是根据close来判断，下载的时候必定要write，完成之后要close，inotify可以监听close_write。后来发现chrome下载文件的时候，会创建临时文件.crdownload，完成后重命名。Close看来是不行了，但是既然要重命名，那监听move_to就OK了。如果是其他浏览器，可能要酌情修改。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;event&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;inotifywait -e moved_to &lt;span class="o"&gt;[&lt;/span&gt;DIR&lt;span class="o"&gt;]&lt;/span&gt; 2&amp;gt;/dev/null&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这行脚本的意思是，调用inotifywait监听[DIR]的move_to事件，然后把输出结果赋值给event变量。2&amp;gt;/dev/null表示把stderr重定向到/dev/null。&lt;/p&gt;
+&lt;p&gt;我们知道用户刚下载了一个文件，但是还不知道是不是mp3文件。判断文件类型，比较靠谱的做法是用file命令，它会根据文件的magic number判断类型，不管扩展名改成什么，都逃不过它的法眼。这里就偷个懒，直接根据扩展名来判断。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$event&lt;/span&gt;|grep &lt;span class="s1"&gt;&amp;#39;\.mp3$&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里用 &lt;a class="reference external" href="http://net.pku.edu.cn/~yhf/tutorial/tao_regexps_zh.html"&gt;正则表达式&lt;/a&gt; 来判断文件的扩展名，’.mp3$’表示所有以.mp3结尾的字符串。如果grep的结果非空，表示这个文件是mp3，转换之。然后循环往复，监而控之。&lt;/p&gt;
+&lt;p&gt;完整的bash脚本见 &lt;a class="reference external" href="http://pastebin.com/nPTrjitg"&gt;pastebin&lt;/a&gt; 。&lt;/p&gt;
+</summary><category term="linux"></category><category term="bash"></category><category term="automation"></category></entry><entry><title>Fedora下安装Common Lisp开发环境</title><link href="/blog/emacs-lisp.html" rel="alternate"></link><updated>2011-10-25T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2011-10-25:emacs-lisp.html</id><summary type="html">&lt;p&gt;需要用到的软件：&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.sbcl.org/"&gt;Sbcl&lt;/a&gt; ，比较流行的一种Common Lisp实现；
+Emacs ，用作开发环境，虽然比较复杂，但是比原来的命令行好用多了；
+&lt;a class="reference external" href="http://common-lisp.net/project/slime/"&gt;Slime&lt;/a&gt; ，Emacs下的一个交互式lisp开发环境；
+&lt;a class="reference external" href="http://www.quicklisp.org/beta/"&gt;Quicklisp&lt;/a&gt; ，Common Lisp包管理系统。&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;用yum安装emacs和sbcl。&lt;/li&gt;
+&lt;li&gt;然后按如下步骤安装quicklisp。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下载quicklisp安装脚本：
+wget &lt;a class="reference external" href="http://beta.quicklisp.org/quicklisp.lisp"&gt;http://beta.quicklisp.org/quicklisp.lisp&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;启动sbcl：
+sbcl –load quicklisp.lisp&lt;/p&gt;
+&lt;p&gt;安装quicklisp：
+(quicklisp-quickstart:install)&lt;/p&gt;
+&lt;p&gt;添加quicklisp到启动文件，以后启动sbcl会自动加载quicklisp
+(ql:add-to-init-file)&lt;/p&gt;
+&lt;p&gt;3. 用quicklisp安装slime
+(ql:quickload &amp;quot;quicklisp-slime-helper&amp;quot;)&lt;/p&gt;
+&lt;p&gt;安装脚本会自动下载需要的文件，执行完之后会给出一段elisp代码，按照说明把代码加入.emacs文件。&lt;/p&gt;
+&lt;ol class="arabic simple" start="4"&gt;
+&lt;li&gt;启动emacs，M-x slime启动slime，进入交互式cl编程环境，大功告成！&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;除了第一步安装sbcl和emacs之外，其他步骤跟发行版无关，应该同样适用于Ubuntu等其他版本。如果还嫌麻烦，直接用Lispbox。&lt;/p&gt;
+</summary><category term="emacs"></category><category term="lisp"></category></entry></feed>

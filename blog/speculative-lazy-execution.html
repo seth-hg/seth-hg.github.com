@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Speculative &amp; Lazy Execution | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Speculative &amp; Lazy Execution</h1>
+    <p class=date> Apr 13, 2012 </p>
+    <div class="section" id="speculative-execution">
+<h2>Speculative Execution</h2>
+<p>Speculative Execution，直译过来就是“投机执行”（通常的说法貌似是“预测执行”，不过我觉得直译的更有味道一些），是一种性能优化方法。提高性能的重要方法之一是并行，比如流水线，利用不同部件之间的并行来屏蔽延迟，提高整体性能。但是如果前后两个任务之间存在依赖关系，比如下面这种情况，condition()和do_something()/do_something_else()之间不能并行，流水线就失效了。</p>
+<div class="highlight"><pre><span class="k">if</span> <span class="n">condition</span><span class="p">()</span>
+    <span class="n">do_something</span><span class="p">()</span>
+<span class="k">else</span>
+    <span class="n">do_something_else</span><span class="p">()</span>
+</pre></div>
+<p>投机执行就是解决这个问题的。虽然后续的操作依赖于condition()的结果，但是在特定的情况下，condition()的结果是可以预测的，比如99%是true，那么就可以让condition()和do_something()并发执行。很明显，这种方法依赖于预测的准确率，准确率越高，性能提升也就越大。这种投机的思想在计算机系统里应用很广。</p>
+<ol class="arabic simple">
+<li><strong>分支预测（branch prediction）</strong> 。现代处理器里面常用的一种技术，当执行到形如“if-then-else”的分支指令时，通过预测的方法提高指令的并行度。</li>
+<li><strong>Splitstream</strong> 。这也是处理器中的一种技术，不过相比前者还不够成熟，应用也较少。采用这种技术的处理器在执行程序的时候会启动两个流程分别执行，一个叫做A-stream，会过滤掉程序中一些不重要的指令，只执行少部分指令。另一个是R-stream，执行原始程序。因为A-stream中少了很多指令，所以执行更快。在A-stream执行的时候，已经把指令和数据载入到处理器的cache里，当R-stream执行的时候，就无需访问内存，因此这种方法可以屏蔽内存访问的部分延迟，提高执行效率。</li>
+<li><strong>文件预取（prefetch）</strong> 。文件系统通常假定用户对文件的访问是顺序的，因此用户读取某一块的时候，也会顺便把后面若干块一起读到缓存，这样当用户请求后面的块时，就可以直接从缓存获取数据，大大降低了延迟。顺序预取是最常见的预取方式，但是只适用于顺序访问占主导的情况，如果是随机访问为主，这种预取反而会降低性能。CMU的Fay Chang提出了一种 <a class="reference external" href="http://dl.acm.org/citation.cfm?id=296806.296807&amp;coll=DL&amp;dl=ACM&amp;CFID=97289604&amp;CFTOKEN=10555591">预取算法</a> ，采用的是另外一种投机执行的方式。我们知道大多数程序采用的是阻塞式I/O，程序会阻塞直到I/O完成。Chang的方法在进程阻塞时，会fork出一个新进程代替原进程继续执行，不过这个新进程不会执行实际的I/O操作，而是会产生一些hints给文件系统。文件系统根据hints进行预取。这种方法不局限于顺序访问，适用性更广，不过具体效果就要看投机的成功率了。</li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><strong>Optimistic Concurrency Control</strong> 。</li>
+<li><strong>避让算法</strong> 。</li>
+</ol>
+<p>前面几种只是比较常见的应用，其实投机执行的应用远不止这些。比如密歇根大学的Edmund B. Nightingale就把这种方法用在了 <a class="reference external" href="http://dl.acm.org/citation.cfm?id=1095810.1095829&amp;coll=DL&amp;dl=ACM&amp;CFID=97289604&amp;CFTOKEN=10555591">分布式文件系统</a> 里。分布式文件系统里存在很多具有依赖关系的操作，比如NFS里，文件写操作分成了write和commit两步，write把数据写到服务器，而commit确保数据永久存储到设备上。显然commit必须在write成功之后才能进行。在网络正常，尤其是在局域网内的情况下，write操作是很少会失败的，因此可以假定write操作成功，在其返回之前就发出commit请求，这样就屏蔽了部分等待时间，减少了整个操作的延迟。</p>
+<p><strong>只要是存在因依赖造成等待的地方，就有投机的可能</strong> 。不过要想提高性能，还要求投机的成功率比较高，换句话说就是对所依赖的结果预测比较准确，否则大量无效的执行反而会浪费资源，降低性能。另外在有些情况下，特别是涉及I/O操作的时候，错误的投机执行可能会造成一些副作用，比如修改文件，因此在这种情况下还要求能够正确的将系统恢复到之前的状态，以确保结果正确。</p>
+</div>
+<div class="section" id="lazy-execution">
+<h2>Lazy Execution</h2>
+<p>跟speculative execution相反，前者是在前途并不明朗的情况下投机冒进，而后者则是将本来可以完成的任务延后执行。Lazy execution的典型应用就是写缓存。将数据缓暂存在缓存空间，一方面可以屏蔽掉实际写操作的延迟，因为缓存的速度通常要快得多；另一方面也可以把对同一数据单元的多次更新，以及对多个连续单元的更新合并成一个写操作，达到更高的写性能。当然这样也会增加风险，如果缓存失效，那么缓存中还没有写下去的数据就丢失了。</p>
+<p>Lazy execution的另一个例子是日志（logging）。在更新数据的时候，并不直接更新现有的数据，而是将更新操作以日志的形式记录下来。这样做的好处就是可以避免由于更新操作意外中断（比如突然断电）造成数据不一致，ext3文件系统里的journaling和日志文件系统（log-structured file system）就是这个原理。</p>
+<p>总结一下，不管是speculative execution还是lazy execution，都是通过改变某些操作的执行时机来获益。</p>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/performance.html">performance</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

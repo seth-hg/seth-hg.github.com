@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 带通配符的数字 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 带通配符的数字</h1>
+    <p class=date> Mar 18, 2014 </p>
+    <p>偶尔看到CSDN英雄会上的一道 <a class="reference external" href="http://hero.csdn.net/OnlineCompiler/Index?ID=351&amp;ExamID=346">编程题目</a> ，觉得挺有意思就试着做了一下。</p>
+<p>题目是这样的：给出一个带有通配符'?'的数字W和另一个数字X，要算出W有多少中组合大于X。其中'?'可以表示0到9的任意数字，且W和X的长度相同，在1到10之间。</p>
+<p>一个简单的思路是用递归算法，当W中包含n个'?'（n &gt; 0）时，一定可以把它写成wa+?+wb这种形式，其中wa是纯数字，不含通配符，而wb包含n-1个通配符。按照同样的方式可以把X也写成类似的形式：xa+xp+xb，其中xp是W中'?'对应的位，xa、xb和wa、wb分别等长。于是有下面的递推：</p>
+<ol class="upperalpha simple">
+<li>如果wa &lt; xa，则W一定小于X，此时结果为0</li>
+<li>如果wa &gt; xa，则不论'?'取何值，W一定大于X，此时结果为10^n</li>
+<li>如果wa = xa，则考虑'?'的取值，有三种情况<ol class="loweralpha">
+<li>当'?'大于xp时，W一定大于X，这种情况下可能的组合一共有 (9-xp)*10^(n-1)。</li>
+<li>当'?'等于xp时，W是否大于X取决与wb和xb的大小关系，问题就转化成求wb有多少种组合大于xb了。可以用同样的算法递归解决。</li>
+<li>当'?'小于xp时，W一定小于X，忽略不计。</li>
+</ol>
+</li>
+</ol>
+<p>所以这种情况下的最终结果由1、2两部分组成。</p>
+<p>理清了思路之后代码也就很简单了。C语言版的代码如下：</p>
+<div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="cp">#include &lt;math.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">n_larger</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">aw</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">fr</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">11</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">delta_aw_ax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;?&#39;</span><span class="p">)</span>
+                        <span class="k">break</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">delta_aw_ax</span><span class="p">)</span>
+                        <span class="k">continue</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">delta_aw_ax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">delta_aw_ax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">len</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">delta_aw_ax</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">delta_aw_ax</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">delta_aw_ax</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">/=</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="p">(</span><span class="sc">&#39;9&#39;</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">fr</span> <span class="o">=</span> <span class="n">n_larger</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">t2</span> <span class="o">+</span> <span class="n">fr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="kt">char</span> <span class="n">w</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
+
+        <span class="c1">// get input</span>
+        <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">gets</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="k">break</span><span class="p">;</span>
+                <span class="n">gets</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;?&#39;</span><span class="p">)</span>
+                                <span class="n">n</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">n_larger</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>到这里问题还没有解决，因为性能不过关。在CSDN上测试代码的时候告诉我执行时间超过3秒。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/programming.html">programming</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

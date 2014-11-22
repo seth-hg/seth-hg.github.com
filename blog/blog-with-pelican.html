@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 用Pelican建静态博客 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 用Pelican建静态博客</h1>
+    <p class=date> Apr 08, 2012 </p>
+    <p>用了一段时间Wordpress，觉得很不爽。Web编辑环境本来体验就比较差，再加上网络经常不给力，让我实在无法忍受。碰巧在网上看到有人介绍静态blog工具 ，心里有点痒痒。静态博客的好处在于可以完全离线编辑，用任何自己喜欢的编辑器，写好之后转换成网页发布到网站上。另外一方面备份和迁移也比较方便，不像wp还要折腾数据库。以前知道有个Jekyll，是ruby写的，我不会ruby，也懒得去折腾。后来发现了 <a class="reference external" href="http://docs.getpelican.com/en/3.3.0/">pelican</a> ，觉得还不错。</p>
+<p>Pelican是采用Python开发的，跟现在很多python project一样，可以通过 <a class="reference external" href="http://pypi.python.org">pip</a> 安装，非常方便。我用virtualenv的方式把它安装在用户主目录下，即使重装系统后也无需重新安装pelican。</p>
+<div class="highlight"><pre><span class="nb">cd</span> ~
+virtualenv .pelican
+. .pelican/bin/activate
+pip install pelican
+</pre></div>
+<p>安装完成之后，用pelican-quickstart命令可以创建一个新的博客，只需要按照提示回答几个问题。创建完成之后，博客的设置保存在pelican.conf.py文件里，如果需要的话，可以手动修改。同时还会生成一个Makefile（如果没有选N的话），以后生成和发布网页都可以用make命令自动完成。</p>
+<p>Pelican支持jinja2模板，主题保存在安装目录（通常是python的site-packages）下的themes里。可以在pelican.conf.py里用“THEME = 主题名”来选择要用的主题。最新版本的pelican支持使用路径名，比如“THEME = /path/to/you/theme”，这样就不需要把主题放在安装目录下了。Pelican的是模版系统语法很直白，比较容易看懂，修改起来也很容易。<a class="reference external" href="https://github.com/getpelican/pelican-themes">这里</a> 汇集了很多主题，可以选择一款钟意的做样本来构建自己的博客。</p>
+<p>Pelican支持ReStructuredText和markdown两种标记语言，可以任选一种来撰写博文。个人的感觉是markdown语法比较简单，容易上手，不过ReStrucuturedText的功能更强大，甚至有人可以用它写一整本书的。因为看到关于pelican的资料都是用前者，所以我也就自然而然的选择了这种格式。语法可以参考它的 <a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html">快速入门</a> 。</p>
+<p>静态网页的是无法实现评论功能的，因为评论必须通过CGI将数据POST到服务器上。不过生活在云计算的时代，应该发扬拿来主义，直接使用第三方提供评论系统。好处在于不需要折腾，不担心备份，而且利于推广。第三方评论系统的原理是通过javascript脚本在网页上动态生成评论框，用户提交评论的时候，会把数据POST到第三方评论系统的服务器上，这样即使你的网页空间不支持CGI，也一样可以提供评论功能。使用第三方评论系统，需要通过修改主题里的templates来实现。网上找到的Pelican主题多是老外写的，清一色采用disqus作为评论系统。身在天朝，当然要用充满了乡土气息的朝内版本。这里推荐JiaThis旗下的 <a class="reference external" href="http://uyan.cc">友言</a> 。以前在wordpress里用过，感觉不错。注册了友言账号之后，点击“获取代码”，平台选择“通用平台”，会得到下面这样一段html代码。把这段代码添加到theme/templates/article.html里，放在你想要显示评论的地方，通常都是在页面的最后，或者直接替换掉里面disqus的部分。</p>
+<div class="highlight"><pre><span class="c">&lt;!-- UY BEGIN --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;uyan_frame&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://v2.uyan.cc/code/uyan.js?uid=xxxxxxx&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!-- UY END --&gt;</span>
+</pre></div>
+<p>写技术文章，少不了要帖代码。Pelican可以通过pygments实现语法高亮。Pygments把源码转换成html，源码中的不同元素被赋予不同的class，通过css就可以定制配色方案。写css对我来说相当痛苦，pygments里有一些内置的style，不过好像并没有提供现成的css文件。在github上找到一个 <a class="reference external" href="https://github.com/mhutchin/dump-pygments-css">zsh脚本</a> ，可以把pygments里的内置style dump出来保存为css。也可以直接用别人dump出来的 <a class="reference external" href="https://github.com/Anomareh/pygments-styles-dump">文件</a> 。把要用的css放在主题里的static/css目录下，然后在theme/templates/base.html里增加对这个css的引用。为了方便尝试不同的配色方案，我还在配置文件里添加一个选项：PYGMENTS_STYLE，然后在模板的base.html里加上下面几句。这样只要修改pelican.conf.py就可以很方便的更换配色方案。</p>
+<div class="highlight"><pre>{% if PYGMENTS_STYLE %}
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/theme/css/pygments/{{ PYGMENTS_STYLE }}.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="nt">/&gt;</span>
+{% endif %}
+</pre></div>
+<p>Pelican创建项目时生成的Makefile包括了上传文件到网站空间的命令，支持ssh、ftp、dropbox三种上传方式。其中ftp是比较常用的，一般的网站空间都会支持ftp上传。上传的方法是用lftp的mirror命令，直接把整个目录同步到服务器。加上--only-newer参数可以只上传更新过的文件，减少重复的传输。</p>
+<p>补充</p>
+<ul class="simple">
+<li>2012-05-10</li>
+</ul>
+<p>在使用pelican一段时间之后，我发现了一个问题：虽然我用了--only-newer参数，但是每次上传的时候依然会把所有的文件都重新上传一次。找了一下原因，发现在用make生成html文件的时候，会先删除整个output目录，然后重新生成全部文件，所以每次make之后，所有文件都是新的，都会重新上传。这大概是静态blog的一个不足之处。想想如果以后积累了成百上千篇博文，每次编译和上传所需要的时间，搞不好会变得很恐怖，不知道有没有办法解决。</p>
+<ul class="simple">
+<li>2013-10-23</li>
+</ul>
+<p>最近用lftp上传的时候出现了下面这样的错误。</p>
+<p>Fatal error: Certificate verification: certificate common name doesn't match requested host name '...'</p>
+<p>查了一下，是由于SSL的缘故。修改Makefile里的lftp命令，禁用SSL，问题就解决了。</p>
+<div class="highlight"><pre>lftp ftp://<span class="nv">$FTP_USER</span>@<span class="nv">$FTP_HOST</span> -e <span class="s2">&quot;set ftp:ssl-allow no; mirror -R --only-newer $LOCAL_DIR $REMOTE_DIR ; quit&quot;</span>
+</pre></div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/python.html">python</a>
+      <a href="/blog/tag/blog.html">blog</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

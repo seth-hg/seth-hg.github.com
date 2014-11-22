@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 快盘开放平台OAuth | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 快盘开放平台OAuth</h1>
+    <p class=date> Apr 06, 2012 </p>
+    <p>最近发现金山快盘 <a class="reference external" href="http://www.kuaipan.cn/developers/document.htm">开放API</a> 了，以前一直头疼没有Linux客户端，现在有了API，完全可以自己实现一个简单的客户端。</p>
+<p>开放平台采用OAuth 1.0的认证方式，认证过程分3步。第一步是申请一个临时token，也就是通知服务器要进行授权操作，服务器会准备后面两步需要的相应资源。第二步引导用户访问授权页面，登陆帐号进行授权。第三步获取正式的访问token。</p>
+<p>看了官方文档，觉得授权过程不是很复杂，于是想自己写写试试。写了一段python代码，但是第一步就不能通过，服务器段总是返回401，错误信息是“request expired”。检查了一下，没发现timestamp有问题，搞不清问题出在哪儿。Pypi上找了一下，发现一个现成的包oauth，里面还自带了客户端和服务器端的例子程序，于是拿来改了一下，终于成功授权。</p>
+<p>第一步：</p>
+<div class="highlight"><pre><span class="n">consumer</span> <span class="o">=</span> <span class="n">oauth</span><span class="o">.</span><span class="n">OAuthConsumer</span><span class="p">(</span><span class="n">consumer_key</span><span class="p">,</span> <span class="n">consumer_secret</span><span class="p">)</span>
+<span class="n">oauth_request</span> <span class="o">=</span> <span class="n">oauth</span><span class="o">.</span><span class="n">OAuthRequest</span><span class="o">.</span><span class="n">from_consumer_and_token</span><span class="p">(</span><span class="n">consumer</span><span class="p">,</span> <span class="n">http_url</span><span class="o">=</span><span class="n">request_token_url</span><span class="p">)</span>
+<span class="n">oauth_request</span><span class="o">.</span><span class="n">sign_request</span><span class="p">(</span><span class="n">signature_method_hmac_sha1</span><span class="p">,</span> <span class="n">consumer</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">do_request</span><span class="p">(</span><span class="n">oauth_request</span><span class="p">)</span>
+</pre></div>
+<p>先用consumer_key和consumer_secret创建一个OAuthRequest，目标url指向开放平台提供的requestToken。然后用HMAC-SHA1对请求进行签名，签名算法参数signature_method_hmac_sha1是一个OAuthSignatureMethod_HMAC_SHA1类型的对象，由oauth包提供。第三步调用do_request()方法执行请求，从服务器端取得临时token。这里需要修改一下。例子里在执行http请求时是通过header传递参数的，但是快盘的API只支持url方式传递参数，用OAuthRequest.to_url()方法可以获得请求对应的url。用urllib2里的urlopen()函数打开url，并读取返回响应。修改之后的代码如下。</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">do_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oauth_request</span><span class="p">):</span>
+        <span class="c"># via url</span>
+        <span class="c"># OAuthToken</span>
+        <span class="k">print</span> <span class="n">oauth_request</span><span class="o">.</span><span class="n">to_url</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">oauth_request</span><span class="o">.</span><span class="n">to_url</span><span class="p">())</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">oauth</span><span class="o">.</span><span class="n">OAuthToken</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+<p>另外返回结果是json格式，oauth里面也没有提供相应的处理方法，需要自己写。我在OAuthToken里加了from_json()方法。</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">&#39;oauth_token&#39;</span><span class="p">])</span>
+        <span class="n">secret</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s">&#39;oauth_token_secret&#39;</span><span class="p">])</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">OAuthToken</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">secret</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">token</span><span class="o">.</span><span class="n">callback_confirmed</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">&#39;callback_confirmed&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span> <span class="c"># 1.0, no callback confirmed.</span>
+        <span class="k">return</span> <span class="n">token</span>
+<span class="n">from_string</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">from_string</span><span class="p">)</span>
+</pre></div>
+<p>第二步：</p>
+<p>这一步跟例子区别很大，需要用户访问指定页面并登录授权。服务器会给出相应的授权码作为凭据，这个授权码应该是用作后续请求的verifier，不过根据快盘的文档，为了简化操作，这个verifier目前没有使用，这一步只要给出url让用户登陆授权即可。授权页面地址如下。</p>
+<p><a class="reference external" href="https://www.kuaipan.cn/api.php">https://www.kuaipan.cn/api.php</a>?ac=open&amp;op=authorise&amp;oauth_token=&lt;YourTemporaryToken&gt;</p>
+<p>第三步：</p>
+<p>用临时token获取正式的access token。过程跟第一步基本相同，不过在创建request和签名的时候需要用到第一步获得的临时token。过程如下。</p>
+<div class="highlight"><pre><span class="n">oauth_request</span> <span class="o">=</span> <span class="n">oauth</span><span class="o">.</span><span class="n">OAuthRequest</span><span class="o">.</span><span class="n">from_consumer_and_token</span><span class="p">(</span><span class="n">consumer</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">http_url</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">access_token_url</span><span class="p">)</span>
+<span class="n">oauth_request</span><span class="o">.</span><span class="n">sign_request</span><span class="p">(</span><span class="n">signature_method_hmac_sha1</span><span class="p">,</span> <span class="n">consumer</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">do_request</span><span class="p">(</span><span class="n">oauth_request</span><span class="p">)</span>
+</pre></div>
+<p>完成上面三步，授权就算成功了，用access token可以调用快盘提供的各种API。调用API同样可以通过OAuthRequest来进行。API中的额外参数，可以在创建OAuthRequest对象的时候通过parameters参数指定。比如下面这个语句创建一个create_folder请求，带两个参数root和path。</p>
+<div class="highlight"><pre><span class="n">oauth_request</span> <span class="o">=</span> <span class="n">oauth</span><span class="o">.</span><span class="n">OAuthRequest</span><span class="o">.</span><span class="n">from_consumer_and_token</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">consumer</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">http_url</span><span class="o">=</span><span class="n">API_BASE_URL</span><span class="o">+</span><span class="s">&#39;create_folder&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="s">&#39;app_folder&#39;</span><span class="p">,</span> <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;test&#39;</span><span class="p">})</span>
+</pre></div>
+<p>不过我尝试了多次，创建目录总是不能成功，返回状态400，错误消息“bad location”，貌似是path参数不对。目前还不清楚是什么原因。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/python.html">python</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

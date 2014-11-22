@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 整数分解算法 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 整数分解算法</h1>
+    <p class=date> Apr 01, 2014 </p>
+    <p><a class="reference external" href="http://en.wikipedia.org/wiki/Integer_factorization">整数分解</a> 就是质因数分解，把一个合数分解成几个质数乘积的形式。整数分解是计算机领域的一个重要算法，在计算复杂性理论、密码学等领域有重要的应用。</p>
+<p>要分解整数N，可以用递归的方法，先找到N的一个质因数a，然后再递归的对N/a进行分解，直到剩下的数为质数不能继续分解为止。这样问题就转化为寻找N的一个质因数。一个最简单的思路是逐个测试区间(1, sqrt(N)]内的每个质数，看能否被N整除。如果N是合数，则一定能找到一个质数a使得N整除a。这种方法叫作 <a class="reference external" href="http://en.wikipedia.org/wiki/Trial_division">试除法</a> ，用的是穷举的思想，容易理解但是效率很低。当N比较大的时候，这个方法就会比较慢。</p>
+<p>这里介绍另外一种算法—— <a class="reference external" href="http://www.csh.rit.edu/~pat/math/quickies/rho/">Pollard's Rho算法</a> 。本质其实是类似的，也是对一个集合中的数字逐个进行测试，直到找到需要的质因数为止，但是测试数列产生的方法和测试的方法都不同。Pollard Rho算法并不是简单的用所有可能的质数去试，而是采用了 <a class="reference external" href="http://en.wikipedia.org/wiki/Monte_Carlo_method">蒙特卡洛方法</a> 。</p>
+<p>测试数列S用递推的方式产生：定义一个多项式函数f(x)，通常采用f(x) = k * x<sup>2</sup> + c的形式，令x<sub>1</sub> 为最小的质数2，并且x<sub>n+1</sub> = f(x<sub>n</sub>)。</p>
+<p>数学常识告诉我们，函数f(x)是发散的。如果一直递推下去，S中的数无穷无尽。这里就要用到模运算，也就是取余数。在模运算里，说a = b是指a和b除以同一个数n得到的余数相同，记作：</p>
+<blockquote>
+a = b (modulo n)</blockquote>
+<p>模运算具有可传递性，而且这种传递性对于加减乘除和乘方运算都成立，也就是说，对于下面等式：</p>
+<blockquote>
+a + b = c (modulo n)</blockquote>
+<p>对于任意a' = a (modulo n)，把上式中的a换成a'，等式仍然成立。</p>
+<p>利用模运算对对f(x)做一下修改：</p>
+<blockquote>
+f(x) = k * x<sup>2</sup> + c (modulo N)</blockquote>
+<p>这样S就成了一个有限的数列，因为最多之可能有N-1个数。可以知道，数列中一定会出现某一项x<sub>j</sub> = x<sub>i</sub> ，并且i &lt; j，根据模运算的传递性，则有f(x<sub>j</sub>) = f(x<sub>i</sub>)，数列进入一个循环。当然这个循环很可能不是从数列的第一项就开始的，而是从中间的某一项，这样就带了一个小“尾巴”，就像希腊字母ρ，这也是该算法被命名为rho的原因（Pollard是发明者的名字）。</p>
+<p>寻找质因数的测试过程如下：对S中的每一个x<sub>k</sub> （k为奇数），算出(x<sub>k</sub> - x<sub>k/2</sub>)和N的最大公约数（Greatest Common Divisor）g，如果g不为1，则g是N的一个质因数。用这种方法一定可以找到N的一个质因数。该算法的Python实现如下：</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">pollardRho</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">N</span> <span class="o">%</span> <span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c">#uso come funzione (x^2 + c)</span>
+    <span class="k">while</span> <span class="n">g</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">%</span><span class="n">N</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">%</span><span class="n">N</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">((</span><span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">+</span><span class="n">c</span><span class="p">)</span><span class="o">%</span><span class="n">N</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">),</span><span class="n">N</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">g</span> <span class="o">==</span> <span class="n">N</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">g</span>
+
+<span class="k">def</span> <span class="nf">factorize</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="n">factors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">/=</span> <span class="n">f</span>
+    <span class="k">return</span> <span class="n">factors</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">factorize</span><span class="p">(</span><span class="mi">16843009</span><span class="p">,</span> <span class="n">pollardRho</span><span class="p">)</span>
+</pre></div>
+<p>用Pollard's Rho算法寻找质因数的过程具有一定的随机性，也跟函数f(x)的选择是否恰当有关，对它的时间复杂度分析比较困难。一个并不严谨的结论是：对于任意n，该算法最多有1/2的概率能在O(n<sup>1/4</sup>)步之内找到一个质因数。</p>
+<p>整数分解算法还有很多，Pollard's Rho算法只是比较有代表性的一种，有很多方法都是以它为基础进行改进的，其它方法可以参考Wikipedia。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/algorithm.html">algorithm</a>
+      <a href="/blog/tag/programming.html">programming</a>
+      <a href="/blog/tag/python.html">python</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

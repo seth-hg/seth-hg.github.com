@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Linux下音频格式转换 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Linux下音频格式转换</h1>
+    <p class=date> May 13, 2012 </p>
+    <p>网上下载了不少音乐，各种格式都有，为了能够在手机、MP3等各种设备下都能播放，时常需要进行格式转换。这里总结一下常用的音频编解码工具，全部都是开源软件，可以在Linux下使用。</p>
+<div class="section" id="ffmpeg">
+<h2><a class="reference external" href="http://ffmpeg.org">ffmpeg</a></h2>
+<p>超强的开源多媒体处理工具，像Kmplayer、暴风影音之类的播放器里面大量盗用了ffmpeg的成果。Ffmpeg集编码、解码、串流、混合、分离等多项功能于一身，音频格式转换当然不成问题。自带的命令行工具可以进行音频和视频的格式转换，ffmpeg -codecs可以看到当前系统支持的格式。</p>
+</div>
+<div class="section" id="mac">
+<h2><a class="reference external" href="http://supermmx.org/linux/mac/">mac</a></h2>
+<p>Monkey's Audio（也就是APE格式）的codec，官方只有win版，但是公开了源代码，所以有了非官方的Linux移植版。自带命令行前端可以进行编码和解码，执行mac可以看到用法。</p>
+</div>
+<div class="section" id="flac">
+<h2><a class="reference external" href="http://flac.sourceforge.net/">flac</a></h2>
+<p>Flac是开放的格式，自然有相应的开源工具包。</p>
+</div>
+<div class="section" id="lame">
+<h2><a class="reference external" href="http://lame.sourceforge.net/">lame</a></h2>
+<p>开源的mp3编码工具。</p>
+</div>
+<div class="section" id="shntool">
+<h2><a class="reference external" href="http://www.etree.org/shnutils/shntool/">shntool</a></h2>
+<p>多功能音频处理工具，本身只支持wav波形文件，但是通过helper program可以支持多种音频格式。Shntool最有用的功能大概是音频分割了。网上下载的很多音乐都是整张CD一个文件，然后用cue文件区分音轨，shntool可以直接根据cue文件进行分割。</p>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/linux.html">linux</a>
+      <a href="/blog/tag/audio.html">audio</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> Chrome插件开发小结 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> Chrome插件开发小结</h1>
+    <p class=date> Nov 05, 2011 </p>
+    <p>这几天写了个简单的chrome扩展，总结一下。</p>
+<ol class="arabic simple">
+<li>Manifest很重要。Manifest.json决定了这个扩展程序可以使用哪些资源和API，如果写错了，正确的代码也无法执行。这种做法有一个好处是强迫你先做好设计，先想清楚自己需要用到哪些东西，而不是盲目的写代码。这个问题上我犯过不止一次错误，急躁的毛病还是要改改。</li>
+<li>用console输出调试信息。调试程序最简单最直接的办法就是在代码里加调试输出，然后查看输出结果就可以了解程序执行的过程和关键数据。C里面用printf()，Javascript里面可以用alert()弹出对话框输出信息。但是弹出窗口很不方便，特别是输出较多的时候。另外对于background page，是不能弹出对话框的。所以更好的做法是用console.log()输出的console。有些页面（比如popup）是不能直接输出到console的，可以调用chrome.extension.getBackgroundPage().console.log()输出到background page的console。查看log可以用下面方法：对于Content script，直接在当前页面按Ctrl + Shift + I打开调试工具，在console标签里查看；对于Background page，在“选项”的“扩展程序”页面里面查看，选上“开发人员模式”，然后每个插件展开后都会有一个backgroud page的链接（如果有background page的话），点击就可以打开background page的控制台。</li>
+<li>找别人的代码来参考。我从来不喜欢死看教程，很多东西找段代码一看就什么都明白了。可以到github等项目托管网站或者一些代码搜索网站上找别人的代码作参考。直接搜你想查的函数，可以得到很多结果。</li>
+<li>学会用回调。Chrome插件用Javascript开发，而回调是Javascript的一个重要特性。Chrome提供的API里面很多是基于回调的，甚至连一个简单的tabs.getSelected()得到当前选中的tab，都要用回调。所以理解回调的原理，学会用回调很重要。回调是在异步通信中用来返回结果给消息发送者的。理解回调的一个关键点是，执行回调的和发送请求的（也就是设置回调函数的）是两个并发的线程。由于是异步非阻塞的，回调函数的执行时间完全取决于消息接收方的响应速度，getSelected()函数返回之后它的回调函数并没有返回。Javascript里面的回调可以用匿名函数的方式直接写在参数表里，这种写法很具有迷惑性，让人误以为函数返回之后回调也执行完了，我就在这个上面栽了跟头。在写这个扩展程序的过程中，我使用了一个for循环逐条处理搜索结果，并用sendRequest()向background page发送消息，但是我在回调函数里引用了循环里的变量，每次循环结束这些变量都会改变，因此当回调执行时，取到的值已经不是我想要的了。</li>
+</ol>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/chrome.html">chrome</a>
+      <a href="/blog/tag/javascript.html">javascript</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

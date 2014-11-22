@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> YCSB Benchmark | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> YCSB Benchmark</h1>
+    <p class=date> Oct 22, 2013 </p>
+    <p><a class="reference external" href="https://github.com/brianfrankcooper/YCSB">Yahoo Cloud System Benchmark</a> is a tool for benchmarking cloud storage services, specifically, NoSQL databases. This article will show how to run YCSB and use it to evaluate two open source NoSQL databases, Cassandra and MapKeeper(with LevelDB backend).</p>
+<div class="section" id="get-ycsb">
+<h2>Get YCSB</h2>
+<p>Use <em>git</em> to get the latest version of YCSB.</p>
+<div class="highlight"><pre>git clone git://github.com/brianfrankcooper/YCSB.git
+</pre></div>
+<p>There are prebuilt jar files in the repository. To build it for yourself, install <em>maven</em> and then</p>
+<div class="highlight"><pre>mvn clean package
+</pre></div>
+<p>There is a Python wrapper bin/ycsb, which makes it easier to use YCSB. A typical commandline looks like this:</p>
+<div class="highlight"><pre>./bin/ycsb <span class="o">[</span>load|run<span class="o">]</span> DATABASE -P WORKLOAD -p <span class="nv">key</span><span class="o">=</span>value -s -target n -threads n
+</pre></div>
+<p>The <em>load</em> command will populate the database with some random records. The number and size of records are defined in the workload specification. The <em>run</em> command starts the benchmark.</p>
+<p>-P gives the workload you want to use in the benchmark. There are predefined workloads in the directory named workloads. And -p is used to override one or more properties of the workload. -target specifies the target throughput of the benchmark. YCSB will stress the system until it reaches the target throughput. -thread is the number of concurrent clent threads.</p>
+</div>
+<div class="section" id="benchmark-cassandra">
+<h2>Benchmark Cassandra</h2>
+<ol class="arabic simple">
+<li>Install Cassandra</li>
+</ol>
+<p>The easiest way to install Cassandra on Ubuntu is using the offical package repositories on apache.org. Add the following lines to /etc/apt/sources.list.</p>
+<div class="highlight"><pre>deb http://www.apache.org/dist/cassandra/debian 10x main
+deb-src http://www.apache.org/dist/cassandra/debian 10x main
+</pre></div>
+<p>And then</p>
+<div class="highlight"><pre>sudo apt-get update
+sudo apt-get install cassandra
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>Prepare the Database</li>
+</ol>
+<p>Start Cassandra</p>
+<div class="highlight"><pre>sudo service cassandra start
+</pre></div>
+<p>Create the key space and column family using <em>cassandra-cli</em></p>
+<div class="highlight"><pre>cassandra-cli
+
+connect localhost/9160
+create keyspace usertable;
+use usertable;
+create column family data with <span class="nv">column_type</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span> and <span class="nv">comparator</span> <span class="o">=</span> <span class="s1">&#39;UTF8Type&#39;</span>;
+<span class="nb">exit</span>;
+</pre></div>
+<p>Load initial data set</p>
+<div class="highlight"><pre>./bin/ycsb load cassandra-10 -P workloads/workloada -p <span class="nv">hosts</span><span class="o">=</span>localhost -s &gt; load.log
+</pre></div>
+<ol class="arabic simple" start="3">
+<li>Run the Benchmark</li>
+</ol>
+<div class="highlight"><pre>./bin/ycsb run cassandra-10 -P workloads/workloada -p <span class="nv">hosts</span><span class="o">=</span>localhost -s &gt; load.log
+</pre></div>
+</div>
+<div class="section" id="benchmark-mapkeeper">
+<h2>Benchmark MapKeeper</h2>
+<ol class="arabic simple">
+<li>Build Thrift and MapKeeper</li>
+</ol>
+<p>Follow the <a class="reference external" href="https://github.com/m1ch1/mapkeeper/wiki/Getting-Started">steps</a> on the MapKeeper wiki to build Thrift and MapKeeper. Building Java binding of MapKeeper(gen-java) failed on my system, but it dosen't matter since I don't need it.</p>
+<ol class="arabic simple" start="2">
+<li>Build mapkeeper_leveldb</li>
+</ol>
+<p>Install LevelDB via <em>apt-get</em> or build it from source.</p>
+<div class="highlight"><pre>apt-get install libleveldb-dev
+</pre></div>
+<p>Then <em>make</em> in mapkeeper/leveldb. On my system, I have to manually add <em>-lboost_system</em> to the mapkeeper/leveldb/Makefile to build it successfully.</p>
+<ol class="arabic simple" start="3">
+<li>Benchmark</li>
+</ol>
+<div class="highlight"><pre>./bin/ycsb load mapkeeper -P workloads/workloada -s &gt; mp.load.log
+./bin/ycsb run mapkeeper -P workloads/workloada -s &gt; mp.run.log
+</pre></div>
+</div>
+<div class="section" id="comparasion">
+<h2>Comparasion</h2>
+<p>I ran the benchmarks above on my old PC. It is configured with a dual core processor and 3GB of memory. A dedicated Seagate HDD is used for data storage. The benchmark results are in the figures below. Given the hardware configuration, these numbers may not be representative. However, the comparation is still interesting.</p>
+<p>The benchmarks use <em>workloada</em> with 1,000,000 records and 1,000,000 operations. For Cassandra, <em>concurrent_reads</em> and <em>concurrent_writes</em> are both set to 16, as suggested in cassandra.yaml.</p>
+<div class="figure align-center">
+<img alt="update performance" src="/images/ycsb/update.png" style="width: 80%;" />
+</div>
+<div class="figure align-center">
+<img alt="read performance" src="/images/ycsb/read.png" style="width: 80%;" />
+</div>
+<p>Although both databases are built on the same data structure(SSTable), their performance differs significantly. As we can see, Cassandra is surprisingly fast for updates and this is constant. But its read performance is poor and long spikes appears periodically. On contrary, MapKeeper is much faster for reads and a lot slower for updates. Anyway, it took only half the time of Cassandra to complete the 1,000,000 operations.</p>
+<p>Also, it is a little wired that the performance of MapKeeper increases with time. I ran the benchmark several times and kept getting similar results. I've got no idea why this happens.</p>
+</div>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/big-data.html">Big Data</a>
+      <a href="/blog/tag/benchmark.html">Benchmark</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>
