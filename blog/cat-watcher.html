@@ -76,8 +76,8 @@
 <h2>软件源码</h2>
 <div class="section" id="arduino">
 <h3>Arduino</h3>
-<div class="highlight"><pre><span class="cp">#include &lt;SoftwareSerial.h&gt;</span>
-<span class="cp">#include &lt;Adafruit_VC0706.h&gt;</span>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;SoftwareSerial.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;Adafruit_VC0706.h&gt;</span><span class="cp"></span>
 
 <span class="k">const</span> <span class="kt">int</span> <span class="n">ir_sensor_pin</span> <span class="o">=</span> <span class="n">PIN_IR_SENSOR</span><span class="p">;</span>
 
@@ -142,22 +142,22 @@
 </div>
 <div class="section" id="id7">
 <h3>树莓派</h3>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">localtime</span><span class="p">,</span> <span class="n">strftime</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">abspath</span>
 
-<span class="n">default_port</span> <span class="o">=</span> <span class="s">&#39;/dev/ttyUSB0&#39;</span>
+<span class="n">default_port</span> <span class="o">=</span> <span class="s1">&#39;/dev/ttyUSB0&#39;</span>
 <span class="n">default_baud</span> <span class="o">=</span> <span class="mi">38400</span>
 
-<span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">&#39;Taking snapshots with arduino camera.&#39;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-b&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;baud&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&#39;Serial baudrate&#39;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&#39;Output directory&#39;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">&#39;-p&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;store&#39;</span><span class="p">,</span>
-                           <span class="n">help</span><span class="o">=</span><span class="s">&#39;Serial port&#39;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Taking snapshots with arduino camera.&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;baud&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Serial baudrate&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output directory&#39;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store&#39;</span><span class="p">,</span>
+                           <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Serial port&#39;</span><span class="p">)</span>
 <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">:</span>
@@ -165,52 +165,52 @@
 <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">baud</span><span class="p">:</span>
     <span class="n">args</span><span class="o">.</span><span class="n">baud</span> <span class="o">=</span> <span class="n">default_baud</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
-    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">args</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">abspath</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 
 <span class="n">s</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">baud</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s">&#39;setting up camera...&#39;</span><span class="p">,</span>
+<span class="k">print</span> <span class="s1">&#39;setting up camera...&#39;</span><span class="p">,</span>
 <span class="n">ok</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s">&#39;OK&#39;</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">&#39;failed&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s1">&#39;failed&#39;</span>
     <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&#39;ok&#39;</span>
+<span class="k">print</span> <span class="s1">&#39;ok&#39;</span>
 
-<span class="k">print</span> <span class="s">&#39;waiting...&#39;</span>
+<span class="k">print</span> <span class="s1">&#39;waiting...&#39;</span>
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s">&#39;OK&#39;</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;failed to take picture&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s1">&#39;failed to take picture&#39;</span>
         <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">print</span> <span class="s">&#39;detected, receiving data...&#39;</span>
+    <span class="k">print</span> <span class="s1">&#39;detected, receiving data...&#39;</span>
 
     <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">.jpg&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s">-%H-%M-%S&#39;</span><span class="p">))</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.jpg&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">-%H-%M-%S&#39;</span><span class="p">))</span>
     <span class="n">framelen</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">framelen</span><span class="p">))</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">print</span> <span class="n">framelen</span><span class="p">,</span> <span class="s">&#39;bytes saved to&#39;</span><span class="p">,</span> <span class="n">filename</span>
+        <span class="k">print</span> <span class="n">framelen</span><span class="p">,</span> <span class="s1">&#39;bytes saved to&#39;</span><span class="p">,</span> <span class="n">filename</span>
 
-    <span class="c"># reset camera</span>
-    <span class="k">print</span> <span class="s">&#39;reseting camera...&#39;</span><span class="p">,</span>
+    <span class="c1"># reset camera</span>
+    <span class="k">print</span> <span class="s1">&#39;reseting camera...&#39;</span><span class="p">,</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s">&#39;OK&#39;</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;failed&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="o">==</span> <span class="s1">&#39;OK&#39;</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s1">&#39;failed&#39;</span>
         <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">print</span> <span class="s">&#39;ok&#39;</span>
+    <span class="k">print</span> <span class="s1">&#39;ok&#39;</span>
 </pre></div>
 </div>
 <div class="section" id="id8">
 <h3>一个简单的相册</h3>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">url_for</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">url_for</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
 
 <span class="n">photos_per_page</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">photo_dir</span> <span class="o">=</span> <span class="s">&#39;static/photos&#39;</span>
+<span class="n">photo_dir</span> <span class="o">=</span> <span class="s1">&#39;static/photos&#39;</span>
 
 <span class="k">class</span> <span class="nc">Pagination</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">per_page</span><span class="p">,</span> <span class="n">total_count</span><span class="p">):</span>
@@ -245,25 +245,25 @@
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;page&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&lt;int:page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&lt;int:page&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
     <span class="n">photos</span> <span class="o">=</span> <span class="n">listdir</span><span class="p">(</span><span class="n">photo_dir</span><span class="p">)</span>
     <span class="n">photos</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">photos</span> <span class="o">=</span> <span class="n">photos</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">photos_per_page</span>
     <span class="n">pagination</span> <span class="o">=</span> <span class="n">Pagination</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">photos_per_page</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">photos</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Photos&#39;</span><span class="p">,</span> <span class="n">photos</span><span class="o">=</span><span class="n">photos</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">photos_per_page</span><span class="p">],</span> <span class="n">pagination</span><span class="o">=</span><span class="n">pagination</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Photos&#39;</span><span class="p">,</span> <span class="n">photos</span><span class="o">=</span><span class="n">photos</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">photos_per_page</span><span class="p">],</span> <span class="n">pagination</span><span class="o">=</span><span class="n">pagination</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">url_for_other_page</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">view_args</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">args</span><span class="p">[</span><span class="s">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span>
+    <span class="n">args</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span>
     <span class="k">return</span> <span class="n">url_for</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">endpoint</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
-<span class="n">app</span><span class="o">.</span><span class="n">jinja_env</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s">&#39;url_for_other_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url_for_other_page</span>
+<span class="n">app</span><span class="o">.</span><span class="n">jinja_env</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s1">&#39;url_for_other_page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url_for_other_page</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">app</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="s">&#39;0.0.0.0&#39;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -277,12 +277,12 @@
 </ol>
 <p>这个问题只有在树莓派上解决了，好在BCM2835还有一定的计算能力。接收到Arduino传过来的照片之后，比较新照片跟前一张照片，如果二者相似，就可以丢弃当前照片。这个可以用pHash来实现。pHash是一个用来检测媒体文件相似度的算法。普通的hash算法为了增加破解的难度需要“雪崩效应”，也就是输入数据发生一点微小的变化，输出指纹也会变得面目全非。pHash则正好相反，相似的输入会产生相似的输出，因此只要比较前后两张照片的指纹，就可以判断是否相似。</p>
 <p>下面代码实现一个异步的图片去重类。由于背景是固定的，任意两张照片之间的相似度都很高，所以这里的过滤相似图片的默认阈值也设得比较高。</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">phash</span> <span class="kn">import</span> <span class="n">cross_correlation</span><span class="p">,</span> <span class="n">image_digest</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phash</span> <span class="kn">import</span> <span class="n">cross_correlation</span><span class="p">,</span> <span class="n">image_digest</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">Event</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
-<span class="n">tmpfile</span> <span class="o">=</span> <span class="s">&#39;/run/shm/ooxxoo.jpg&#39;</span>
+<span class="n">tmpfile</span> <span class="o">=</span> <span class="s1">&#39;/run/shm/ooxxoo.jpg&#39;</span>
 
 <span class="k">class</span> <span class="nc">pipeline</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmpfile</span><span class="o">=</span><span class="n">tmpfile</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.995</span><span class="p">):</span>
@@ -302,21 +302,21 @@
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-            <span class="c"># process all submitted jobs</span>
+            <span class="c1"># process all submitted jobs</span>
             <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
                 <span class="k">except</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
                     <span class="k">break</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpfile</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpfile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filedata</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                     <span class="n">digest</span> <span class="o">=</span> <span class="n">image_digest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpfile</span><span class="p">)</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span> <span class="ow">and</span> \
                         <span class="n">cross_correlation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span><span class="p">,</span> <span class="n">digest</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresh</span><span class="p">:</span>
                         <span class="k">continue</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filedata</span><span class="p">)</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">last_digest</span> <span class="o">=</span> <span class="n">digest</span>

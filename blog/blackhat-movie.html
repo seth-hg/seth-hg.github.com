@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+    <link href='http://fonts.googleapis.com/css?family=Noticia+Text:400,700' rel='stylesheet' type='text/css' />
+    -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title> 为一部烂片点赞 | Life Sucks </title>
+
+    <link rel="stylesheet" href="/blog/theme/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/blog/theme/css/font-awesome.css" type="text/css"/>
+  </head>
+  <body>
+    <div class=container>
+
+      <div class=navigation>
+        <ul>
+            <li><a href="/blog/index.html">Blog</a> </li>
+            <li><a href="/blog/archives.html">Archive</a> </li>
+            <li><a href="/blog/tags.html">Tags</a> </li>
+            <li><a href="/blog/../timeline/">Timeline</a> </li>
+            <li><a href="/blog/pages/about.html">About</a> </li>
+        </ul>
+      </div>
+      <div class=separator></div>        
+        <div class=body>
+    <h1 class="title"> 为一部烂片点赞</h1>
+    <p class=date> May 03, 2015 </p>
+    <p>不知道是不是因为最近几年各种黑客活动闹得很凶，连娱乐圈也开始对这个话题产生兴趣，于是就有了这部中美合作的“大片”——《Blackhat》。虽然这部电影有无数可以吐槽的地方，不过有一点让人十分佩服，那就是影片中出现的每一个技术细节都力求真实。片名“blackhat”，直译过来就是“黑帽子”，是指黑客当中为了利益专门进行恶意破坏的一个群体。同理，还有跟黑帽相反的白帽，以及游移于两者之间的灰帽。相比“黑客”这个笼统的称呼，“黑帽”的含义更明确，从这里就能看出制作人员严谨的态度。下面就来看看影片中是怎么表现各种技术细节的。</p>
+<ol class="arabic simple">
+<li>剧情从香港柴湾的核电站被黑客攻击开始。力宏扮演的中国军方网络安全专家受命进行调查。因为之前美国也发生过同样的攻击，但是没有成功。为了分析攻击所用的恶意软件，力宏联络了FBI并从对方的网站上下载了恶意软件的源码。在力宏啃代码啃到发飚这段戏里，可以清楚的看到几个源码片段。能看清楚的内容有限，而且大部分函数名、变量名都毫无意义，很难分析这段代码到底是做什么的。不过勤劳的 <a class="reference external" href="http://kevfquinn.tumblr.com/post/105699388923/moviecode-second-screen-of-this-new-blackhat#_=_">歪果网友</a> 已经找到了这段代码的 <a class="reference external" href="http://codepad.org/m5RFiuqI">出处</a> ，原来这是一段反编译可执行文件之后得到的代码，所以才会如此怪异。不过看代码居然没有语法高亮，道具组还是图样了。</li>
+</ol>
+<div class="figure align-center">
+<img alt="source code 1" src="/images/blackhat/source1.png" />
+</div>
+<div class="figure align-center">
+<img alt="source code 2" src="/images/blackhat/source2.png" />
+</div>
+<div class="figure align-center">
+<img alt="source code 3" src="/images/blackhat/source3.png" />
+</div>
+<ol class="arabic simple" start="2">
+<li>之后美国的股票交易所也受到攻击，黑客盗走了一大笔钱。于是力宏来到美国寻求合作。一个看起来牛B哄哄的美方专家正在给大家讲解攻击的原理：先在目标机器上安装RAT（Remote Access Trojan），然后下载payload（也就是另一个恶意软件）实施攻击。RAT就是所谓的特洛伊木马，这是很常见的黑客攻击方式，不过身为高级专家，居然只能讲出如此简单的分析，少不了被牛人力宏鄙视一番。</li>
+</ol>
+<div class="figure align-center">
+<img alt="rat" src="/images/blackhat/rat.png" />
+</div>
+<div class="figure align-center">
+<img alt="intern" src="/images/blackhat/intern.png" />
+</div>
+<ol class="arabic simple" start="3">
+<li>由于美方专家水平捉鸡，在力宏的要求下，美方放出了正在坐牢的雷大锤协助调查，再加上力宏的妹妹汤美女，三人核心调查组就成立了。一行人来到被入侵的数据中心。管理员对于入侵的方式百思不得其姐，而大锤用了一条cat命令就让恶意软件现了形。原来管理员的U盘被临时工动了手脚，加了一个autorun.inf，只要插上电脑就会自动执行名为.mssvc的恶意程序。不过这个机制是windows特有的，它是怎么感染Linux服务器的，只有天知道了。这里除了用到cat命令查看文本文件的内容之外，还用了xxd命令查看二进制文件。</li>
+</ol>
+<div class="figure align-center">
+<img alt="autorun" src="/images/blackhat/autorun.png" />
+</div>
+<ol class="arabic simple" start="4">
+<li>大锤分析U盘上的可执行文件寻找线索。虽然是二进制文件，但还是能看到不少文本片段，比如图中红框标出来的，有函数名，还有注释。这就是编译完代码之后不strip的结果。想当年国防科大号称研发了自主知识产权的银河麒麟操作系统，被人 <a class="reference external" href="http://www.dancefire.org/article/Kernel_Similarity_Analysis.html">分析内核二进制文件</a> ，结果发现函数名跟FreeBSD的相似度达到99.45%。几年之后，再也没有人提银河麒麟，只有一个叫 <a class="reference external" href="http://www.cs2c.com.cn/">中标麒麟</a> 的发行版本。所以说没文化真可怕，做贼也不例外。</li>
+</ol>
+<div class="figure align-center">
+<img alt="binary" src="/images/blackhat/binary.png" />
+</div>
+<ol class="arabic simple" start="5">
+<li>大锤带着汤美女赶到临时工住的出租屋调查，可惜已经人死茶凉。汤美女发现临时工上网一直都有带 <a class="reference external" href="https://www.torproject.org/">TOR</a> 。TOR就是洋葱路由（The Onion Router），著名的匿名网络工具。黑客用它来隐藏自己的真实IP地址，防止被追查。当然，在天朝上国，它还有一个更重要的用途——科学上网。汤美女来上这么一段解说大概是为了刷刷存在感，反正对剧情是没有什么帮助的。</li>
+</ol>
+<div class="figure align-center">
+<img alt="tor" src="/images/blackhat/tor.png" />
+</div>
+<ol class="arabic simple" start="6">
+<li>临时工死掉之前打开了自己的邮箱没关。大锤发现了一封待回复的email，于是约幕后的boss去韩国餐馆见面。然而对方并没有出现，原来幕后boss入侵了餐馆里的监控服务器，一直在用摄像头监视他们两个。大锤发现之后，噼里啪啦的敲了几条命令：who、whois和write。好吧，虽然这种近似大白话的命令看起来没什么B格，但都是货真价实的。首先，大锤用who命令发现有个叫sdksdk的用户远程登录了这台机器。接下来，用whois命令查询到sdksdk所用的IP地址属于乌克兰。有点常识的人一眼就能看出来，这个IP是假的：IPv4地址是4个字节，每个字节8位，所以最大的数是2^8-1=255。当然，这也是可以理解的，如果放个真的IP上去容易引起不必要的麻烦。最后，大锤用write命令跟对方说：我要上了你。write命令可以向当前登录的其它用户发送信息。</li>
+</ol>
+<div class="figure align-center">
+<img alt="who" src="/images/blackhat/who.png" />
+</div>
+<div class="figure align-center">
+<img alt="whois" src="/images/blackhat/whois.png" />
+</div>
+<div class="figure align-center">
+<img alt="write" src="/images/blackhat/write.png" />
+</div>
+<ol class="arabic simple" start="7">
+<li>调查走进了死胡同，大锤只好带着汤美女到柴湾跟其他人会合，旅途中顺便推倒了汤美女。导演实在太小气，汤美女里面什么样我们都看过了，为什么还要安排这种蜻蜓点水的床戏？来到柴湾，现场工作人员告诉大家，电站里控制水泵的PLC被入侵了。PLC可以理解为缩水版的PC，主要用于工业控制。编剧确实做了功课，不过还是差了一点点，PLC的全称是Programmable Logic Controller。</li>
+</ol>
+<div class="figure align-center">
+<img alt="plc" src="/images/blackhat/plc.png" />
+</div>
+<ol class="arabic simple" start="8">
+<li>调查小组找到了香港警方，他们已经对几个嫌疑人进行了跟踪，发现了油麻地的一个可疑地点，于是前去调查。只见大锤拿出一个安卓手机，打开一个叫 <a class="reference external" href="http://www.oscium.com/spectrum-analyzers">WiPry</a> 的app，对着屏幕上华丽的波形图，来回一晃悠，就找到了一个黑客藏在草丛里的设备。WiPry这个东西还真不是瞎编的，用来做频谱分析的，不要问我是什么意思，我也完全不懂。只不过使用WiPry必须要有相应的硬件支持，并不像电影里面一样随便一个手机就可以的。真正的完全体看起来应该是 <a class="reference external" href="http://www.oscium.com/sites/default/files/styles/medium/public/product-kits/Spectrum-Analyzer-iPhone-Two-Angles_0.jpg?itok=P_STvztN">这个样子</a> 。</li>
+</ol>
+<div class="figure align-center">
+<img alt="wipry1" src="/images/blackhat/wipry1.png" />
+</div>
+<div class="figure align-center">
+<img alt="wipry2" src="/images/blackhat/wipry2.png" />
+</div>
+<ol class="arabic simple" start="9">
+<li>大锤找到的设备是蓝牙发射器，里面的数据都是GPG加密过的，密钥至少512位，很难破解。 <a class="reference external" href="https://www.gnupg.org/">GPG</a> 全称Gnu Privacy Guard，是著名的开源加密软件。只要密钥够长，NSA对它也是没有什么办法的，据说Snowden跟记者联络爆料的时候就是用这个加密的。所以如果你有什么东西不想让人看，可以考虑用GPG来加密。</li>
+</ol>
+<div class="figure align-center">
+<img alt="gpg" src="/images/blackhat/gpg.png" />
+</div>
+<ol class="arabic simple" start="10">
+<li>为了获得恶意软件的完整样本进行分析，大锤不得不冒险进入被污染的核电站控制室。可惜取出的硬盘已经损坏，调查小组必须要用NSA的一个叫作black widow的系统来恢复数据，但是对方傲娇的联络人就是不给帐号。大锤只好自己动手，使用 <a class="reference external" href="http://en.wikipedia.org/wiki/Social_engineering_%28security%29">社会工程学</a> 手段窃取帐号。所谓“社会工程学”（Socal Engineering），简单来说就是“坑蒙拐骗偷”。在任何一个系统里，最不安全的既不是软件也不是硬件，而是人。社会工程学就是从人下手。关于社会工程学，可以看看最近上映的另一部类似题材的德国电影 <a class="reference external" href="http://movie.douban.com/subject/25932086/">《Who Am I》</a> 。大锤用的方法是钓鱼，伪装成上级发邮件给NSA联络人，要求对方修改帐号密码。附件的pdf实际上是个键盘记录器，只要打开，所有的按键操作都会被记录发送给黑客。钓鱼是一种常用的欺骗手段，比如我就收到过很多次冒充QQ安全中心发送的邮件（下面第三张图），邮件里的链接会把你带到一个伪造的QQ安全中心网页。这种是很容易识别的，只有留心看一下发件人的邮箱地址和网页的网址就很容易发现有问题。还有更变态的，比如通过假的手机基站为装成10086发送 <a class="reference external" href="http://it.people.com.cn/n/2015/0525/c1009-27048741.html">钓鱼短信</a> ，以及来历不明的 <a class="reference external" href="http://gd.sina.com.cn/mm/social/2015-05-25/08559409.html">微信红包</a> 。一句话，做人不能贪心。言归正传，大锤成功骗到帐号，恢复了数据，查到幕后boss的真身在雅加达。</li>
+</ol>
+<div class="figure align-center">
+<img alt="social engineering 1" src="/images/blackhat/se1.png" />
+</div>
+<div class="figure align-center">
+<img alt="social engineering 3" src="/images/blackhat/se3.png" />
+</div>
+<div class="figure align-center">
+<img alt="qq" src="/images/blackhat/qq.png" />
+</div>
+<ol class="arabic simple" start="11">
+<li>接下来经过各方势力的一番撕B，力宏牺牲了，大锤和汤美女来到雅加达找幕后boss报仇。大锤开车撞进了黑客服务器所在的数据中心，在一片混乱种种悄悄摸进了机房，窃取恶意软件源码。只见大锤启动服务器，见到了熟悉的grub启动界面。然后一阵捣鼓，就进入了命令行界面，还是root（相当于Windows的管理员）。大锤在不知道密码的情况下，是怎么进入系统的呢？注意下面第二张图，最后有一个single，这是Linux内核的启动参数，表示进入单用户模式，加在第一张图里的kernel那一行，就可以在没有密码的情况下以root用户登录系统。想当年我在学校机房不知道密码的时候也经常这么干，进入系统之后就随便改一个只有自己知道的密码，不知道祸害了多少人。不过使用这个方法的前提是必须能接触到机器，这也是锤哥必须肉身入侵而不能远程操作的原因。</li>
+</ol>
+<div class="figure align-center">
+<img alt="grub 1" src="/images/blackhat/grub1.png" />
+</div>
+<div class="figure align-center">
+<img alt="grub 2" src="/images/blackhat/grub2.png" />
+</div>
+<ol class="arabic simple" start="12">
+<li>进入系统之后，接着又是一连串命令操作。大锤挂载（mount）了移动硬盘（还是NTFS），拷贝（cp）了根目录（/）和home目录（/home）的所有数据。干的漂亮，可惜你少打了几个空格。</li>
+</ol>
+<div class="figure align-center">
+<img alt="cp" src="/images/blackhat/cp.png" />
+</div>
+<ol class="arabic simple" start="13">
+<li>在拷贝回来的数据里，大锤终于见到了梦寐以求的女神（恶意软件的源代码）。下面第一张图里的代码跟一开始力宏看的代码差不多，不过第二张图就更容易理解了。明显的python代码，if语句判断攻击目标，然后按照预订的时间逐个关闭目标矿场的水泵。</li>
+</ol>
+<div class="figure align-center">
+<img alt="source code 4" src="/images/blackhat/source4.png" />
+</div>
+<div class="figure align-center">
+<img alt="source code 5" src="/images/blackhat/source5.png" />
+</div>
+<ol class="arabic simple" start="14">
+<li>于此同时，汤美女也找到了黑客存钱的银行。两人决定黑进银行系统把钱转出来。这次轮到汤美女肉身出击了，色诱前台小保安，以打印讲稿的名义成功的让他把带有恶意程序的邪恶小U盘插入前台主机。远方的大锤则使用nc命令监听8080端口，一旦U盘上的恶意程序运行起来，就会主动连接大锤的电脑，大锤借此成功的入侵了银行系统，从那里登录网银，转账付费，把黑客们辛辛苦苦偷来的钱又给捣腾走了。下面第三张图里的nc也就是 <a class="reference external" href="http://netcat.sourceforge.net/">netcat</a> ，是个很有用的小工具。至于为什么插个U盘也能被黑，参见前面的autorun.inf。可怜这些歪果仁，居然不知道有360这种神器的存在。</li>
+</ol>
+<div class="figure align-center">
+<img alt="print" src="/images/blackhat/print.png" />
+</div>
+<div class="figure align-center">
+<img alt="usb key" src="/images/blackhat/ukey1.png" />
+</div>
+<div class="figure align-center">
+<img alt="nc" src="/images/blackhat/nc.png" />
+</div>
+<ol class="arabic simple" start="15">
+<li>最终，大锤用这笔钱作诱饵，引诱幕后boss现身并让其服法，然后带着汤美女远离红尘，从此过上没羞没矂的生活。THE END。</li>
+</ol>
+<p>总结：浪费了这么多口水，也完全不能改变这是一部烂片的事实。显然制作方犯了舍本逐末的错误，这些技术细节的添加对于普通观众来讲毫无意义，只能是锦上添花，而不可能拯救无比平庸的剧情。不过，跟《天蝎》这种脑残冒充高智商的美剧相比，这部电影简直可以算是神一样的存在。所以说虽然是烂片，还是要为制作方这种细节上的“不将就”的点个赞。</p>
+
+    
+    <p class=tags>This entry was tagged as
+      <a href="/blog/tag/movie.html">movie</a>
+      <a href="/blog/tag/security.html">security</a>
+    </p>
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1539318" async=""></script>        </div>
+        
+<div class=footer>
+  <p>&copy; Copyright <script language="JavaScript">var date = new Date(); document.write(date.getFullYear());</script> by Seth Huang</p>
+  <p> Powered by <a href="http://pypi.python.org/pypi/pelican/" target="_blank">Pelican</a>.  
+    <a href="https://github.com/fjavieralba/flasky">Theme</a>  by <a href="http://fjavieralba.com">fjavieralba</a>
+  </p> 
+<!-- NOTE by seth: no social icons
+  <p>
+    <div class=social style="font-size: 27px;">
+      <ul>
+        <script language="JavaScript">
+          u = '';
+          s = '';
+          document.write('<a href=\"mailto:' + u + '@' + s + '\" target=\"_blank\">');
+        </script>
+            <li><i class="icon-envelope icon-large"></i> </li>
+        </a>
+        <a href="http://twitter.com/" target="_blank"> <li> <i class="icon-twitter-sign icon-large"> </li></i> </a>
+        <a href=""><li><i class="icon-linkedin-sign icon-large" ></i></li></a>
+        <a href="" target="_blank"> <li> <i class="icon-github-sign icon-large"></i> </li> </a>
+        <a href="/blog/feeds/all.rss.xml" rel="alternate" title="Recent Blog Posts"><li> <i class="icon-rss icon-large"></i> </li></a>
+      </ul>
+    </div>
+  </p>
+-->
+</div>    </div>
+  </body>
+</html>

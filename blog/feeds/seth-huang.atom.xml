@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/all.atom.xml" rel="self"></link><id>/blog/</id><updated>2016-02-20T00:00:00+08:00</updated><entry><title>React Native开发环境搭建</title><link href="/blog/react-native-app-dev-osx.html" rel="alternate"></link><updated>2016-02-20T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2016-02-20:blog/react-native-app-dev-osx.html</id><summary type="html">&lt;div class="section" id="homebrewnode-js"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/seth-huang.atom.xml" rel="self"></link><id>/blog/</id><updated>2016-02-20T00:00:00+08:00</updated><entry><title>React Native开发环境搭建</title><link href="/blog/react-native-app-dev-osx.html" rel="alternate"></link><updated>2016-02-20T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2016-02-20:blog/react-native-app-dev-osx.html</id><summary type="html">&lt;div class="section" id="homebrewnode-js"&gt;
 &lt;h2&gt;1. 用Homebrew安装Node.js&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;brew install node
 &lt;/pre&gt;&lt;/div&gt;

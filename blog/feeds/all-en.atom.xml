@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/all-en.atom.xml" rel="self"></link><id>/blog/</id><updated>2013-10-22T00:00:00+08:00</updated><entry><title>YCSB Benchmark</title><link href="/blog/ycsb-benchmark-en.html" rel="alternate"></link><updated>2013-10-22T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2013-10-22:ycsb-benchmark-en.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://github.com/brianfrankcooper/YCSB"&gt;Yahoo Cloud System Benchmark&lt;/a&gt; is a tool for benchmarking cloud storage services, specifically, NoSQL databases. This article will show how to run YCSB and use it to evaluate two open source NoSQL databases, Cassandra and MapKeeper(with LevelDB backend).&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/all-en.atom.xml" rel="self"></link><id>/blog/</id><updated>2013-10-22T00:00:00+08:00</updated><entry><title>YCSB Benchmark</title><link href="/blog/ycsb-benchmark-en.html" rel="alternate"></link><updated>2013-10-22T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2013-10-22:blog/ycsb-benchmark-en.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://github.com/brianfrankcooper/YCSB"&gt;Yahoo Cloud System Benchmark&lt;/a&gt; is a tool for benchmarking cloud storage services, specifically, NoSQL databases. This article will show how to run YCSB and use it to evaluate two open source NoSQL databases, Cassandra and MapKeeper(with LevelDB backend).&lt;/p&gt;
 &lt;div class="section" id="get-ycsb"&gt;
 &lt;h2&gt;Get YCSB&lt;/h2&gt;
 &lt;p&gt;Use &lt;em&gt;git&lt;/em&gt; to get the latest version of YCSB.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git clone git://github.com/brianfrankcooper/YCSB.git
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git clone git://github.com/brianfrankcooper/YCSB.git
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;There are prebuilt jar files in the repository. To build it for yourself, install &lt;em&gt;maven&lt;/em&gt; and then&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mvn clean package
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mvn clean package
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;There is a Python wrapper bin/ycsb, which makes it easier to use YCSB. A typical commandline looks like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb &lt;span class="o"&gt;[&lt;/span&gt;load|run&lt;span class="o"&gt;]&lt;/span&gt; DATABASE -P WORKLOAD -p &lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;value -s -target n -threads n
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;./bin/ycsb &lt;span class="o"&gt;[&lt;/span&gt;load&lt;span class="p"&gt;|&lt;/span&gt;run&lt;span class="o"&gt;]&lt;/span&gt; DATABASE -P WORKLOAD -p &lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;value -s -target n -threads n
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The &lt;em&gt;load&lt;/em&gt; command will populate the database with some random records. The number and size of records are defined in the workload specification. The &lt;em&gt;run&lt;/em&gt; command starts the benchmark.&lt;/p&gt;
 &lt;p&gt;-P gives the workload you want to use in the benchmark. There are predefined workloads in the directory named workloads. And -p is used to override one or more properties of the workload. -target specifies the target throughput of the benchmark. YCSB will stress the system until it reaches the target throughput. -thread is the number of concurrent clent threads.&lt;/p&gt;
@@ -20,35 +20,35 @@
 &lt;li&gt;Install Cassandra&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The easiest way to install Cassandra on Ubuntu is using the offical package repositories on apache.org. Add the following lines to /etc/apt/sources.list.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;deb http://www.apache.org/dist/cassandra/debian 10x main
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;deb http://www.apache.org/dist/cassandra/debian 10x main
 deb-src http://www.apache.org/dist/cassandra/debian 10x main
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And then&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get update
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get update
 sudo apt-get install cassandra
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ol class="arabic simple" start="2"&gt;
 &lt;li&gt;Prepare the Database&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Start Cassandra&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo service cassandra start
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo service cassandra start
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Create the key space and column family using &lt;em&gt;cassandra-cli&lt;/em&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;cassandra-cli
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cassandra-cli
 
 connect localhost/9160
-create keyspace usertable;
-use usertable;
-create column family data with &lt;span class="nv"&gt;column_type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Standard&amp;#39;&lt;/span&gt; and &lt;span class="nv"&gt;comparator&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;UTF8Type&amp;#39;&lt;/span&gt;;
-&lt;span class="nb"&gt;exit&lt;/span&gt;;
+create keyspace usertable&lt;span class="p"&gt;;&lt;/span&gt;
+use usertable&lt;span class="p"&gt;;&lt;/span&gt;
+create column family data with &lt;span class="nv"&gt;column_type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Standard&amp;#39;&lt;/span&gt; and &lt;span class="nv"&gt;comparator&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;UTF8Type&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+exit&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Load initial data set&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb load cassandra-10 -P workloads/workloada -p &lt;span class="nv"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;localhost -s &amp;gt; load.log
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;./bin/ycsb load cassandra-10 -P workloads/workloada -p &lt;span class="nv"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;localhost -s &amp;gt; load.log
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ol class="arabic simple" start="3"&gt;
 &lt;li&gt;Run the Benchmark&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb run cassandra-10 -P workloads/workloada -p &lt;span class="nv"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;localhost -s &amp;gt; load.log
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;./bin/ycsb run cassandra-10 -P workloads/workloada -p &lt;span class="nv"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;localhost -s &amp;gt; load.log
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="benchmark-mapkeeper"&gt;
@@ -61,13 +61,13 @@ create column family data with &lt;span class="nv"&gt;column_type&lt;/span&gt; &
 &lt;li&gt;Build mapkeeper_leveldb&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Install LevelDB via &lt;em&gt;apt-get&lt;/em&gt; or build it from source.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;apt-get install libleveldb-dev
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;apt-get install libleveldb-dev
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then &lt;em&gt;make&lt;/em&gt; in mapkeeper/leveldb. On my system, I have to manually add &lt;em&gt;-lboost_system&lt;/em&gt; to the mapkeeper/leveldb/Makefile to build it successfully.&lt;/p&gt;
 &lt;ol class="arabic simple" start="3"&gt;
 &lt;li&gt;Benchmark&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;./bin/ycsb load mapkeeper -P workloads/workloada -s &amp;gt; mp.load.log
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;./bin/ycsb load mapkeeper -P workloads/workloada -s &amp;gt; mp.load.log
 ./bin/ycsb run mapkeeper -P workloads/workloada -s &amp;gt; mp.run.log
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;

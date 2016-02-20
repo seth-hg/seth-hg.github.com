@@ -36,14 +36,14 @@
 <div class="section" id="what-about-making-trans">
 <h2>1. <a class="reference external" href="http://www.pythonchallenge.com/pc/def/map.html">what about making trans?</a></h2>
 <p>很容易看出来，规则是每个字符的ASCII码加2得到新字符，所以有了下面代码：</p>
-<div class="highlight"><pre><span class="n">s1</span><span class="o">=</span><span class="s">&#39;&#39;&#39;#the given text#&#39;&#39;&#39;</span>
-<span class="n">s2</span><span class="o">=</span><span class="s">&#39;&#39;</span>
+<div class="highlight"><pre><span></span><span class="n">s1</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;#the given text#&#39;&#39;&#39;</span>
+<span class="n">s2</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
 
 <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">islower</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">c</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">-</span><span class="nb">ord</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">chr</span><span class="p">((</span><span class="n">d</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">%</span><span class="mi">26</span> <span class="o">+</span> <span class="nb">ord</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">-</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">chr</span><span class="p">((</span><span class="n">d</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">%</span><span class="mi">26</span> <span class="o">+</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s1</span><span class="p">:</span>
     <span class="n">s2</span> <span class="o">+=</span> <span class="n">convert</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
@@ -51,7 +51,7 @@
 <span class="k">print</span> <span class="n">s2</span>
 </pre></div>
 <p>后来想了一下，转换过程还可以换中写法：</p>
-<div class="highlight"><pre><span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">convert</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s1</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><span class="n">s2</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">convert</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s1</span><span class="p">])</span>
 </pre></div>
 <p>解码出来一看，提示可以用maketrans()。。。水平太菜，否则看到本页的标题，就应该联想到这个方法。</p>
 </div>
@@ -59,9 +59,9 @@
 <h2>2. <a class="reference external" href="http://www.pythonchallenge.com/pc/def/ocr.html">ocr</a></h2>
 <p>数据和提示都在本页源码里，要求是找出出现次数最少的字符，也就是要对文本里面出现过的各种字符进行计数。于是有了下面代码：</p>
 <p>打印出结果一看，有几个字母只都出现了一次，显然它们组合起来就是下一关的地址。因为之前看了一点资料，所以我已经知道这里的结果是equality。</p>
-<div class="highlight"><pre><span class="n">res</span><span class="o">=</span><span class="p">{}</span>
+<div class="highlight"><pre><span></span><span class="n">res</span><span class="o">=</span><span class="p">{}</span>
 
-<span class="n">data</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="s">&#39;2.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">data</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="s1">&#39;2.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
@@ -71,9 +71,9 @@
 <span class="k">print</span> <span class="n">res</span>
 </pre></div>
 <p>但是我这里的解法实际上看不出来这几个字母在文本出的出现顺序，于是想办法改进一下。把字母出现的次数乘以100，再加上出现的次序，这样最后一排序，结果一目了然。</p>
-<div class="highlight"><pre><span class="n">res</span><span class="o">=</span><span class="p">{}</span>
+<div class="highlight"><pre><span></span><span class="n">res</span><span class="o">=</span><span class="p">{}</span>
 
-<span class="n">data</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="s">&#39;2.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">data</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="s1">&#39;2.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -88,19 +88,19 @@
 <div class="section" id="re">
 <h2>3. <a class="reference external" href="http://www.pythonchallenge.com/pc/def/equality.html">re</a></h2>
 <p>一看提示，觉得必须是正则表达式啊，何况本页的标题都提示了。不过还是犯傻了，以为只有一组匹配。后来看了别人的解答才明白是要找出所有的匹配组合，然后把每组中的small letter连起来。。。</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;3.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;3.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="follow-the-chain">
 <h2>4. <a class="reference external" href="http://www.pythonchallenge.com/pc/def/linkedlist.php">follow the chain</a></h2>
 <p>提示已经很明显了，“follow the chain”。用urllib.urlopen()读取页面“<a class="reference external" href="http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=XXXX">http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=XXXX</a>”，得到的文本里面会有next nothing的提示。一直迭代直到没next为止。中间到80多次的时候会出现一个中断，不碍事，按照提示除以2继续。</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">urllib</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
 
-<span class="n">nothing</span><span class="o">=</span><span class="s">&#39;12345&#39;</span>
-<span class="n">urlbase</span><span class="o">=</span><span class="s">&#39;http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=&#39;</span>
+<span class="n">nothing</span><span class="o">=</span><span class="s1">&#39;12345&#39;</span>
+<span class="n">urlbase</span><span class="o">=</span><span class="s1">&#39;http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=&#39;</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">):</span>
   <span class="n">u</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">urlbase</span> <span class="o">+</span> <span class="n">nothing</span><span class="p">)</span>
@@ -128,10 +128,10 @@
 <p>看来zip的方向是对了，不过还是不知道zip指什么。。。</p>
 <p>一觉醒来之后突然来了灵感，既然可以把channel换成zip，为什么不能把html换成zip呢？find the zip，是不是指zip压缩包呢？试了一下，果然！真正的题目原来在channel.zip里。</p>
 <p>跟第4关差不多，也是要不断找next nothing。</p>
-<div class="highlight"><pre><span class="n">nothing</span><span class="o">=</span><span class="s">&#39;90052&#39;</span>
+<div class="highlight"><pre><span></span><span class="n">nothing</span><span class="o">=</span><span class="s1">&#39;90052&#39;</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">910</span><span class="p">):</span>
-  <span class="n">data</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="n">nothing</span><span class="o">+</span><span class="s">&#39;.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+  <span class="n">data</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="n">nothing</span><span class="o">+</span><span class="s1">&#39;.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
   <span class="k">print</span> <span class="n">data</span>
   <span class="n">nothing</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
   <span class="k">if</span> <span class="ow">not</span> <span class="n">nothing</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
@@ -143,11 +143,11 @@
 <h2>7. <a class="reference external" href="http://www.pythonchallenge.com/pc/def/oxygen.html">smarty</a></h2>
 <p>第7关唯一的提示信息就是图片了，看来少不了要用PIL了。本来以为有什么捷径，调用某个函数就能解析出图片中类似条码的那一块东西，但是找来找去也没发现什么。只好再一次祭出笨办法。</p>
 <p>分析了一下，图片中的“条码”是许多块深浅不同的灰色块组成的，把这些块的颜色打出来一看，发现每一块的颜色值都是(x, x, x, 255)的形式，试着把所有的x按ASCII码表转换成字符。</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Image</span>
 
-<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;oxygen.png&#39;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;oxygen.png&#39;</span><span class="p">)</span>
 <span class="n">pix</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
-<span class="n">s</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 <span class="n">_p</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">608</span><span class="p">):</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">pix</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="mi">45</span><span class="p">]</span>
@@ -161,7 +161,7 @@
 <p>smart guy, you made it. the next level is [105, 10, 16, 101, 103, 14, 105, 16, 121]</p>
 <p>这个list里共有9个元素，其中100以上的几个可以翻译成字符i、e、g、i、y，这显然不是答案。</p>
 <p>仔细想想就发现前面的解法有问题，如果两个连续的色块颜色一致，按上面的算法就会被识别成一个。所以这里的10实际上可能是110。</p>
-<div class="highlight"><pre><span class="err">“”</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">]])</span>
+<div class="highlight"><pre><span></span><span class="err">“”</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">105</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">121</span><span class="p">]])</span>
 </pre></div>
 <p>替换之后再转成字符，得到下一关的地址integrity。</p>
 <p>话说这题还真不能单靠程序来解，必须先找通过观察找到一些参数，比如“条码”的覆盖范围和每个色块的宽度。不过看过别人给的标准答案之后，还是自叹不如，倒不是不会用，是真想不起来还有这些用法。熟悉python，还需再接再厉！</p>
@@ -174,8 +174,8 @@
 <div class="section" id="connect-the-dots">
 <h2>9. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/good.html">connect the dots</a></h2>
 <p>看到这个标题，我以为跟图片上那些个黑点有关。后来发现源码里给出的first和second，里面的数值似乎是两两一组的，并且是渐变的。莫非这才是坐标？用PIL里面的画线函数试一下，果然，画出了一头牛！第一反应是cow，结果不对，它告诉我“it’s a male”。那就是bull了，过关！</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span><span class="o">,</span> <span class="nn">ImageDraw</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;good.jpg&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Image</span><span class="o">,</span> <span class="nn">ImageDraw</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;good.jpg&#39;</span><span class="p">)</span>
 
 <span class="nb">id</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">ImageDraw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
 
@@ -187,7 +187,7 @@
 
 <span class="nb">id</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">second_p</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="n">new</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;new.jpg&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">new</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;new.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
 <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
 </pre></div>
@@ -196,10 +196,10 @@
 <div class="section" id="what-are-you-looking-at">
 <h2>10. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/bull.html">what are you looking at?</a></h2>
 <p>提示：len(a[30]) = ? 图片隐藏链接指向sequence.txt，里面有一个数列a，看来是要找出a[30]的值，这个只能靠人脑了。很遗憾，i failed！搜索了一下这个数列，发现居然还是个比较有名的问题，数学上叫做外观数列（look-and-say sequence），也叫莫里斯数列，规律就是后一项是对前一项的描述，比如1211表示前一项是“1个2，1个1”。如果用纯数学的方法来求解，需要用到非常复杂的公式，不过对于计算机和人脑来说，就是个重复应用规则的过程，一个递归函数就可以搞定。</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">mycount</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mycount</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
   <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">c</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="n">r</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+  <span class="n">r</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">c</span><span class="p">:</span>
@@ -213,7 +213,7 @@
 
 <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="k">return</span> <span class="s">&#39;1&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;1&#39;</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">mycount</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 
@@ -224,9 +224,9 @@
 <div class="section" id="odd-even">
 <h2>11. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/5808.html">odd even</a></h2>
 <p>又是坑爹的一关，有用的信息只有一张图片，还有含义不甚明了的标题。不过仔细来看，这图片好像是两张不同图片合成的？是不是要把他们分离出来？经过反复试验，发现只要把奇数行奇数列或者偶数行偶数列的像素提取出来组成新的图片，就可以得到答案。这大概就是标题“odd even”的含义吧。</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Image</span>
 
-<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;cave.jpg&#39;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;cave.jpg&#39;</span><span class="p">)</span>
 <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">pix</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <span class="n">new</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
@@ -235,7 +235,7 @@
   <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
     <span class="n">new</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">pix</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
 
-<span class="n">new</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;new.bmp&#39;</span><span class="p">)</span>
+<span class="n">new</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;new.bmp&#39;</span><span class="p">)</span>
 </pre></div>
 <p>另外我还不幸的发现，在Windows下用PIL，貌似最后保存文件只能用bmp格式，是我安装有问题？</p>
 </div>
@@ -244,22 +244,22 @@
 <p>又是一个纯图片的谜题，我讨厌这个。开始以为跟上一关一样，要从图片里分离出隐藏信息，结果折腾了N久没有结果，只好求助于网络。结果发现要找的居然不是这个evil1.jpg。。。</p>
 <p>打开evil2.jpg，显示not jpg, gfx。下载evil2.gfx，得到一个数据文件。这里就要用到evil1.jpg了，上面显示的是将扑克牌分成5份，所以这里要做的是把evil2.gfx分成5份，就是5张不同的图片。</p>
 <p>下面的代码也是借来的，写得真是简洁，学习了！</p>
-<div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;evil2.gfx&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;evil2.gfx&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">();</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="s">.jpg&quot;</span> <span class="o">%</span><span class="n">i</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.jpg&quot;</span> <span class="o">%</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">::</span><span class="mi">5</span><span class="p">])</span>
 <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 <p>看了官方给出的参考答案，要更完善一点。这里的5幅图片格式不同，需要用PIL来判断。这里用StringIO把字符串模拟成文件，然后通过Image.open()方法导入为图像。</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Image</span>
 <span class="kn">from</span> <span class="nn">cStringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
 
-<span class="n">s</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;evil2.gfx&quot;</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;evil2.gfx&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">piece</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">::</span><span class="mi">5</span><span class="p">]</span>  <span class="c"># every fifth byte, starting at i</span>
+    <span class="n">piece</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">::</span><span class="mi">5</span><span class="p">]</span>  <span class="c1"># every fifth byte, starting at i</span>
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">piece</span><span class="p">))</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="s">.</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">piece</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -267,20 +267,20 @@
 <div class="section" id="call-him">
 <h2>13. <a class="reference external" href="http://www.pythonchallenge.com/pc/return/disproportional.html">call him</a></h2>
 <p>图片上的5键里隐藏了链接，指向../phonebook.php，打开得到一个XML，显示错误“Invalid document end at line 1, column 1”，显然是要提交参数。提示信息是“phone that evil”，“that evil”是不是指上一关中的evil2.gfx？试试把这个POST上去。</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">urllib2</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib2</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://www.pythonchallenge.com/pc/phonebook.php&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;evil2.gfx&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.pythonchallenge.com/pc/phonebook.php&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;evil2.gfx&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="k">print</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 <p>结果还是错误：“XML error: Not well-formed (invalid token) at line 1, column 1”。看起来是要提交一个XML文档。仔细看前面得到的XML，methodResponse比较眼熟，有点儿像是RPC，想起来有个叫XML-RPC的东西，上Wikipedia上一看，果然，返回的结果正好符合XML-RPC的定义，再看python的文档里面，有xmlrpclib。看来错不了，这里的“call him”指的是XML-RPC call。现在只需要搞清楚method和params。</p>
 <p>提示给的是“phone that evil”，那么method大概就是phone()，先试一下：</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">xmlrpclib</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xmlrpclib</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://www.pythonchallenge.com/pc/phonebook.php&quot;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.pythonchallenge.com/pc/phonebook.php&quot;</span>
 <span class="n">server</span> <span class="o">=</span> <span class="n">xmlrpclib</span><span class="o">.</span><span class="n">ServerProxy</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="n">server</span><span class="o">.</span><span class="n">phone</span><span class="p">(</span><span class="s">&quot;disproportional&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">server</span><span class="o">.</span><span class="n">phone</span><span class="p">(</span><span class="s2">&quot;disproportional&quot;</span><span class="p">)</span>
 </pre></div>
 <p>得到结果：He is not the evil。路子对了，参数不对。试过能想到的各种情况都不成功，只好求助网络，发现上一关里还有个evil4.jpg，用IE打开能看到“Bert is evil! go back!”（chrome里只能看到一个图片显示失败的标志）。把参数换成“Bert”，得到“555-ITALY”。。。居然还没结束。</p>
 <p>想想电话号码应该全是数字，按照手机键盘把ITALY换成数字“48259”，再试，还是不对。再次求助网络，原来结果就是italy，囧。。。</p>
@@ -323,9 +323,9 @@
 </tbody>
 </table>
 <p>规律还是很明显，我的代码如下：</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Image</span>
 
-<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;wire.png&#39;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;wire.png&#39;</span><span class="p">)</span>
 <span class="n">pix</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <span class="n">new</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
 
@@ -345,7 +345,7 @@
         <span class="n">new</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">pix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<span class="n">new</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;new.png&#39;</span><span class="p">)</span>
+<span class="n">new</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;new.png&#39;</span><span class="p">)</span>
 </pre></div>
 <p>得到的图片是一只猫，把上个本关链接中的italy换成cat，进入的页面上有一只猫的照片，上方的文字说：它的名字叫uzi。找了很久，发现这个网页上没有任何提示信息，最后才发现，原来下一关的题目不再这里，而是在uzi.html。</p>
 <p>&lt;未完待续…&gt;</p>

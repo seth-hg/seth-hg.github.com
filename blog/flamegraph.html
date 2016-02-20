@@ -38,9 +38,9 @@
 </ol>
 <p>使用FlameGraph，需要先用工具对目标程序进行栈采样，然后用Brendan的 <a class="reference external" href="https://github.com/brendangregg/FlameGraph">脚本</a> 对采样结果进行处理并绘图。可以完成采样的工具很多，比如Solaris下的dtrace，linux下的 <a class="reference external" href="http://oprofile.sourceforge.net">oprofile</a> ， <a class="reference external" href="http://sourceware.org/systemtap/">systemtap</a> ， <a class="reference external" href="https://perf.wiki.kernel.org/index.php/Main_Page">perf</a> 等，不过Brendan目前没有提供针对oprofile的脚本。</p>
 <p>具体做法分三步（当然不是把大象关进冰箱那三步）：采样、折叠、绘图。对应的命令如下：</p>
-<div class="highlight"><pre>perf record -a -g -F 1000 sleep 60
-perf script | ./stackcollapse-perf.pl &gt; out.perf-folded
-cat out.perf-folded | ./flamegraph.pl &gt; perf-kernel.svg
+<div class="highlight"><pre><span></span>perf record -a -g -F <span class="m">1000</span> sleep 60
+perf script <span class="p">|</span> ./stackcollapse-perf.pl &gt; out.perf-folded
+cat out.perf-folded <span class="p">|</span> ./flamegraph.pl &gt; perf-kernel.svg
 </pre></div>
 <p>第一行是用perf工具进行采样。参数-a表示对整个系统进行采样，如果只需要分析某个进程，可以不要这个选项。-g表示记录函数调用栈。-F 指定采样频率。最后是采样过程中要执行的命令，如果要针对某个程序进行分析，这里就执行你要分析的程序。更详细的用法参考perf的文档。</p>
 <p>后面两行调用Brendan的脚本，依葫芦画瓢即可。</p>

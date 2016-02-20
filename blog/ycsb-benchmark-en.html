@@ -32,13 +32,13 @@
 <div class="section" id="get-ycsb">
 <h2>Get YCSB</h2>
 <p>Use <em>git</em> to get the latest version of YCSB.</p>
-<div class="highlight"><pre>git clone git://github.com/brianfrankcooper/YCSB.git
+<div class="highlight"><pre><span></span>git clone git://github.com/brianfrankcooper/YCSB.git
 </pre></div>
 <p>There are prebuilt jar files in the repository. To build it for yourself, install <em>maven</em> and then</p>
-<div class="highlight"><pre>mvn clean package
+<div class="highlight"><pre><span></span>mvn clean package
 </pre></div>
 <p>There is a Python wrapper bin/ycsb, which makes it easier to use YCSB. A typical commandline looks like this:</p>
-<div class="highlight"><pre>./bin/ycsb <span class="o">[</span>load|run<span class="o">]</span> DATABASE -P WORKLOAD -p <span class="nv">key</span><span class="o">=</span>value -s -target n -threads n
+<div class="highlight"><pre><span></span>./bin/ycsb <span class="o">[</span>load<span class="p">|</span>run<span class="o">]</span> DATABASE -P WORKLOAD -p <span class="nv">key</span><span class="o">=</span>value -s -target n -threads n
 </pre></div>
 <p>The <em>load</em> command will populate the database with some random records. The number and size of records are defined in the workload specification. The <em>run</em> command starts the benchmark.</p>
 <p>-P gives the workload you want to use in the benchmark. There are predefined workloads in the directory named workloads. And -p is used to override one or more properties of the workload. -target specifies the target throughput of the benchmark. YCSB will stress the system until it reaches the target throughput. -thread is the number of concurrent clent threads.</p>
@@ -49,35 +49,35 @@
 <li>Install Cassandra</li>
 </ol>
 <p>The easiest way to install Cassandra on Ubuntu is using the offical package repositories on apache.org. Add the following lines to /etc/apt/sources.list.</p>
-<div class="highlight"><pre>deb http://www.apache.org/dist/cassandra/debian 10x main
+<div class="highlight"><pre><span></span>deb http://www.apache.org/dist/cassandra/debian 10x main
 deb-src http://www.apache.org/dist/cassandra/debian 10x main
 </pre></div>
 <p>And then</p>
-<div class="highlight"><pre>sudo apt-get update
+<div class="highlight"><pre><span></span>sudo apt-get update
 sudo apt-get install cassandra
 </pre></div>
 <ol class="arabic simple" start="2">
 <li>Prepare the Database</li>
 </ol>
 <p>Start Cassandra</p>
-<div class="highlight"><pre>sudo service cassandra start
+<div class="highlight"><pre><span></span>sudo service cassandra start
 </pre></div>
 <p>Create the key space and column family using <em>cassandra-cli</em></p>
-<div class="highlight"><pre>cassandra-cli
+<div class="highlight"><pre><span></span>cassandra-cli
 
 connect localhost/9160
-create keyspace usertable;
-use usertable;
-create column family data with <span class="nv">column_type</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span> and <span class="nv">comparator</span> <span class="o">=</span> <span class="s1">&#39;UTF8Type&#39;</span>;
-<span class="nb">exit</span>;
+create keyspace usertable<span class="p">;</span>
+use usertable<span class="p">;</span>
+create column family data with <span class="nv">column_type</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span> and <span class="nv">comparator</span> <span class="o">=</span> <span class="s1">&#39;UTF8Type&#39;</span><span class="p">;</span>
+exit<span class="p">;</span>
 </pre></div>
 <p>Load initial data set</p>
-<div class="highlight"><pre>./bin/ycsb load cassandra-10 -P workloads/workloada -p <span class="nv">hosts</span><span class="o">=</span>localhost -s &gt; load.log
+<div class="highlight"><pre><span></span>./bin/ycsb load cassandra-10 -P workloads/workloada -p <span class="nv">hosts</span><span class="o">=</span>localhost -s &gt; load.log
 </pre></div>
 <ol class="arabic simple" start="3">
 <li>Run the Benchmark</li>
 </ol>
-<div class="highlight"><pre>./bin/ycsb run cassandra-10 -P workloads/workloada -p <span class="nv">hosts</span><span class="o">=</span>localhost -s &gt; load.log
+<div class="highlight"><pre><span></span>./bin/ycsb run cassandra-10 -P workloads/workloada -p <span class="nv">hosts</span><span class="o">=</span>localhost -s &gt; load.log
 </pre></div>
 </div>
 <div class="section" id="benchmark-mapkeeper">
@@ -90,13 +90,13 @@ create column family data with <span class="nv">column_type</span> <span class="
 <li>Build mapkeeper_leveldb</li>
 </ol>
 <p>Install LevelDB via <em>apt-get</em> or build it from source.</p>
-<div class="highlight"><pre>apt-get install libleveldb-dev
+<div class="highlight"><pre><span></span>apt-get install libleveldb-dev
 </pre></div>
 <p>Then <em>make</em> in mapkeeper/leveldb. On my system, I have to manually add <em>-lboost_system</em> to the mapkeeper/leveldb/Makefile to build it successfully.</p>
 <ol class="arabic simple" start="3">
 <li>Benchmark</li>
 </ol>
-<div class="highlight"><pre>./bin/ycsb load mapkeeper -P workloads/workloada -s &gt; mp.load.log
+<div class="highlight"><pre><span></span>./bin/ycsb load mapkeeper -P workloads/workloada -s &gt; mp.load.log
 ./bin/ycsb run mapkeeper -P workloads/workloada -s &gt; mp.run.log
 </pre></div>
 </div>

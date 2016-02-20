@@ -1,5 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/misc.atom.xml" rel="self"></link><id>/blog/</id><updated>2014-09-26T00:00:00+08:00</updated><entry><title>是时候谈谈就业的问题了</title><link href="/blog/bat.html" rel="alternate"></link><updated>2014-09-26T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2014-09-26:bat.html</id><summary type="html">&lt;p&gt;首先高校、研究所就不考虑了，吃不了那碗饭，老老实实去互联网公司当民工，靠能耐吃饭。如今中国的互联网，百度、阿里、腾讯三足鼎立，俗称BAT。三家各占山头，在自家主营业务上优势比较明显，但同时又觊觎着别人盘子里的大餐。其中阿里和腾讯的市值都超过千亿美元，百度只是百亿级别。阿里巴巴上市之后，成为国内最值钱的互联网公司，其市值超过百度和腾讯之和。从 &lt;a class="reference external" href="http://www.cyzone.cn/a/20140903/262375.html"&gt;上个季度的财报&lt;/a&gt; 来看，腾讯的营收规模最大，阿里的利润最高（净利率接近80%，远高于其他两家），而百度则落后不少。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/misc.atom.xml" rel="self"></link><id>/blog/</id><updated>2015-05-03T00:00:00+08:00</updated><entry><title>为一部烂片点赞</title><link href="/blog/blackhat-movie.html" rel="alternate"></link><updated>2015-05-03T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2015-05-03:blog/blackhat-movie.html</id><summary type="html">&lt;p&gt;不知道是不是因为最近几年各种黑客活动闹得很凶，连娱乐圈也开始对这个话题产生兴趣，于是就有了这部中美合作的“大片”——《Blackhat》。虽然这部电影有无数可以吐槽的地方，不过有一点让人十分佩服，那就是影片中出现的每一个技术细节都力求真实。片名“blackhat”，直译过来就是“黑帽子”，是指黑客当中为了利益专门进行恶意破坏的一个群体。同理，还有跟黑帽相反的白帽，以及游移于两者之间的灰帽。相比“黑客”这个笼统的称呼，“黑帽”的含义更明确，从这里就能看出制作人员严谨的态度。下面就来看看影片中是怎么表现各种技术细节的。&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;剧情从香港柴湾的核电站被黑客攻击开始。力宏扮演的中国军方网络安全专家受命进行调查。因为之前美国也发生过同样的攻击，但是没有成功。为了分析攻击所用的恶意软件，力宏联络了FBI并从对方的网站上下载了恶意软件的源码。在力宏啃代码啃到发飚这段戏里，可以清楚的看到几个源码片段。能看清楚的内容有限，而且大部分函数名、变量名都毫无意义，很难分析这段代码到底是做什么的。不过勤劳的 &lt;a class="reference external" href="http://kevfquinn.tumblr.com/post/105699388923/moviecode-second-screen-of-this-new-blackhat#_=_"&gt;歪果网友&lt;/a&gt; 已经找到了这段代码的 &lt;a class="reference external" href="http://codepad.org/m5RFiuqI"&gt;出处&lt;/a&gt; ，原来这是一段反编译可执行文件之后得到的代码，所以才会如此怪异。不过看代码居然没有语法高亮，道具组还是图样了。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="source code 1" src="/images/blackhat/source1.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="source code 2" src="/images/blackhat/source2.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="source code 3" src="/images/blackhat/source3.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;之后美国的股票交易所也受到攻击，黑客盗走了一大笔钱。于是力宏来到美国寻求合作。一个看起来牛B哄哄的美方专家正在给大家讲解攻击的原理：先在目标机器上安装RAT（Remote Access Trojan），然后下载payload（也就是另一个恶意软件）实施攻击。RAT就是所谓的特洛伊木马，这是很常见的黑客攻击方式，不过身为高级专家，居然只能讲出如此简单的分析，少不了被牛人力宏鄙视一番。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="rat" src="/images/blackhat/rat.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="intern" src="/images/blackhat/intern.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;由于美方专家水平捉鸡，在力宏的要求下，美方放出了正在坐牢的雷大锤协助调查，再加上力宏的妹妹汤美女，三人核心调查组就成立了。一行人来到被入侵的数据中心。管理员对于入侵的方式百思不得其姐，而大锤用了一条cat命令就让恶意软件现了形。原来管理员的U盘被临时工动了手脚，加了一个autorun.inf，只要插上电脑就会自动执行名为.mssvc的恶意程序。不过这个机制是windows特有的，它是怎么感染Linux服务器的，只有天知道了。这里除了用到cat命令查看文本文件的内容之外，还用了xxd命令查看二进制文件。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="autorun" src="/images/blackhat/autorun.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="4"&gt;
+&lt;li&gt;大锤分析U盘上的可执行文件寻找线索。虽然是二进制文件，但还是能看到不少文本片段，比如图中红框标出来的，有函数名，还有注释。这就是编译完代码之后不strip的结果。想当年国防科大号称研发了自主知识产权的银河麒麟操作系统，被人 &lt;a class="reference external" href="http://www.dancefire.org/article/Kernel_Similarity_Analysis.html"&gt;分析内核二进制文件&lt;/a&gt; ，结果发现函数名跟FreeBSD的相似度达到99.45%。几年之后，再也没有人提银河麒麟，只有一个叫 &lt;a class="reference external" href="http://www.cs2c.com.cn/"&gt;中标麒麟&lt;/a&gt; 的发行版本。所以说没文化真可怕，做贼也不例外。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="binary" src="/images/blackhat/binary.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="5"&gt;
+&lt;li&gt;大锤带着汤美女赶到临时工住的出租屋调查，可惜已经人死茶凉。汤美女发现临时工上网一直都有带 &lt;a class="reference external" href="https://www.torproject.org/"&gt;TOR&lt;/a&gt; 。TOR就是洋葱路由（The Onion Router），著名的匿名网络工具。黑客用它来隐藏自己的真实IP地址，防止被追查。当然，在天朝上国，它还有一个更重要的用途——科学上网。汤美女来上这么一段解说大概是为了刷刷存在感，反正对剧情是没有什么帮助的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="tor" src="/images/blackhat/tor.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="6"&gt;
+&lt;li&gt;临时工死掉之前打开了自己的邮箱没关。大锤发现了一封待回复的email，于是约幕后的boss去韩国餐馆见面。然而对方并没有出现，原来幕后boss入侵了餐馆里的监控服务器，一直在用摄像头监视他们两个。大锤发现之后，噼里啪啦的敲了几条命令：who、whois和write。好吧，虽然这种近似大白话的命令看起来没什么B格，但都是货真价实的。首先，大锤用who命令发现有个叫sdksdk的用户远程登录了这台机器。接下来，用whois命令查询到sdksdk所用的IP地址属于乌克兰。有点常识的人一眼就能看出来，这个IP是假的：IPv4地址是4个字节，每个字节8位，所以最大的数是2^8-1=255。当然，这也是可以理解的，如果放个真的IP上去容易引起不必要的麻烦。最后，大锤用write命令跟对方说：我要上了你。write命令可以向当前登录的其它用户发送信息。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="who" src="/images/blackhat/who.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="whois" src="/images/blackhat/whois.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="write" src="/images/blackhat/write.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="7"&gt;
+&lt;li&gt;调查走进了死胡同，大锤只好带着汤美女到柴湾跟其他人会合，旅途中顺便推倒了汤美女。导演实在太小气，汤美女里面什么样我们都看过了，为什么还要安排这种蜻蜓点水的床戏？来到柴湾，现场工作人员告诉大家，电站里控制水泵的PLC被入侵了。PLC可以理解为缩水版的PC，主要用于工业控制。编剧确实做了功课，不过还是差了一点点，PLC的全称是Programmable Logic Controller。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="plc" src="/images/blackhat/plc.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="8"&gt;
+&lt;li&gt;调查小组找到了香港警方，他们已经对几个嫌疑人进行了跟踪，发现了油麻地的一个可疑地点，于是前去调查。只见大锤拿出一个安卓手机，打开一个叫 &lt;a class="reference external" href="http://www.oscium.com/spectrum-analyzers"&gt;WiPry&lt;/a&gt; 的app，对着屏幕上华丽的波形图，来回一晃悠，就找到了一个黑客藏在草丛里的设备。WiPry这个东西还真不是瞎编的，用来做频谱分析的，不要问我是什么意思，我也完全不懂。只不过使用WiPry必须要有相应的硬件支持，并不像电影里面一样随便一个手机就可以的。真正的完全体看起来应该是 &lt;a class="reference external" href="http://www.oscium.com/sites/default/files/styles/medium/public/product-kits/Spectrum-Analyzer-iPhone-Two-Angles_0.jpg?itok=P_STvztN"&gt;这个样子&lt;/a&gt; 。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="wipry1" src="/images/blackhat/wipry1.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="wipry2" src="/images/blackhat/wipry2.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="9"&gt;
+&lt;li&gt;大锤找到的设备是蓝牙发射器，里面的数据都是GPG加密过的，密钥至少512位，很难破解。 &lt;a class="reference external" href="https://www.gnupg.org/"&gt;GPG&lt;/a&gt; 全称Gnu Privacy Guard，是著名的开源加密软件。只要密钥够长，NSA对它也是没有什么办法的，据说Snowden跟记者联络爆料的时候就是用这个加密的。所以如果你有什么东西不想让人看，可以考虑用GPG来加密。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="gpg" src="/images/blackhat/gpg.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="10"&gt;
+&lt;li&gt;为了获得恶意软件的完整样本进行分析，大锤不得不冒险进入被污染的核电站控制室。可惜取出的硬盘已经损坏，调查小组必须要用NSA的一个叫作black widow的系统来恢复数据，但是对方傲娇的联络人就是不给帐号。大锤只好自己动手，使用 &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Social_engineering_%28security%29"&gt;社会工程学&lt;/a&gt; 手段窃取帐号。所谓“社会工程学”（Socal Engineering），简单来说就是“坑蒙拐骗偷”。在任何一个系统里，最不安全的既不是软件也不是硬件，而是人。社会工程学就是从人下手。关于社会工程学，可以看看最近上映的另一部类似题材的德国电影 &lt;a class="reference external" href="http://movie.douban.com/subject/25932086/"&gt;《Who Am I》&lt;/a&gt; 。大锤用的方法是钓鱼，伪装成上级发邮件给NSA联络人，要求对方修改帐号密码。附件的pdf实际上是个键盘记录器，只要打开，所有的按键操作都会被记录发送给黑客。钓鱼是一种常用的欺骗手段，比如我就收到过很多次冒充QQ安全中心发送的邮件（下面第三张图），邮件里的链接会把你带到一个伪造的QQ安全中心网页。这种是很容易识别的，只有留心看一下发件人的邮箱地址和网页的网址就很容易发现有问题。还有更变态的，比如通过假的手机基站为装成10086发送 &lt;a class="reference external" href="http://it.people.com.cn/n/2015/0525/c1009-27048741.html"&gt;钓鱼短信&lt;/a&gt; ，以及来历不明的 &lt;a class="reference external" href="http://gd.sina.com.cn/mm/social/2015-05-25/08559409.html"&gt;微信红包&lt;/a&gt; 。一句话，做人不能贪心。言归正传，大锤成功骗到帐号，恢复了数据，查到幕后boss的真身在雅加达。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="social engineering 1" src="/images/blackhat/se1.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="social engineering 3" src="/images/blackhat/se3.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="qq" src="/images/blackhat/qq.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="11"&gt;
+&lt;li&gt;接下来经过各方势力的一番撕B，力宏牺牲了，大锤和汤美女来到雅加达找幕后boss报仇。大锤开车撞进了黑客服务器所在的数据中心，在一片混乱种种悄悄摸进了机房，窃取恶意软件源码。只见大锤启动服务器，见到了熟悉的grub启动界面。然后一阵捣鼓，就进入了命令行界面，还是root（相当于Windows的管理员）。大锤在不知道密码的情况下，是怎么进入系统的呢？注意下面第二张图，最后有一个single，这是Linux内核的启动参数，表示进入单用户模式，加在第一张图里的kernel那一行，就可以在没有密码的情况下以root用户登录系统。想当年我在学校机房不知道密码的时候也经常这么干，进入系统之后就随便改一个只有自己知道的密码，不知道祸害了多少人。不过使用这个方法的前提是必须能接触到机器，这也是锤哥必须肉身入侵而不能远程操作的原因。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="grub 1" src="/images/blackhat/grub1.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="grub 2" src="/images/blackhat/grub2.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="12"&gt;
+&lt;li&gt;进入系统之后，接着又是一连串命令操作。大锤挂载（mount）了移动硬盘（还是NTFS），拷贝（cp）了根目录（/）和home目录（/home）的所有数据。干的漂亮，可惜你少打了几个空格。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="cp" src="/images/blackhat/cp.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="13"&gt;
+&lt;li&gt;在拷贝回来的数据里，大锤终于见到了梦寐以求的女神（恶意软件的源代码）。下面第一张图里的代码跟一开始力宏看的代码差不多，不过第二张图就更容易理解了。明显的python代码，if语句判断攻击目标，然后按照预订的时间逐个关闭目标矿场的水泵。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="source code 4" src="/images/blackhat/source4.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="source code 5" src="/images/blackhat/source5.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="14"&gt;
+&lt;li&gt;于此同时，汤美女也找到了黑客存钱的银行。两人决定黑进银行系统把钱转出来。这次轮到汤美女肉身出击了，色诱前台小保安，以打印讲稿的名义成功的让他把带有恶意程序的邪恶小U盘插入前台主机。远方的大锤则使用nc命令监听8080端口，一旦U盘上的恶意程序运行起来，就会主动连接大锤的电脑，大锤借此成功的入侵了银行系统，从那里登录网银，转账付费，把黑客们辛辛苦苦偷来的钱又给捣腾走了。下面第三张图里的nc也就是 &lt;a class="reference external" href="http://netcat.sourceforge.net/"&gt;netcat&lt;/a&gt; ，是个很有用的小工具。至于为什么插个U盘也能被黑，参见前面的autorun.inf。可怜这些歪果仁，居然不知道有360这种神器的存在。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="print" src="/images/blackhat/print.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="usb key" src="/images/blackhat/ukey1.png" /&gt;
+&lt;/div&gt;
+&lt;div class="figure align-center"&gt;
+&lt;img alt="nc" src="/images/blackhat/nc.png" /&gt;
+&lt;/div&gt;
+&lt;ol class="arabic simple" start="15"&gt;
+&lt;li&gt;最终，大锤用这笔钱作诱饵，引诱幕后boss现身并让其服法，然后带着汤美女远离红尘，从此过上没羞没矂的生活。THE END。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总结：浪费了这么多口水，也完全不能改变这是一部烂片的事实。显然制作方犯了舍本逐末的错误，这些技术细节的添加对于普通观众来讲毫无意义，只能是锦上添花，而不可能拯救无比平庸的剧情。不过，跟《天蝎》这种脑残冒充高智商的美剧相比，这部电影简直可以算是神一样的存在。所以说虽然是烂片，还是要为制作方这种细节上的“不将就”的点个赞。&lt;/p&gt;
+</summary><category term="movie"></category><category term="security"></category></entry><entry><title>是时候谈谈就业的问题了</title><link href="/blog/bat.html" rel="alternate"></link><updated>2014-09-26T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2014-09-26:blog/bat.html</id><summary type="html">&lt;p&gt;首先高校、研究所就不考虑了，吃不了那碗饭，老老实实去互联网公司当民工，靠能耐吃饭。如今中国的互联网，百度、阿里、腾讯三足鼎立，俗称BAT。三家各占山头，在自家主营业务上优势比较明显，但同时又觊觎着别人盘子里的大餐。其中阿里和腾讯的市值都超过千亿美元，百度只是百亿级别。阿里巴巴上市之后，成为国内最值钱的互联网公司，其市值超过百度和腾讯之和。从 &lt;a class="reference external" href="http://www.cyzone.cn/a/20140903/262375.html"&gt;上个季度的财报&lt;/a&gt; 来看，腾讯的营收规模最大，阿里的利润最高（净利率接近80%，远高于其他两家），而百度则落后不少。&lt;/p&gt;
 &lt;p&gt;百度的主要收入来自搜索广告。根据 &lt;a class="reference external" href="http://data.cnzz.com/"&gt;CNZZ的数据&lt;/a&gt; ，百度占据搜索市场50%以上的份额。但是由于业务太过单一，限制了赚钱的能力，所以无论收入还是利润，跟另外两家都有比较大的差距。&lt;/p&gt;
 &lt;p&gt;百度主打工程师文化和技术创新牌，但是实际情况是，近几年来，一只眼盯着墙外的Google，亦步亦趋（翻译、图片/语音搜索，百度Eye，无人驾驶，百度大脑）；另一只眼盯着国内的互联网公司，做二次山寨（微博、百付宝、文库、BAE、网盘）。虽然说一直在尝试拓展业务，但是收效甚微。而在核心的搜索业务上，从个人使用感觉来看，搜索质量没有明显的提升。最近遭遇到360的挑战，希望百度能打起精神，护住自己的菊花。&lt;/p&gt;
 &lt;p&gt;另一方面，百度虽然用户量大，但是很难绑住用户，比如我经常用百度搜索（在google和duckduckgo相继被墙的前提下），但是很少用百度帐号。网盘免费的离线下载是个好点子，但是国家一严打，李彦宏只能哭晕在厕所了。&lt;/p&gt;
@@ -18,7 +143,7 @@
 &lt;p&gt;&lt;a class="reference external" href="http://tech.ifeng.com/bat3m/detail_2014_08/07/37906786_0.shtml?3Sd--www.cangboyule88.com--haoern.html"&gt;创业者11派系圈大盘点&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://itjuzi.com/person"&gt;IT桔子——人物列表&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://www.36kr.com/p/215682?ref=index_feature_topics"&gt;腾讯系创业者报告&lt;/a&gt;&lt;/p&gt;
-</summary></entry><entry><title>闪存的工作原理</title><link href="/blog/flash-memory.html" rel="alternate"></link><updated>2014-08-24T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2014-08-24:flash-memory.html</id><summary type="html">&lt;p&gt;闪存时当下非常热门的存储介质之一，不论是在工业界还是学术界，都&lt;/p&gt;
+</summary></entry><entry><title>闪存的工作原理</title><link href="/blog/flash-memory.html" rel="alternate"></link><updated>2014-08-24T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2014-08-24:blog/flash-memory.html</id><summary type="html">&lt;p&gt;闪存时当下非常热门的存储介质之一，不论是在工业界还是学术界，都&lt;/p&gt;
 &lt;p&gt;闪存是用半导体集成电路实现非非易失性数据存储的设备，其基本单元是浮栅晶体管。&lt;/p&gt;
 &lt;p&gt;浮栅晶体管是一种特殊结构的MOSFET。普通的MOSFET（图1）有源极、漏极和栅极三个端口，嵌在半导体硅基质里，互不联通，因此在通常情况下，MOSFET是不导电的。如果在栅极和源极之间加上一个电压Vgs，硅基质受到电场的感应就会产生自由电子，当Vgs高于某个值的时候，MOSFET变成导体，电流可以通过沟道在源极和漏极之间流通。这个电压值就是MOSFET的开启电压，也叫阈值电压，用符号VT表示。浮栅晶体管（图2）的结构跟普通MOSFET类似，不同的是它有两个栅极，上面是控制栅，下面是浮动栅。这个结构的特点是它的阈值电压VT是可变的，可以通过在浮栅中存储一定量的电子来改变阈值电压。浮栅的周围包裹这一层二氧化硅绝缘层，&lt;/p&gt;
 &lt;p&gt;初始情况下，浮栅中没有电子，VT较低。&lt;/p&gt;
@@ -36,7 +161,7 @@
 &lt;p&gt;所谓写穿状态，是指在一定的时间范围内，发生不可纠正错误的概率高于某个阈值。&lt;/p&gt;
 &lt;p&gt;近年来对闪存的研究不断升温&lt;/p&gt;
 &lt;p&gt;台湾xxx使用二氧化硫做绝缘层，结合热辅助技术，实现了闪存的自我修复，将最大擦写次数提升至1亿次以上，大大延长了闪存的寿命。&lt;/p&gt;
-</summary></entry><entry><title>《大数据时代》读书笔记</title><link href="/blog/big-data-revolution.html" rel="alternate"></link><updated>2014-05-11T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2014-05-11:big-data-revolution.html</id><summary type="html">&lt;p&gt;Updated：2014-08-31&lt;/p&gt;
+</summary></entry><entry><title>《大数据时代》读书笔记</title><link href="/blog/big-data-revolution.html" rel="alternate"></link><updated>2014-05-11T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2014-05-11:blog/big-data-revolution.html</id><summary type="html">&lt;p&gt;Updated：2014-08-31&lt;/p&gt;
 &lt;p&gt;刚刚读完《大数据时代》，结合最近读的一些其他有关大数据方面的书，总结一下。本书共3大部分8个章节，讨论了大数据对人们思维模式、商业模式等所造成的影响，未来的发展趋势和挑战。书中的分析深入透彻，并且包括了大量的真实案例，值得一读。另外还有一本比较出名的《大数据云图》，主要描述了大数据在各个领域的应用前景，但是深度远不及本书，更多的只是堆砌事实，略读即可。&lt;/p&gt;
 &lt;div class="section" id="id2"&gt;
 &lt;h2&gt;一、样本=总体&lt;/h2&gt;
@@ -116,7 +241,7 @@
 &lt;p&gt;至于阿里巴巴，大数据在电子商务和商业智能中的应用已经无需多说。阿里巴巴掌握了大量的电商数据，现在已经乐得合不拢嘴。阿里上市，马云成为中国首富，充分说明了投资者的认可。&lt;/p&gt;
 &lt;p&gt;大数据的另一片沃土是社交网络。不过相比电商和搜索，社交网络数据的价值密度更低。而且中国有自己的国情，很多人不喜欢公开谈论自己，微博上满世界飞的都是心灵鸡汤和小贴士，造成了虚假繁荣的假象。除此之外，社交网络还要面临政府审查的巨大压力。所以企鹅同学感觉有点儿悬，好在用户基数够大，靠着QQ和微信占领了PC和手机两大平台，发展的空间还是不小的。&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="big data"></category><category term="reading"></category></entry><entry><title>喵星人偷拍DIY</title><link href="/blog/cat-watcher.html" rel="alternate"></link><updated>2014-05-02T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2014-05-02:cat-watcher.html</id><summary type="html">&lt;p&gt;去年有只流浪猫在隔壁院生了一窝小猫，我花了几个月成功的把它们勾搭了过来。勾了不能白勾，我决定整一个监控装置观察喵行人的活动。&lt;/p&gt;
+</summary><category term="big data"></category><category term="reading"></category></entry><entry><title>喵星人偷拍DIY</title><link href="/blog/cat-watcher.html" rel="alternate"></link><updated>2014-05-02T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2014-05-02:blog/cat-watcher.html</id><summary type="html">&lt;p&gt;去年有只流浪猫在隔壁院生了一窝小猫，我花了几个月成功的把它们勾搭了过来。勾了不能白勾，我决定整一个监控装置观察喵行人的活动。&lt;/p&gt;
 &lt;div class="section" id="id1"&gt;
 &lt;h2&gt;思路&lt;/h2&gt;
 &lt;p&gt;Arduino控制摄像头拍照，并通过串口把照片传输给树莓派。为了避免无意义的拍照，用红外传感器对周围进行检测，只有发现有动物活动时才开始拍照。&lt;/p&gt;
@@ -164,8 +289,8 @@
 &lt;h2&gt;软件源码&lt;/h2&gt;
 &lt;div class="section" id="arduino"&gt;
 &lt;h3&gt;Arduino&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;SoftwareSerial.h&amp;gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#include &amp;lt;Adafruit_VC0706.h&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;SoftwareSerial.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;Adafruit_VC0706.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;ir_sensor_pin&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PIN_IR_SENSOR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
@@ -230,22 +355,22 @@
 &lt;/div&gt;
 &lt;div class="section" id="id7"&gt;
 &lt;h3&gt;树莓派&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;serial&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Serial&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;serial&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Serial&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;localtime&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;strftime&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;argparse&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;ArgumentParser&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;os.path&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;abspath&lt;/span&gt;
 
-&lt;span class="n"&gt;default_port&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/dev/ttyUSB0&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;default_port&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dev/ttyUSB0&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;default_baud&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;38400&lt;/span&gt;
 
-&lt;span class="n"&gt;parser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ArgumentParser&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Taking snapshots with arduino camera.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;-b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;baud&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;store&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                           &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Serial baudrate&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;-o&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;output&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;store&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                           &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Output directory&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;-p&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;port&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;store&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                           &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Serial port&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;parser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ArgumentParser&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Taking snapshots with arduino camera.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-b&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;baud&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;store&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                           &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Serial baudrate&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-o&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;output&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;store&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                           &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Output directory&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-p&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;port&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;store&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                           &lt;span class="n"&gt;help&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Serial port&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parse_args&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -253,52 +378,52 @@
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;baud&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;baud&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;default_baud&lt;/span&gt;
 &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;abspath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Serial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;baud&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;setting up camera...&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;setting up camera...&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readline&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strip&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;failed&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;failed&amp;#39;&lt;/span&gt;
     &lt;span class="nb"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;ok&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ok&amp;#39;&lt;/span&gt;
 
-&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;waiting...&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;waiting...&amp;#39;&lt;/span&gt;
 &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readline&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strip&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;failed to take picture&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;failed to take picture&amp;#39;&lt;/span&gt;
         &lt;span class="nb"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;detected, receiving data...&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;detected, receiving data...&amp;#39;&lt;/span&gt;
 
     &lt;span class="n"&gt;timestamp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="n"&gt;filename&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;/&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;.jpg&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strftime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;%Y-%m-&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s"&gt;-%H-%M-%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;filename&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;/&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;.jpg&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strftime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;%Y-%m-&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s1"&gt;-%H-%M-%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
     &lt;span class="n"&gt;framelen&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readline&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strip&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;framelen&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
-    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;framelen&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;bytes saved to&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;filename&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;framelen&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;bytes saved to&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;filename&lt;/span&gt;
 
-    &lt;span class="c"&gt;# reset camera&lt;/span&gt;
-    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;reseting camera...&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="c1"&gt;# reset camera&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;reseting camera...&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;readline&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strip&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;failed&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;OK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;failed&amp;#39;&lt;/span&gt;
         &lt;span class="nb"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;ok&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ok&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="id8"&gt;
 &lt;h3&gt;一个简单的相册&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url_for&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url_for&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;listdir&lt;/span&gt;
 
 &lt;span class="n"&gt;photos_per_page&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
-&lt;span class="n"&gt;photo_dir&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;static/photos&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;photo_dir&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;static/photos&amp;#39;&lt;/span&gt;
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Pagination&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;per_page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;total_count&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -333,25 +458,25 @@
 
 &lt;span class="n"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;__name__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="nd"&gt;@app.route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;defaults&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
-&lt;span class="nd"&gt;@app.route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;/&amp;lt;int:page&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nd"&gt;@app.route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;defaults&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;span class="nd"&gt;@app.route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;lt;int:page&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;index&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;photos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;listdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;photo_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sort&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="n"&gt;photos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="p"&gt;[::&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
     &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;photos_per_page&lt;/span&gt;
     &lt;span class="n"&gt;pagination&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Pagination&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;photos_per_page&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;index.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Photos&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;photos_per_page&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render_template&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;index.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Photos&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;photos&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;photos_per_page&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;url_for_other_page&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;view_args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;
+    &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;url_for&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;endpoint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jinja_env&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;globals&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;url_for_other_page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;url_for_other_page&lt;/span&gt;
+&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jinja_env&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;globals&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;url_for_other_page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;url_for_other_page&lt;/span&gt;
 
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
-    &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;0.0.0.0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;0.0.0.0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -365,12 +490,12 @@
 &lt;/ol&gt;
 &lt;p&gt;这个问题只有在树莓派上解决了，好在BCM2835还有一定的计算能力。接收到Arduino传过来的照片之后，比较新照片跟前一张照片，如果二者相似，就可以丢弃当前照片。这个可以用pHash来实现。pHash是一个用来检测媒体文件相似度的算法。普通的hash算法为了增加破解的难度需要“雪崩效应”，也就是输入数据发生一点微小的变化，输出指纹也会变得面目全非。pHash则正好相反，相似的输入会产生相似的输出，因此只要比较前后两张照片的指纹，就可以判断是否相似。&lt;/p&gt;
 &lt;p&gt;下面代码实现一个异步的图片去重类。由于背景是固定的，任意两张照片之间的相似度都很高，所以这里的过滤相似图片的默认阈值也设得比较高。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;phash&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;cross_correlation&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;image_digest&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;phash&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;cross_correlation&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;image_digest&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;threading&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Thread&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Event&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;collections&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;deque&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;sleep&lt;/span&gt;
 
-&lt;span class="n"&gt;tmpfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/run/shm/ooxxoo.jpg&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;tmpfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/run/shm/ooxxoo.jpg&amp;#39;&lt;/span&gt;
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;pipeline&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Thread&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tmpfile&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tmpfile&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;thresh&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.995&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -390,21 +515,21 @@
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;run&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;trigger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wait&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-            &lt;span class="c"&gt;# process all submitted jobs&lt;/span&gt;
+            &lt;span class="c1"&gt;# process all submitted jobs&lt;/span&gt;
             &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                 &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                     &lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;filedata&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;popleft&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
                 &lt;span class="k"&gt;except&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                     &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;trigger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;clear&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
                     &lt;span class="k"&gt;break&lt;/span&gt;
-                &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tmpfile&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tmpfile&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                     &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filedata&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
                     &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
                     &lt;span class="n"&gt;digest&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;image_digest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tmpfile&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
                     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;last_digest&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; \
                         &lt;span class="n"&gt;cross_correlation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;last_digest&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;digest&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;thresh&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                         &lt;span class="k"&gt;continue&lt;/span&gt;
-                &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
                     &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filedata&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
                     &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
                     &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;last_digest&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;digest&lt;/span&gt;
@@ -417,7 +542,7 @@
 &lt;p&gt;这两天刚刚装上，马上就拍到两只喵星人在搞基，( ⊙ o ⊙ )。。。&lt;/p&gt;
 &lt;img alt="cat watcher ooxx" src="http://seth-images.qiniudn.com/cat-watcher-ooxx.jpg" /&gt;
 &lt;/div&gt;
-</summary><category term="cats"></category><category term="python"></category><category term="arduino"></category></entry><entry><title>整数分解算法</title><link href="/blog/factorization-algorithm.html" rel="alternate"></link><updated>2014-04-01T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2014-04-01:factorization-algorithm.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Integer_factorization"&gt;整数分解&lt;/a&gt; 就是质因数分解，把一个合数分解成几个质数乘积的形式。整数分解是计算机领域的一个重要算法，在计算复杂性理论、密码学等领域有重要的应用。&lt;/p&gt;
+</summary><category term="cats"></category><category term="python"></category><category term="arduino"></category></entry><entry><title>整数分解算法</title><link href="/blog/factorization-algorithm.html" rel="alternate"></link><updated>2014-04-01T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2014-04-01:blog/factorization-algorithm.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Integer_factorization"&gt;整数分解&lt;/a&gt; 就是质因数分解，把一个合数分解成几个质数乘积的形式。整数分解是计算机领域的一个重要算法，在计算复杂性理论、密码学等领域有重要的应用。&lt;/p&gt;
 &lt;p&gt;要分解整数N，可以用递归的方法，先找到N的一个质因数a，然后再递归的对N/a进行分解，直到剩下的数为质数不能继续分解为止。这样问题就转化为寻找N的一个质因数。一个最简单的思路是逐个测试区间(1, sqrt(N)]内的每个质数，看能否被N整除。如果N是合数，则一定能找到一个质数a使得N整除a。这种方法叫作 &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Trial_division"&gt;试除法&lt;/a&gt; ，用的是穷举的思想，容易理解但是效率很低。当N比较大的时候，这个方法就会比较慢。&lt;/p&gt;
 &lt;p&gt;这里介绍另外一种算法—— &lt;a class="reference external" href="http://www.csh.rit.edu/~pat/math/quickies/rho/"&gt;Pollard's Rho算法&lt;/a&gt; 。本质其实是类似的，也是对一个集合中的数字逐个进行测试，直到找到需要的质因数为止，但是测试数列产生的方法和测试的方法都不同。Pollard Rho算法并不是简单的用所有可能的质数去试，而是采用了 &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Monte_Carlo_method"&gt;蒙特卡洛方法&lt;/a&gt; 。&lt;/p&gt;
 &lt;p&gt;测试数列S用递推的方式产生：定义一个多项式函数f(x)，通常采用f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c的形式，令x&lt;sub&gt;1&lt;/sub&gt; 为最小的质数2，并且x&lt;sub&gt;n+1&lt;/sub&gt; = f(x&lt;sub&gt;n&lt;/sub&gt;)。&lt;/p&gt;
@@ -433,7 +558,7 @@ a + b = c (modulo n)&lt;/blockquote&gt;
 f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;p&gt;这样S就成了一个有限的数列，因为最多之可能有N-1个数。可以知道，数列中一定会出现某一项x&lt;sub&gt;j&lt;/sub&gt; = x&lt;sub&gt;i&lt;/sub&gt; ，并且i &amp;lt; j，根据模运算的传递性，则有f(x&lt;sub&gt;j&lt;/sub&gt;) = f(x&lt;sub&gt;i&lt;/sub&gt;)，数列进入一个循环。当然这个循环很可能不是从数列的第一项就开始的，而是从中间的某一项，这样就带了一个小“尾巴”，就像希腊字母ρ，这也是该算法被命名为rho的原因（Pollard是发明者的名字）。&lt;/p&gt;
 &lt;p&gt;寻找质因数的测试过程如下：对S中的每一个x&lt;sub&gt;k&lt;/sub&gt; （k为奇数），算出(x&lt;sub&gt;k&lt;/sub&gt; - x&lt;sub&gt;k/2&lt;/sub&gt;)和N的最大公约数（Greatest Common Divisor）g，如果g不为1，则g是N的一个质因数。用这种方法一定可以找到N的一个质因数。该算法的Python实现如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pollardRho&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pollardRho&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
     &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -441,7 +566,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
     &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;randint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
 
-    &lt;span class="c"&gt;#uso come funzione (x^2 + c)&lt;/span&gt;
+    &lt;span class="c1"&gt;#uso come funzione (x^2 + c)&lt;/span&gt;
     &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;
         &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;
@@ -463,12 +588,12 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
         &lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;/=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;factors&lt;/span&gt;
 
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;__main__&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;factorize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;16843009&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pollardRho&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;用Pollard's Rho算法寻找质因数的过程具有一定的随机性，也跟函数f(x)的选择是否恰当有关，对它的时间复杂度分析比较困难。一个并不严谨的结论是：对于任意n，该算法最多有1/2的概率能在O(n&lt;sup&gt;1/4&lt;/sup&gt;)步之内找到一个质因数。&lt;/p&gt;
 &lt;p&gt;整数分解算法还有很多，Pollard's Rho算法只是比较有代表性的一种，有很多方法都是以它为基础进行改进的，其它方法可以参考Wikipedia。&lt;/p&gt;
-</summary><category term="algorithm"></category><category term="programming"></category><category term="python"></category></entry><entry><title>带通配符的数字</title><link href="/blog/number-with-wildcards.html" rel="alternate"></link><updated>2014-03-18T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2014-03-18:number-with-wildcards.html</id><summary type="html">&lt;p&gt;偶尔看到CSDN英雄会上的一道 &lt;a class="reference external" href="http://hero.csdn.net/OnlineCompiler/Index?ID=351&amp;amp;ExamID=346"&gt;编程题目&lt;/a&gt; ，觉得挺有意思就试着做了一下。&lt;/p&gt;
+</summary><category term="algorithm"></category><category term="programming"></category><category term="python"></category></entry><entry><title>带通配符的数字</title><link href="/blog/number-with-wildcards.html" rel="alternate"></link><updated>2014-03-18T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2014-03-18:blog/number-with-wildcards.html</id><summary type="html">&lt;p&gt;偶尔看到CSDN英雄会上的一道 &lt;a class="reference external" href="http://hero.csdn.net/OnlineCompiler/Index?ID=351&amp;amp;ExamID=346"&gt;编程题目&lt;/a&gt; ，觉得挺有意思就试着做了一下。&lt;/p&gt;
 &lt;p&gt;题目是这样的：给出一个带有通配符'?'的数字W和另一个数字X，要算出W有多少中组合大于X。其中'?'可以表示0到9的任意数字，且W和X的长度相同，在1到10之间。&lt;/p&gt;
 &lt;p&gt;一个简单的思路是用递归算法，当W中包含n个'?'（n &amp;gt; 0）时，一定可以把它写成wa+?+wb这种形式，其中wa是纯数字，不含通配符，而wb包含n-1个通配符。按照同样的方式可以把X也写成类似的形式：xa+xp+xb，其中xp是W中'?'对应的位，xa、xb和wa、wb分别等长。于是有下面的递推：&lt;/p&gt;
 &lt;ol class="upperalpha simple"&gt;
@@ -483,10 +608,10 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;/ol&gt;
 &lt;p&gt;所以这种情况下的最终结果由1、2两部分组成。&lt;/p&gt;
 &lt;p&gt;理清了思路之后代码也就很简单了。C语言版的代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#include &amp;lt;stdlib.h&amp;gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#include &amp;lt;string.h&amp;gt;&lt;/span&gt;
-&lt;span class="cp"&gt;#include &amp;lt;math.h&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;math.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;n_larger&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -540,20 +665,20 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;到这里问题还没有解决，因为性能不过关。在CSDN上测试代码的时候告诉我执行时间超过3秒。&lt;/p&gt;
-</summary><category term="programming"></category></entry><entry><title>Python Challenge 2</title><link href="/blog/python-challenge-2.html" rel="alternate"></link><updated>2013-10-29T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2013-10-29:python-challenge-2.html</id><summary type="html">&lt;div class="section" id="whom"&gt;
+</summary><category term="programming"></category></entry><entry><title>Python Challenge 2</title><link href="/blog/python-challenge-2.html" rel="alternate"></link><updated>2013-10-29T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2013-10-29:blog/python-challenge-2.html</id><summary type="html">&lt;div class="section" id="whom"&gt;
 &lt;h2&gt;15. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/uzi.html"&gt;whom?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;这一关的提示信息主要来自图片中的日历，上面圈出的日期是1*6年1月26日。既然问题是“whom?”，那么答案一定是跟这一天有关的某个人。网页的源文件里有两行注释:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;&amp;lt;!-- he ain&amp;#39;t the youngest, he is the second --&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;&amp;lt;!-- he ain&amp;#39;t the youngest, he is the second --&amp;gt;&lt;/span&gt;
 ...
 &lt;span class="c"&gt;&amp;lt;!-- todo: buy flowers for tomorrow --&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;不是最年轻的，是第二年轻的，那么这一天应该是生日。网上查了一下，1月26日出生的名人，出生年份末位是6的，只有几个，明显都不靠谱。再看第二条注释里写得是为明天买花，也许应该是1月27日出生的人。再查一下，还真有一个比较靠谱的：莫扎特。试试mozart.html，果然进入了下一关。不过这里根本没有用到任何编程。其实这题的本意，应该是让我们推算出年份，而不是直接去上网搜索。日历上显示1月26日是星期一，所以我们先要找出以1开头以6结尾并且1月26日是星期一的所有年份，然后其中倒数第二个就是我们要的答案。另外还有一个线索，日历右下角显示2月份有29天，那么这一年必须是闰年。我的代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;calendar&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;calendar&lt;/span&gt;
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;106&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1996&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;calendar&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isleap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="k"&gt;continue&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;startswith&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;startswith&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="k"&gt;continue&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;26&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;weekday&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
@@ -562,9 +687,9 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="let-me-get-this-straight"&gt;
 &lt;h2&gt;16. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/mozart.html"&gt;let me get this straight&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;同样是图片题，图中有很多的粉红色线段，看起来每条长度应该是一样的，并且两端都白点。“get this straight”，是不是就是指把每一行中的粉红色线段对齐呢？试一下，结果就出来了，下一关是romance。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
 
-&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;mozart.gif&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;mozart.gif&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;pix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
@@ -580,14 +705,14 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;putpixel&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;pix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 
-&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;new.gif&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;new.gif&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="eat"&gt;
 &lt;h2&gt;17. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/romance.html"&gt;eat?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&amp;lt;to be continued&amp;gt;&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="python"></category></entry><entry><title>Data Science在线课程第1、2周</title><link href="/blog/datasci-1.html" rel="alternate"></link><updated>2013-05-17T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2013-05-17:datasci-1.html</id><summary type="html">&lt;p&gt;在Coursera上报了个Data Science的课程，一共8周。课程内容相当丰富，并且有机会参与第三方机构提供的project解决实际问题，还有一个可选的作业需要用Amazon AWS处理大约1TB的数据，相当的有点儿意思。&lt;/p&gt;
+</summary><category term="python"></category></entry><entry><title>Data Science在线课程第1、2周</title><link href="/blog/datasci-1.html" rel="alternate"></link><updated>2013-05-17T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2013-05-17:blog/datasci-1.html</id><summary type="html">&lt;p&gt;在Coursera上报了个Data Science的课程，一共8周。课程内容相当丰富，并且有机会参与第三方机构提供的project解决实际问题，还有一个可选的作业需要用Amazon AWS处理大约1TB的数据，相当的有点儿意思。&lt;/p&gt;
 &lt;p&gt;感兴趣的请参考链接： &lt;a class="reference external" href="https://www.coursera.org/course/datasci"&gt;课程主页&lt;/a&gt;  &lt;a class="reference external" href="https://github.com/uwescience/datasci_course_materials"&gt;作业资料&lt;/a&gt;  &lt;a class="reference external" href="https://www.dropbox.com/sh/uwrt35dklb9s6db/bzET2Rz8X4/datasci"&gt;视频和幻灯片&lt;/a&gt;  &lt;a class="reference external" href="https://spark-public.s3.amazonaws.com/datasci/Coursera-Data-Science-Ubuntu.ova"&gt;课程虚拟机&lt;/a&gt; (&lt;a class="reference external" href="https://spark-public.s3.amazonaws.com/datasci/Coursera-Data-Science-Ubuntu.ova?torrent"&gt;Torrent&lt;/a&gt;)&lt;/p&gt;
 &lt;div class="section" id="id5"&gt;
 &lt;h2&gt;第一周：导论&lt;/h2&gt;
@@ -629,7 +754,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;li&gt;问题6： Top 10 hash tags&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;统计hash tag出现的频率，输出频率最高的10个。跟4差不多，只是多了一个计算top 10的步骤。这个做起来也很简单，python的heapq模块提供了函数nlargest()。假设之前统计的hash tags出现次数保存在一个名为tag_counts的dictionary，那么只需要一句话就可以搞定：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;heapq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nlargest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;tag_counts&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;heapq&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;nlargest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;tag_counts&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;第一个参数10是输出结果的个数。第二个是输入数据，必须是iterable对象。最后一个参数key是一个callable对象，简单说就是函数，在排序的时候用这个函数来取得比较大小用的键值，这里用一个匿名函数实现。&lt;/p&gt;
 &lt;/div&gt;
@@ -644,17 +769,17 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;li&gt;(h) 计算相似性矩阵&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;表frequency: &amp;lt;docid, term, count&amp;gt;记录了一些文档中词汇出现的次数。把这个表看作一个稀疏矩阵D(docid为行，term为列)，相似性矩阵就是D跟自己的转置相乘。前面一题里已经解决了 &lt;a class="reference external" href="http://stackoverflow.com/questions/6582191/sql-query-for-multiplication"&gt;用SQL实现矩阵乘法&lt;/a&gt; 的问题，这里无非是多了一个转置而已，做起来也很简单，只要把SQL语句里的行和列互换一下就可以了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;group&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;group&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;计算完整的相似性矩阵要花很长时间，可以在from语句后面加个条件where a.docid &amp;lt; b.docid，这样可以只计算一般，另一半是完全对称的。不过这样还是要用很长时间，而题目只要求提交10080_txt_crude和17035_txt_earn两个文档的相关性，所以完全可以用where a.docid='10080_txt_crude' and b.docid='17035_txt_earn'。&lt;/p&gt;
 &lt;p&gt;这里得到的是未经正规化的相似性，实际中使用的通常是余弦相似性。把词频矩阵D中的每一行看作一个文档的N维特征向量，那么两个文档的相似性就是它们各自的特征向量在N维空间的夹角的余弦，夹角越小，相似性越高。关于余弦相似性可以参考 &lt;a class="reference external" href="http://www.ruanyifeng.com/blog/2013/03/cosine_similarity.html"&gt;阮一峰的博客&lt;/a&gt; , 讲得很细致。这里只要稍微扩展一下，实现起来并不困难。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;group&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;group&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;(i) 关键词搜索&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;有了相似性矩阵的算法，关键词搜索就变得很简单。把关键词列表也当作一个特殊的文档，加入到frequency表中，计算相似性矩阵。这里只关心包含关键词列表的结果，跟关键词列表相似性比较高的文档就是搜索结果。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;create&lt;/span&gt; &lt;span class="k"&gt;view&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;create&lt;/span&gt; &lt;span class="k"&gt;view&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt;
 &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;frequency&lt;/span&gt;
 &lt;span class="k"&gt;UNION&lt;/span&gt;
 &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;q&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;washington&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="k"&gt;count&lt;/span&gt;
@@ -666,10 +791,10 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;span class="k"&gt;select&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;sim&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="k"&gt;join&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;q&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;group&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;docid&lt;/span&gt; &lt;span class="k"&gt;order&lt;/span&gt; &lt;span class="k"&gt;by&lt;/span&gt; &lt;span class="n"&gt;sim&lt;/span&gt; &lt;span class="k"&gt;desc&lt;/span&gt; &lt;span class="k"&gt;limit&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="big data"></category><category term="online courses"></category></entry><entry><title>Linux中的Buffer和Cache</title><link href="/blog/linux-buffer-cache.html" rel="alternate"></link><updated>2012-10-04T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-10-04:linux-buffer-cache.html</id><summary type="html">&lt;p&gt;在Linux系统中查看内存使用情况（free，vmstat，/proc/meminfo）的时候，会有buffer和cache两项数据，一直搞不清这两个有什么区别，最近看到Robert Love &lt;a class="reference external" href="http://www.quora.com/What-is-the-difference-between-Buffers-and-Cached-columns-in-proc-meminfo-output"&gt;在Quora上的解答&lt;/a&gt; ，总算是明白了。&lt;/p&gt;
+</summary><category term="big data"></category><category term="online courses"></category></entry><entry><title>Linux中的Buffer和Cache</title><link href="/blog/linux-buffer-cache.html" rel="alternate"></link><updated>2012-10-04T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-10-04:blog/linux-buffer-cache.html</id><summary type="html">&lt;p&gt;在Linux系统中查看内存使用情况（free，vmstat，/proc/meminfo）的时候，会有buffer和cache两项数据，一直搞不清这两个有什么区别，最近看到Robert Love &lt;a class="reference external" href="http://www.quora.com/What-is-the-difference-between-Buffers-and-Cached-columns-in-proc-meminfo-output"&gt;在Quora上的解答&lt;/a&gt; ，总算是明白了。&lt;/p&gt;
 &lt;p&gt;在Linux内核中，cache是指文件系统的page cache，所有对普通文件（不包括设备文件）的I/O都是通过page cache进行的。读文件时，会直接从page cache中返回数据。如果缓存不命中，则从磁盘读取请求的页面并加入到page cache中，然后返回。写文件则直接把page cache中对应的页面标记位dirty，然后由后台线程pdflush完成写回磁盘的操作。有一种情况例外：当进程使用direct I/O方式进行文件读写，此时会不会经过page cache。Linux对page cache采用惰性回收机制，只有当可用内存不足时才会从page cache中回收，因此系统中常常有大量内存空间被page cache占用。这样的做法最大限度的减少了磁盘I/O。&lt;/p&gt;
 &lt;p&gt;Buffer则是指块设备I/O的缓冲区，其中保存的是不属于任何文件的一些数据块，比如文件系统的元数据，还有进行direct I/O所产生的缓存数据，也会存储在buffer里。Buffer的寿命要比cache短很多，通常当块级I/O请求完成，buffer就会很快释放，因此buffer所占用的空间通常很小。但是也有例外情况：如果开启了laptop-mode，内核对写入磁盘的数据会缓存比较常的时间，然后再一次性写入磁盘。这种方式适用于笔记本，可以让磁盘较长时间的保持spin down状态，以减少磁盘能耗。从2.4开始的内核实现中，buffer和page cache已经不做区分，可以把buffer理解成属于设备文件的page cache。&lt;/p&gt;
-</summary><category term="linux"></category><category term="memory"></category></entry><entry><title>Python Challenge</title><link href="/blog/python-challenge.html" rel="alternate"></link><updated>2012-09-29T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-09-29:python-challenge.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://www.pythonchallenge.com/"&gt;Python Challenge&lt;/a&gt; 是一个python编程游戏。游戏里的每一关通过图片和文字给出提示信息，需要通过推理和编程来找到通往下一关的线索。网站还提供了一个wiki，汇总了各个关卡的不同解答方法，不过你需要先解出当前关卡之后才能看到。查看方法参见wiki首页上的说明。这些代码是学习python编程的好材料，值得细细推敲。&lt;/p&gt;
+</summary><category term="linux"></category><category term="memory"></category></entry><entry><title>Python Challenge</title><link href="/blog/python-challenge.html" rel="alternate"></link><updated>2012-09-29T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-09-29:blog/python-challenge.html</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="http://www.pythonchallenge.com/"&gt;Python Challenge&lt;/a&gt; 是一个python编程游戏。游戏里的每一关通过图片和文字给出提示信息，需要通过推理和编程来找到通往下一关的线索。网站还提供了一个wiki，汇总了各个关卡的不同解答方法，不过你需要先解出当前关卡之后才能看到。查看方法参见wiki首页上的说明。这些代码是学习python编程的好材料，值得细细推敲。&lt;/p&gt;
 &lt;div class="section" id="warm-up"&gt;
 &lt;h2&gt;0. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/0.html"&gt;warm up&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;计算2的38次方，方法多多，最简单的是用python的乘方运算符“**”。&lt;/p&gt;
@@ -677,14 +802,14 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="what-about-making-trans"&gt;
 &lt;h2&gt;1. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/map.html"&gt;what about making trans?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;很容易看出来，规则是每个字符的ASCII码加2得到新字符，所以有了下面代码：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&amp;#39;#the given text#&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&amp;#39;#the given text#&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;convert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;islower&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;
-    &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mi"&gt;26&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="mi"&gt;26&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;convert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -692,7 +817,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;后来想了一下，转换过程还可以换中写法：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;convert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;convert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;解码出来一看，提示可以用maketrans()。。。水平太菜，否则看到本页的标题，就应该联想到这个方法。&lt;/p&gt;
 &lt;/div&gt;
@@ -700,9 +825,9 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;h2&gt;2. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/ocr.html"&gt;ocr&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;数据和提示都在本页源码里，要求是找出出现次数最少的字符，也就是要对文本里面出现过的各种字符进行计数。于是有了下面代码：&lt;/p&gt;
 &lt;p&gt;打印出结果一看，有几个字母只都出现了一次，显然它们组合起来就是下一关的地址。因为之前看了一点资料，所以我已经知道这里的结果是equality。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
 
-&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;2.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;2.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;has_key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -712,9 +837,9 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;res&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;但是我这里的解法实际上看不出来这几个字母在文本出的出现顺序，于是想办法改进一下。把字母出现的次数乘以100，再加上出现的次序，这样最后一排序，结果一目了然。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;
 
-&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;2.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;2.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -729,19 +854,19 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="re"&gt;
 &lt;h2&gt;3. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/equality.html"&gt;re&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;一看提示，觉得必须是正则表达式啊，何况本页的标题都提示了。不过还是犯傻了，以为只有一组匹配。后来看了别人的解答才明白是要找出所有的匹配组合，然后把每组中的small letter连起来。。。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
 
-&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;3.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findall&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;3.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findall&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[a-z][A-Z]{3}([a-z])[A-Z]{3}[a-z]&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="follow-the-chain"&gt;
 &lt;h2&gt;4. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/linkedlist.php"&gt;follow the chain&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;提示已经很明显了，“follow the chain”。用urllib.urlopen()读取页面“&lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=XXXX"&gt;http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=XXXX&lt;/a&gt;”，得到的文本里面会有next nothing的提示。一直迭代直到没next为止。中间到80多次的时候会出现一个中断，不碍事，按照提示除以2继续。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib&lt;/span&gt;
 
-&lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;12345&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;urlbase&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;12345&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;urlbase&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=&amp;#39;&lt;/span&gt;
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;400&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
   &lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;urlbase&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -769,10 +894,10 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;p&gt;看来zip的方向是对了，不过还是不知道zip指什么。。。&lt;/p&gt;
 &lt;p&gt;一觉醒来之后突然来了灵感，既然可以把channel换成zip，为什么不能把html换成zip呢？find the zip，是不是指zip压缩包呢？试了一下，果然！真正的题目原来在channel.zip里。&lt;/p&gt;
 &lt;p&gt;跟第4关差不多，也是要不断找next nothing。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;90052&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;90052&amp;#39;&lt;/span&gt;
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;910&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
   &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
   &lt;span class="n"&gt;nothing&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;()[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
   &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;nothing&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isdigit&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
@@ -784,11 +909,11 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;h2&gt;7. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/def/oxygen.html"&gt;smarty&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;第7关唯一的提示信息就是图片了，看来少不了要用PIL了。本来以为有什么捷径，调用某个函数就能解析出图片中类似条码的那一块东西，但是找来找去也没发现什么。只好再一次祭出笨办法。&lt;/p&gt;
 &lt;p&gt;分析了一下，图片中的“条码”是许多块深浅不同的灰色块组成的，把这些块的颜色打出来一看，发现每一块的颜色值都是(x, x, x, 255)的形式，试着把所有的x按ASCII码表转换成字符。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
 
-&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;oxygen.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;oxygen.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;pix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;_p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;xrange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;608&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
@@ -802,7 +927,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;p&gt;smart guy, you made it. the next level is [105, 10, 16, 101, 103, 14, 105, 16, 121]&lt;/p&gt;
 &lt;p&gt;这个list里共有9个元素，其中100以上的几个可以翻译成字符i、e、g、i、y，这显然不是答案。&lt;/p&gt;
 &lt;p&gt;仔细想想就发现前面的解法有问题，如果两个连续的色块颜色一致，按上面的算法就会被识别成一个。所以这里的10实际上可能是110。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;“”&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;110&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;116&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;103&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;114&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;116&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;121&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;“”&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;110&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;116&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;103&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;114&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;116&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;121&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;替换之后再转成字符，得到下一关的地址integrity。&lt;/p&gt;
 &lt;p&gt;话说这题还真不能单靠程序来解，必须先找通过观察找到一些参数，比如“条码”的覆盖范围和每个色块的宽度。不过看过别人给的标准答案之后，还是自叹不如，倒不是不会用，是真想不起来还有这些用法。熟悉python，还需再接再厉！&lt;/p&gt;
@@ -815,8 +940,8 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="connect-the-dots"&gt;
 &lt;h2&gt;9. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/good.html"&gt;connect the dots&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;看到这个标题，我以为跟图片上那些个黑点有关。后来发现源码里给出的first和second，里面的数值似乎是两两一组的，并且是渐变的。莫非这才是坐标？用PIL里面的画线函数试一下，果然，画出了一头牛！第一反应是cow，结果不对，它告诉我“it’s a male”。那就是bull了，过关！&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;ImageDraw&lt;/span&gt;
-&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;good.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;ImageDraw&lt;/span&gt;
+&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;good.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="nb"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ImageDraw&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ImageDraw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -828,7 +953,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 
 &lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;second_p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fill&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
-&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;new.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;new.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -837,10 +962,10 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="what-are-you-looking-at"&gt;
 &lt;h2&gt;10. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/bull.html"&gt;what are you looking at?&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;提示：len(a[30]) = ? 图片隐藏链接指向sequence.txt，里面有一个数列a，看来是要找出a[30]的值，这个只能靠人脑了。很遗憾，i failed！搜索了一下这个数列，发现居然还是个比较有名的问题，数学上叫做外观数列（look-and-say sequence），也叫莫里斯数列，规律就是后一项是对前一项的描述，比如1211表示前一项是“1个2，1个1”。如果用纯数学的方法来求解，需要用到非常复杂的公式，不过对于计算机和人脑来说，就是个重复应用规则的过程，一个递归函数就可以搞定。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;mycount&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;mycount&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
   &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
   &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-  &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+  &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
 
   &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -854,7 +979,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
   &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
   &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;mycount&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
@@ -865,9 +990,9 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="odd-even"&gt;
 &lt;h2&gt;11. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/5808.html"&gt;odd even&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;又是坑爹的一关，有用的信息只有一张图片，还有含义不甚明了的标题。不过仔细来看，这图片好像是两张不同图片合成的？是不是要把他们分离出来？经过反复试验，发现只要把奇数行奇数列或者偶数行偶数列的像素提取出来组成新的图片，就可以得到答案。这大概就是标题“odd even”的含义吧。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
 
-&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;cave.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cave.jpg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;h&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;span class="n"&gt;pix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -876,7 +1001,7 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
   &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;putpixel&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;pix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 
-&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;new.bmp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;new.bmp&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;另外我还不幸的发现，在Windows下用PIL，貌似最后保存文件只能用bmp格式，是我安装有问题？&lt;/p&gt;
 &lt;/div&gt;
@@ -885,22 +1010,22 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;p&gt;又是一个纯图片的谜题，我讨厌这个。开始以为跟上一关一样，要从图片里分离出隐藏信息，结果折腾了N久没有结果，只好求助于网络。结果发现要找的居然不是这个evil1.jpg。。。&lt;/p&gt;
 &lt;p&gt;打开evil2.jpg，显示not jpg, gfx。下载evil2.gfx，得到一个数据文件。这里就要用到evil1.jpg了，上面显示的是将扑克牌分成5份，所以这里要做的是把evil2.gfx分成5份，就是5张不同的图片。&lt;/p&gt;
 &lt;p&gt;下面的代码也是借来的，写得真是简洁，学习了！&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;evil2.gfx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;evil2.gfx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s"&gt;.jpg&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;w&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;.jpg&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;w&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;看了官方给出的参考答案，要更完善一点。这里的5幅图片格式不同，需要用PIL来判断。这里用StringIO把字符串模拟成文件，然后通过Image.open()方法导入为图像。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cStringIO&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;StringIO&lt;/span&gt;
 
-&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;evil2.gfx&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;rb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;evil2.gfx&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;rb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;piece&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c"&gt;# every fifth byte, starting at i&lt;/span&gt;
+    &lt;span class="n"&gt;piece&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;# every fifth byte, starting at i&lt;/span&gt;
     &lt;span class="n"&gt;im&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StringIO&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;piece&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-    &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s"&gt;.&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;im&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lower&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;wb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;im&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lower&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;wb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;piece&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -908,20 +1033,20 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;div class="section" id="call-him"&gt;
 &lt;h2&gt;13. &lt;a class="reference external" href="http://www.pythonchallenge.com/pc/return/disproportional.html"&gt;call him&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;图片上的5键里隐藏了链接，指向../phonebook.php，打开得到一个XML，显示错误“Invalid document end at line 1, column 1”，显然是要提交参数。提示信息是“phone that evil”，“that evil”是不是指上一关中的evil2.gfx？试试把这个POST上去。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2&lt;/span&gt;
 
-&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;http://www.pythonchallenge.com/pc/phonebook.php&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;evil2.gfx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;http://www.pythonchallenge.com/pc/phonebook.php&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;evil2.gfx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;结果还是错误：“XML error: Not well-formed (invalid token) at line 1, column 1”。看起来是要提交一个XML文档。仔细看前面得到的XML，methodResponse比较眼熟，有点儿像是RPC，想起来有个叫XML-RPC的东西，上Wikipedia上一看，果然，返回的结果正好符合XML-RPC的定义，再看python的文档里面，有xmlrpclib。看来错不了，这里的“call him”指的是XML-RPC call。现在只需要搞清楚method和params。&lt;/p&gt;
 &lt;p&gt;提示给的是“phone that evil”，那么method大概就是phone()，先试一下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;xmlrpclib&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;xmlrpclib&lt;/span&gt;
 
-&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;http://www.pythonchallenge.com/pc/phonebook.php&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;http://www.pythonchallenge.com/pc/phonebook.php&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;server&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;xmlrpclib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ServerProxy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;disproportional&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;phone&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;disproportional&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;得到结果：He is not the evil。路子对了，参数不对。试过能想到的各种情况都不成功，只好求助网络，发现上一关里还有个evil4.jpg，用IE打开能看到“Bert is evil! go back!”（chrome里只能看到一个图片显示失败的标志）。把参数换成“Bert”，得到“555-ITALY”。。。居然还没结束。&lt;/p&gt;
 &lt;p&gt;想想电话号码应该全是数字，按照手机键盘把ITALY换成数字“48259”，再试，还是不对。再次求助网络，原来结果就是italy，囧。。。&lt;/p&gt;
@@ -964,9 +1089,9 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;规律还是很明显，我的代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;Image&lt;/span&gt;
 
-&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;wire.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;img&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;wire.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;pix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;img&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 
@@ -986,12 +1111,12 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
         &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;putpixel&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;pix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
         &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
 
-&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;new.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;new.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;得到的图片是一只猫，把上个本关链接中的italy换成cat，进入的页面上有一只猫的照片，上方的文字说：它的名字叫uzi。找了很久，发现这个网页上没有任何提示信息，最后才发现，原来下一关的题目不再这里，而是在uzi.html。&lt;/p&gt;
 &lt;p&gt;&amp;lt;未完待续…&amp;gt;&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="python"></category></entry><entry><title>关于今日项目演示的总结</title><link href="/blog/presentation-lessons.html" rel="alternate"></link><updated>2012-07-08T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-07-08:presentation-lessons.html</id><summary type="html">&lt;p&gt;演示是推广和展示的好机会，除了做得东西本身要靠谱，怎么去陈述也很重要。再好的东西也需要包装，说白了就是要吹。但是吹也是很讲水平的，吹不好牛皮容易破。&lt;/p&gt;
+</summary><category term="python"></category></entry><entry><title>关于今日项目演示的总结</title><link href="/blog/presentation-lessons.html" rel="alternate"></link><updated>2012-07-08T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-07-08:blog/presentation-lessons.html</id><summary type="html">&lt;p&gt;演示是推广和展示的好机会，除了做得东西本身要靠谱，怎么去陈述也很重要。再好的东西也需要包装，说白了就是要吹。但是吹也是很讲水平的，吹不好牛皮容易破。&lt;/p&gt;
 &lt;p&gt;陈述的关键在于短时间内让人明白你做的是什么东西，意义何在。虽然听众都是砖家，但是砖家也不是啥都懂，讲的不好不清楚，砖家就真的变砖了。今天的演示不算成功，总结下来，有如下收获：&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
 &lt;li&gt;专有名词、英文缩写的使用要慎重，如果是已经广为人知的名词或缩写，比如ftp之类的，当然没有问题。但是如果是比较小众的，除非是必不可少，否则尽量不要用。陈述中忽然蹦出来这么一个词，很容易吸引听众的注意力，然后他又不明白这个词是什么意思，就会影响对整个陈述的理解。如果必须要用，就要解释清楚。&lt;/li&gt;
@@ -999,33 +1124,33 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;li&gt;重点讲做成了的东西，正在做的和打算做的最多提一下。现在讲的是成果，做出来才算，总是讲没做成的东西，会让人觉得你心里没底。&lt;/li&gt;
 &lt;li&gt;尽量跟大家熟知（或者可能熟知）的东西联系起来。比如要说云计算，就要尽可能跟亚马逊、Google扯上关系。大树底下好乘凉，把自己的东西跟这些成功的产品联系起来，会让更有说服力。同时，从心理学的角度来讲，如果砖家在一大堆自己闻所未闻的东西中间，突然听到这么一个自己知道的，也更容易留下深刻的印象。&lt;/li&gt;
 &lt;/ol&gt;
-</summary><category term=""></category></entry><entry><title>快盘开放平台OAuth</title><link href="/blog/kuaipan-oauth.html" rel="alternate"></link><updated>2012-04-06T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-04-06:kuaipan-oauth.html</id><summary type="html">&lt;p&gt;最近发现金山快盘 &lt;a class="reference external" href="http://www.kuaipan.cn/developers/document.htm"&gt;开放API&lt;/a&gt; 了，以前一直头疼没有Linux客户端，现在有了API，完全可以自己实现一个简单的客户端。&lt;/p&gt;
+</summary></entry><entry><title>快盘开放平台OAuth</title><link href="/blog/kuaipan-oauth.html" rel="alternate"></link><updated>2012-04-06T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-04-06:blog/kuaipan-oauth.html</id><summary type="html">&lt;p&gt;最近发现金山快盘 &lt;a class="reference external" href="http://www.kuaipan.cn/developers/document.htm"&gt;开放API&lt;/a&gt; 了，以前一直头疼没有Linux客户端，现在有了API，完全可以自己实现一个简单的客户端。&lt;/p&gt;
 &lt;p&gt;开放平台采用OAuth 1.0的认证方式，认证过程分3步。第一步是申请一个临时token，也就是通知服务器要进行授权操作，服务器会准备后面两步需要的相应资源。第二步引导用户访问授权页面，登陆帐号进行授权。第三步获取正式的访问token。&lt;/p&gt;
 &lt;p&gt;看了官方文档，觉得授权过程不是很复杂，于是想自己写写试试。写了一段python代码，但是第一步就不能通过，服务器段总是返回401，错误信息是“request expired”。检查了一下，没发现timestamp有问题，搞不清问题出在哪儿。Pypi上找了一下，发现一个现成的包oauth，里面还自带了客户端和服务器端的例子程序，于是拿来改了一下，终于成功授权。&lt;/p&gt;
 &lt;p&gt;第一步：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;consumer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthConsumer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;consumer_key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;consumer_secret&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;consumer&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthConsumer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;consumer_key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;consumer_secret&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;oauth_request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthRequest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_consumer_and_token&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;request_token_url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sign_request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;signature_method_hmac_sha1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;token&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;do_request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;先用consumer_key和consumer_secret创建一个OAuthRequest，目标url指向开放平台提供的requestToken。然后用HMAC-SHA1对请求进行签名，签名算法参数signature_method_hmac_sha1是一个OAuthSignatureMethod_HMAC_SHA1类型的对象，由oauth包提供。第三步调用do_request()方法执行请求，从服务器端取得临时token。这里需要修改一下。例子里在执行http请求时是通过header传递参数的，但是快盘的API只支持url方式传递参数，用OAuthRequest.to_url()方法可以获得请求对应的url。用urllib2里的urlopen()函数打开url，并读取返回响应。修改之后的代码如下。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;do_request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="c"&gt;# via url&lt;/span&gt;
-        &lt;span class="c"&gt;# OAuthToken&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;do_request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c1"&gt;# via url&lt;/span&gt;
+        &lt;span class="c1"&gt;# OAuthToken&lt;/span&gt;
         &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_url&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
         &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_url&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthToken&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_json&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;另外返回结果是json格式，oauth里面也没有提供相应的处理方法，需要自己写。我在OAuthToken里加了from_json()方法。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;from_json&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;from_json&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="n"&gt;params&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loads&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;oauth_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-        &lt;span class="n"&gt;secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;oauth_token_secret&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;oauth_token&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+        &lt;span class="n"&gt;secret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;oauth_token_secret&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
         &lt;span class="n"&gt;token&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;OAuthToken&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;secret&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-            &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;callback_confirmed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;callback_confirmed&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;callback_confirmed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;callback_confirmed&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
         &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;KeyError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-            &lt;span class="k"&gt;pass&lt;/span&gt; &lt;span class="c"&gt;# 1.0, no callback confirmed.&lt;/span&gt;
+            &lt;span class="k"&gt;pass&lt;/span&gt; &lt;span class="c1"&gt;# 1.0, no callback confirmed.&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;
 &lt;span class="n"&gt;from_string&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;staticmethod&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;from_string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1034,45 +1159,45 @@ f(x) = k * x&lt;sup&gt;2&lt;/sup&gt; + c (modulo N)&lt;/blockquote&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://www.kuaipan.cn/api.php"&gt;https://www.kuaipan.cn/api.php&lt;/a&gt;?ac=open&amp;amp;op=authorise&amp;amp;oauth_token=&amp;lt;YourTemporaryToken&amp;gt;&lt;/p&gt;
 &lt;p&gt;第三步：&lt;/p&gt;
 &lt;p&gt;用临时token获取正式的access token。过程跟第一步基本相同，不过在创建request和签名的时候需要用到第一步获得的临时token。过程如下。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthRequest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_consumer_and_token&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;access_token_url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthRequest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_consumer_and_token&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;access_token_url&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sign_request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;signature_method_hmac_sha1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;token&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;do_request&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;完成上面三步，授权就算成功了，用access token可以调用快盘提供的各种API。调用API同样可以通过OAuthRequest来进行。API中的额外参数，可以在创建OAuthRequest对象的时候通过parameters参数指定。比如下面这个语句创建一个create_folder请求，带两个参数root和path。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthRequest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_consumer_and_token&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;API_BASE_URL&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;create_folder&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parameters&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;root&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;app_folder&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;path&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;oauth_request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;oauth&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OAuthRequest&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_consumer_and_token&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;consumer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;API_BASE_URL&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;create_folder&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parameters&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;root&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;app_folder&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;path&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;test&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;不过我尝试了多次，创建目录总是不能成功，返回状态400，错误消息“bad location”，貌似是path参数不对。目前还不清楚是什么原因。&lt;/p&gt;
-</summary><category term="python"></category></entry><entry><title>用Bash解一道编程题</title><link href="/blog/bash-solution-of-a-python-problem.html" rel="alternate"></link><updated>2012-03-31T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-31:bash-solution-of-a-python-problem.html</id><summary type="html">&lt;p&gt;EuroPython 2011的 &lt;a class="reference external" href="https://code.google.com/codejam/contest/1277486/dashboard"&gt;一道题目&lt;/a&gt; 。大意是说：半人马座统一之前由很多小国家组成，如果一个国家的名字是辅音字母结尾，那么这个国家由国王统治；如果是元音结尾，就是女王统治；如果是y结尾，则处在混乱状态，无人统治。输入文件是一个国家名字的列表，要求输出每个国家的统治者。题目不难，所以我想用bash来解决。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
+</summary><category term="python"></category></entry><entry><title>用Bash解一道编程题</title><link href="/blog/bash-solution-of-a-python-problem.html" rel="alternate"></link><updated>2012-03-31T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-03-31:blog/bash-solution-of-a-python-problem.html</id><summary type="html">&lt;p&gt;EuroPython 2011的 &lt;a class="reference external" href="https://code.google.com/codejam/contest/1277486/dashboard"&gt;一道题目&lt;/a&gt; 。大意是说：半人马座统一之前由很多小国家组成，如果一个国家的名字是辅音字母结尾，那么这个国家由国王统治；如果是元音结尾，就是女王统治；如果是y结尾，则处在混乱状态，无人统治。输入文件是一个国家名字的列表，要求输出每个国家的统治者。题目不难，所以我想用bash来解决。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/sh&lt;/span&gt;
 
 &lt;span class="nv"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
 
-&lt;span class="k"&gt;for &lt;/span&gt;l in &lt;span class="sb"&gt;`&lt;/span&gt;cat &lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; l in &lt;span class="sb"&gt;`&lt;/span&gt;cat &lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
 &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;    if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; 0 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; $&lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
         &lt;span class="o"&gt;((&lt;/span&gt;i+&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="o"&gt;))&lt;/span&gt;
         &lt;span class="k"&gt;continue&lt;/span&gt;
-&lt;span class="k"&gt;    fi&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Case #&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;: &amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$l&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot; is ruled by &amp;quot;&lt;/span&gt;
-    &lt;span class="nv"&gt;lower&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$l&lt;/span&gt;|tr &lt;span class="s1"&gt;&amp;#39;[A-Z]&amp;#39;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;[a-z]&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
-    &lt;span class="k"&gt;if  &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$lower&lt;/span&gt;|grep &lt;span class="s1"&gt;&amp;#39;y$&amp;#39;&lt;/span&gt;&amp;gt;/dev/null; &lt;span class="k"&gt;then&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;nobody.&amp;quot;&lt;/span&gt;
-    &lt;span class="k"&gt;elif &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$lower&lt;/span&gt;|grep &lt;span class="s1"&gt;&amp;#39;[a|e|i|o|u]$&amp;#39;&lt;/span&gt;&amp;gt;/dev/null; &lt;span class="k"&gt;then&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;a queen.&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot;Case #&amp;quot;&lt;/span&gt;$i&lt;span class="s2"&gt;&amp;quot;: &amp;quot;&lt;/span&gt;$l&lt;span class="s2"&gt;&amp;quot; is ruled by &amp;quot;&lt;/span&gt;
+    &lt;span class="nv"&gt;lower&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; $l&lt;span class="p"&gt;|&lt;/span&gt;tr &lt;span class="s1"&gt;&amp;#39;[A-Z]&amp;#39;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;[a-z]&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;  &lt;span class="nb"&gt;echo&lt;/span&gt; $lower&lt;span class="p"&gt;|&lt;/span&gt;grep &lt;span class="s1"&gt;&amp;#39;y$&amp;#39;&lt;/span&gt;&amp;gt;/dev/null&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;nobody.&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; $lower&lt;span class="p"&gt;|&lt;/span&gt;grep &lt;span class="s1"&gt;&amp;#39;[a|e|i|o|u]$&amp;#39;&lt;/span&gt;&amp;gt;/dev/null&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;a queen.&amp;quot;&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;a king.&amp;quot;&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;a king.&amp;quot;&lt;/span&gt;
     &lt;span class="k"&gt;fi&lt;/span&gt;
     &lt;span class="o"&gt;((&lt;/span&gt;i+&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="o"&gt;))&lt;/span&gt;
 &lt;span class="k"&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;用cat读取输入文件，然后逐行处理。第12行用tr命令把国家名字替换成小写。第13和16行分别用grep进行正则表达式匹配，判断是否以y或者元音字母结尾。&lt;/p&gt;
 &lt;p&gt;这段代码的输出结果通过了检查，但是比较了一下性能，发现跟相应的python版本差距很大，执行时间相差50倍。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;temp 11:17:16&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;time&lt;/span&gt; ./contries.sh A-small-practice1.in &amp;gt; sh.out
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;temp 11:17:16&lt;span class="o"&gt;]&lt;/span&gt;$ &lt;span class="nb"&gt;time&lt;/span&gt; ./contries.sh A-small-practice1.in &amp;gt; sh.out
 
 real    0m1.991s
 user    0m0.198s
 sys 0m0.842s
-&lt;span class="o"&gt;[&lt;/span&gt;temp 11:17:44&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;time &lt;/span&gt;python a.py A-small-practice1.in py.out
+&lt;span class="o"&gt;[&lt;/span&gt;temp 11:17:44&lt;span class="o"&gt;]&lt;/span&gt;$ &lt;span class="nb"&gt;time&lt;/span&gt; python a.py A-small-practice1.in py.out
 
 real    0m0.040s
 user    0m0.032s
@@ -1080,52 +1205,52 @@ sys 0m0.003s
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;造成性能差的原因，可能是因为bash脚本中调用了其他的程序，每一次调用都需要创建新进程，并且要通过管道进行进程间通信。在上面脚本里，每次循环至少要调用echo4次、grep一次、tr一次，使用管道3次，这些操作都需要进行系统调用，带来极大的性能开销，反映在time结果上就是sys时间是python版本的280倍之多。由此得到性能优化的方向：尽量使用bash的内置功能，减少外部程序调用。&lt;/p&gt;
 &lt;p&gt;Bash其实已经提供了内建正则表达式匹配功能，通过=~运算符实现。用法如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[[&lt;/span&gt; &lt;span class="nv"&gt;$str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ &lt;span class="nv"&gt;$regexp&lt;/span&gt; &lt;span class="o"&gt;]]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[[&lt;/span&gt; $&lt;span class="nv"&gt;str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ $regexp &lt;span class="o"&gt;]]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这样就可以把脚本中的grep调用全部去掉。另外脚本中每一行结果分两次输出，可以合并成一次，减少一次echo调用。新的脚本如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/sh&lt;/span&gt;
 
 &lt;span class="nv"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
-&lt;span class="k"&gt;for &lt;/span&gt;l in &lt;span class="sb"&gt;`&lt;/span&gt;cat &lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; l in &lt;span class="sb"&gt;`&lt;/span&gt;cat &lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
 &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;    if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; 0 &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; $&lt;span class="nv"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
         &lt;span class="o"&gt;((&lt;/span&gt;i+&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="o"&gt;))&lt;/span&gt;
         &lt;span class="k"&gt;continue&lt;/span&gt;
-&lt;span class="k"&gt;    fi&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;lower&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$l&lt;/span&gt;|tr &lt;span class="s1"&gt;&amp;#39;[A-Z]&amp;#39;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;[a-z]&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="nv"&gt;lower&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; $l&lt;span class="p"&gt;|&lt;/span&gt;tr &lt;span class="s1"&gt;&amp;#39;[A-Z]&amp;#39;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;[a-z]&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
     &lt;span class="nv"&gt;reg1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;y$&amp;#39;&lt;/span&gt;
     &lt;span class="nv"&gt;reg2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[a|e|i|o|u]$&amp;#39;&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[[&lt;/span&gt; &lt;span class="nv"&gt;$lower&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ &lt;span class="nv"&gt;$reg1&lt;/span&gt; &lt;span class="o"&gt;]]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;who&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;nobody.&amp;quot;&lt;/span&gt;
-    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="o"&gt;[[&lt;/span&gt; &lt;span class="nv"&gt;$lower&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ &lt;span class="nv"&gt;$reg2&lt;/span&gt; &lt;span class="o"&gt;]]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;who&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a queen.&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[[&lt;/span&gt; $&lt;span class="nv"&gt;lower&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ $reg1 &lt;span class="o"&gt;]]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nv"&gt;who&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;nobody.&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="o"&gt;[[&lt;/span&gt; $&lt;span class="nv"&gt;lower&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ $reg2 &lt;span class="o"&gt;]]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nv"&gt;who&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a queen.&amp;quot;&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;
-&lt;span class="k"&gt;        &lt;/span&gt;&lt;span class="nv"&gt;who&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a king.&amp;quot;&lt;/span&gt;
+        &lt;span class="nv"&gt;who&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;a king.&amp;quot;&lt;/span&gt;
     &lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Case #&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;: &amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$l&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot; is ruled by $who&amp;quot;&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Case #&amp;quot;&lt;/span&gt;$i&lt;span class="s2"&gt;&amp;quot;: &amp;quot;&lt;/span&gt;$l&lt;span class="s2"&gt;&amp;quot; is ruled by &lt;/span&gt;$&lt;span class="s2"&gt;who&amp;quot;&lt;/span&gt;
     &lt;span class="o"&gt;((&lt;/span&gt;i+&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="o"&gt;))&lt;/span&gt;
 &lt;span class="k"&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;再测性能：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;temp 11:46:44&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;time&lt;/span&gt; ./contries-tuned.sh A-small-practice1.in &amp;gt; sh.out
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;temp 11:46:44&lt;span class="o"&gt;]&lt;/span&gt;$ &lt;span class="nb"&gt;time&lt;/span&gt; ./contries-tuned.sh A-small-practice1.in &amp;gt; sh.out
 
 real    0m0.820s
 user    0m0.101s
 sys 0m0.151
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;性能提高了不少，但是执行时间仍然是python版本的20倍！看起来性能瓶颈可能在tr。一方面是前面分析的创建进程和管道通信的开销，反映在sys时间上；另一方面，user时间也比较大，可能是tr的实现机制所致，这种基于正则表达式的替换用来进行大小写转换有点儿杀鸡用牛刀的感觉。Bash里面没有找到比较简单的办法替代tr，但是可以修改reg1和reg2，在条件判断的时候把大小写考虑进去，同样可以达到目的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;reg1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[y|Y]$&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;reg1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[y|Y]$&amp;#39;&lt;/span&gt;
 &lt;span class="nv"&gt;reg2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[a|e|i|o|u|A|E|I|O|U]$&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;再测性能：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;[&lt;/span&gt;temp 11:56:14&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;time&lt;/span&gt; ./contries-tuned2.sh A-small-practice1.in &amp;gt; sh.out
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;temp 11:56:14&lt;span class="o"&gt;]&lt;/span&gt;$ &lt;span class="nb"&gt;time&lt;/span&gt; ./contries-tuned2.sh A-small-practice1.in &amp;gt; sh.out
 
 real    0m0.056s
 user    0m0.043s
 sys 0m0.003s
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;已经相当接近了，不过总的执行时间仍然比python多出了40%，多出来的部分主要在usr，应该是Bash本身的问题了。&lt;/p&gt;
-</summary><category term="bash"></category><category term="programming"></category></entry><entry><title>八一八我用过的操作系统</title><link href="/blog/i-and-os.html" rel="alternate"></link><updated>2012-03-05T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-03-05:i-and-os.html</id><summary type="html">&lt;p&gt;闲来蛋疼，忽然想清点一下自己用过的各种OS，不知不觉又想起以前的很多事情，顺便回顾一下自己的准IT生涯。&lt;/p&gt;
+</summary><category term="bash"></category><category term="programming"></category></entry><entry><title>八一八我用过的操作系统</title><link href="/blog/i-and-os.html" rel="alternate"></link><updated>2012-03-05T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-03-05:blog/i-and-os.html</id><summary type="html">&lt;p&gt;闲来蛋疼，忽然想清点一下自己用过的各种OS，不知不觉又想起以前的很多事情，顺便回顾一下自己的准IT生涯。&lt;/p&gt;
 &lt;p&gt;最早开始接触计算机，知道OS这个概念，是从初中开始。学校里面有个机房，里面几十台也不知道是386还是486的电脑，装的全是经典的MS-DOS 6.22。每次数学老师兼任的计算机老师带我们进去上课的时候都搞得特别神圣，不过教的也就是那么一点点常用命令。后来跟同学学会了一个win命令，可以启动图形界面，也就是传说中的windows，不记得是3.1还是3.2了。虽然有图形好看多了，但是也不过就是dos的一个漂亮的壳而已。&lt;/p&gt;
 &lt;p&gt;那个时候已经开始有网吧了，不对，是游戏房，还不能上网。一个小房间，几台电脑，每台旁边都围着好几个人。网吧里用的貌似已经是windows 95了，不过我这种好孩子是不会去那种地方的。&lt;/p&gt;
 &lt;p&gt;在那个时候哥就已经无师自通，学会了BASIC编程（其实最早是从学习机上学的），最喜欢折腾的就是DOS里面的QBASIC。并且颇具慧眼，在完全没有人指点的情况下，毅然抛弃了Pascal、Fortran等一干语言，开始了C语言的启蒙。启蒙教材就是谭浩强的那本，注意是黄色封面的第二版，不是后来大学书摊上遍地都是的那种绿色封面的第三版！&lt;/p&gt;
@@ -1143,7 +1268,7 @@ sys 0m0.003s
 &lt;p&gt;说操作系统，当然也不能不提手机。人穷志短，没那么多钱换手机，不过还是基本上赶上了诺记的辉煌时代。S40、S60v2、v3都用过。刚开始接触s60的时候，诺记还在智能手机圈里一枝独秀，横行无忌，那时候手机还是2.x寸的小屏幕，虽然号称“智能”，其实比非智能的也强不了多少。但是哥已经清楚的意识到这一块前途不可限量，绝对是未来的热点之一。不过没想到的是，一部iPhone能在瞬间把它推到一个前所未有的高度。&lt;/p&gt;
 &lt;p&gt;以前有个师兄说过，把兴趣变成工作，就悲剧了。现在回想一下，太有道理了，我就是一步一步的把兴趣逐渐变成工作，果然就悲剧了。。。&lt;/p&gt;
 &lt;p&gt;从中学到现在，信息越来越通达，最早的信息来源基本上就是一本《电脑爱好者》杂志，后来高中的时候买书买杂志越来越方便了，也开始接触网络。到了大学基本上就离不开网络了，同时开始接触开源软件和社区，从中也增长了不少见识。读研究生之后又被迫进入所谓的学术圈。现在，每天接触各种业界资讯，社区动态，学术进展，视野前所未有的开阔，不但有大量的新闻资讯，各种深入浅出的技术分析文章，取之不尽的开放源代码，还有看到想吐的学术论文，每天处理的信息比以前一个月接触的信息还多。信息越来越丰富的同时，思维反而越来越僵化，越来越不敢想，感觉越来越不敏锐。大概外来信息太多，把自己的想法给框住了，结果反而失去了活力。&lt;/p&gt;
-</summary><category term="Operating System"></category></entry><entry><title>移植owncloud到SAE</title><link href="/blog/owncloud-sae.html" rel="alternate"></link><updated>2012-02-02T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2012-02-02:owncloud-sae.html</id><summary type="html">&lt;p&gt;寒假在家无聊，找点事情打发一下时间。最近比较关注新浪的App Engine，想在上面做点儿什么。写新的东西吧，一是目前没想法，二是设计比较麻烦，还是移植吧。于是想到了owncloud，KDE的一个子项目，貌似还没有人移植。如果能在SAE上运行owncloud，就可以用很低的成本拥有一个私有的云存储服务器，还是挺吸引人的。&lt;/p&gt;
+</summary><category term="Operating System"></category></entry><entry><title>移植owncloud到SAE</title><link href="/blog/owncloud-sae.html" rel="alternate"></link><updated>2012-02-02T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2012-02-02:blog/owncloud-sae.html</id><summary type="html">&lt;p&gt;寒假在家无聊，找点事情打发一下时间。最近比较关注新浪的App Engine，想在上面做点儿什么。写新的东西吧，一是目前没想法，二是设计比较麻烦，还是移植吧。于是想到了owncloud，KDE的一个子项目，貌似还没有人移植。如果能在SAE上运行owncloud，就可以用很低的成本拥有一个私有的云存储服务器，还是挺吸引人的。&lt;/p&gt;
 &lt;p&gt;大致看了一下OC的代码和SAE的文档，移植的主要难点在文件存储这一块。OC需要用服务器的本地文件系统存储文件，但是SAE不支持本地文件系统写操作，文件只能存储到它的分布式文件系统里。这个系统目前很不完善，缺乏POSIX的很多特性，比如很多文件属性没有，而且对目录的支持也不完善，这个是最关键的。先从简单的开始做起，完成一个不支持层次目录的版本。&lt;/p&gt;
 &lt;p&gt;OC的代码层次比较清晰，其中文件存储这一块分了两层。一层是抽象层（lib/files.php和lib/filestorage.php），为OC的各个app提供跟底层无关的文件访问API。另外一层是后端存储引擎（lib/filestorage/），就是跟存储方式相关的具体实现。目前有两个引擎：local.php和remote.php。前者就是用本地文件系统做存储后端，后者是远程存储，具体是个什么东东我还不是很清楚。&lt;/p&gt;
 &lt;p&gt;那么主要任务就是添加一个SAE的专用存储后端（sae.php）。先把local.php整个copy过来，里面其实就是定义了一个OC_Filestorage的子类OC_Filestorage_Local，各个方法的含义基本上很明确了。参考这个，实现一个新的类OC_Filestorage_SAE。之后还要在lib/base.php里加上一句registerStorageType，注册新的存储后端。&lt;/p&gt;
@@ -1151,14 +1276,14 @@ sys 0m0.003s
 &lt;p&gt;另外，OC在安装的时候通过交互式界面（lib/setup.php）填写配置信息，然后把配置信息写到config/config.php文件里。而SAE里不能修改本地文件。目前的做法是事先写好配置，然后调用一个新的setup.php，根据配置信息进行初始化。&lt;/p&gt;
 &lt;p&gt;完成的代码发布在github，基于最新发布的owncloud3，详细说明见README。&lt;/p&gt;
 &lt;p&gt;不知道SAE近期有没有继续完善其分布式存储系统的计划，不过通过这个移植过程，我倒是产生了一个想法：用SAE的kvdb和storage实现一个功能完善的分布式文件系统。用kvdb存储元数据（inode和目录等等），storage存储数据，通过php streamWrapper进行封装，这样就可以像本地文件一样通过open()，read()，write()等函数来访问。如果有了这个东东，再移植OC或者类似的系统，难度应该会小很多。&lt;/p&gt;
-</summary><category term="cloud"></category><category term="php"></category></entry><entry><title>Chrome插件开发小结</title><link href="/blog/chrome-ext-dev.html" rel="alternate"></link><updated>2011-11-05T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2011-11-05:chrome-ext-dev.html</id><summary type="html">&lt;p&gt;这几天写了个简单的chrome扩展，总结一下。&lt;/p&gt;
+</summary><category term="cloud"></category><category term="php"></category></entry><entry><title>Chrome插件开发小结</title><link href="/blog/chrome-ext-dev.html" rel="alternate"></link><updated>2011-11-05T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2011-11-05:blog/chrome-ext-dev.html</id><summary type="html">&lt;p&gt;这几天写了个简单的chrome扩展，总结一下。&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
 &lt;li&gt;Manifest很重要。Manifest.json决定了这个扩展程序可以使用哪些资源和API，如果写错了，正确的代码也无法执行。这种做法有一个好处是强迫你先做好设计，先想清楚自己需要用到哪些东西，而不是盲目的写代码。这个问题上我犯过不止一次错误，急躁的毛病还是要改改。&lt;/li&gt;
 &lt;li&gt;用console输出调试信息。调试程序最简单最直接的办法就是在代码里加调试输出，然后查看输出结果就可以了解程序执行的过程和关键数据。C里面用printf()，Javascript里面可以用alert()弹出对话框输出信息。但是弹出窗口很不方便，特别是输出较多的时候。另外对于background page，是不能弹出对话框的。所以更好的做法是用console.log()输出的console。有些页面（比如popup）是不能直接输出到console的，可以调用chrome.extension.getBackgroundPage().console.log()输出到background page的console。查看log可以用下面方法：对于Content script，直接在当前页面按Ctrl + Shift + I打开调试工具，在console标签里查看；对于Background page，在“选项”的“扩展程序”页面里面查看，选上“开发人员模式”，然后每个插件展开后都会有一个backgroud page的链接（如果有background page的话），点击就可以打开background page的控制台。&lt;/li&gt;
 &lt;li&gt;找别人的代码来参考。我从来不喜欢死看教程，很多东西找段代码一看就什么都明白了。可以到github等项目托管网站或者一些代码搜索网站上找别人的代码作参考。直接搜你想查的函数，可以得到很多结果。&lt;/li&gt;
 &lt;li&gt;学会用回调。Chrome插件用Javascript开发，而回调是Javascript的一个重要特性。Chrome提供的API里面很多是基于回调的，甚至连一个简单的tabs.getSelected()得到当前选中的tab，都要用回调。所以理解回调的原理，学会用回调很重要。回调是在异步通信中用来返回结果给消息发送者的。理解回调的一个关键点是，执行回调的和发送请求的（也就是设置回调函数的）是两个并发的线程。由于是异步非阻塞的，回调函数的执行时间完全取决于消息接收方的响应速度，getSelected()函数返回之后它的回调函数并没有返回。Javascript里面的回调可以用匿名函数的方式直接写在参数表里，这种写法很具有迷惑性，让人误以为函数返回之后回调也执行完了，我就在这个上面栽了跟头。在写这个扩展程序的过程中，我使用了一个for循环逐条处理搜索结果，并用sendRequest()向background page发送消息，但是我在回调函数里引用了循环里的变量，每次循环结束这些变量都会改变，因此当回调执行时，取到的值已经不是我想要的了。&lt;/li&gt;
 &lt;/ol&gt;
-</summary><category term="chrome"></category><category term="javascript"></category></entry><entry><title>有图有真相：实验分析Google按图搜索</title><link href="/blog/google-search-by-img-experiments.html" rel="alternate"></link><updated>2011-06-19T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:/blog,2011-06-19:google-search-by-img-experiments.html</id><summary type="html">&lt;p&gt;Google推出按图搜索，貌似效果比较震撼。Google的搜索算法真的强大到能像人一样仅凭图片就识别出内容吗？我对此表示怀疑。Google的搜索引擎又是怎么做到按图搜索的？我不是研究这个的，只能做几个简单的实验进行分析，管中窥豹，贻笑大方。&lt;/p&gt;
+</summary><category term="chrome"></category><category term="javascript"></category></entry><entry><title>有图有真相：实验分析Google按图搜索</title><link href="/blog/google-search-by-img-experiments.html" rel="alternate"></link><updated>2011-06-19T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2011-06-19:blog/google-search-by-img-experiments.html</id><summary type="html">&lt;p&gt;Google推出按图搜索，貌似效果比较震撼。Google的搜索算法真的强大到能像人一样仅凭图片就识别出内容吗？我对此表示怀疑。Google的搜索引擎又是怎么做到按图搜索的？我不是研究这个的，只能做几个简单的实验进行分析，管中窥豹，贻笑大方。&lt;/p&gt;
 &lt;div class="section" id="first-blood"&gt;
 &lt;h2&gt;实验1 First Blood&lt;/h2&gt;
 &lt;p&gt;图片 苍井老师的写真&lt;/p&gt;
@@ -1274,12 +1399,12 @@ sys 0m0.003s
 &lt;p&gt;从电影里截取一张苍井老师的面部特写进行搜索。&lt;/p&gt;
 &lt;p&gt;图片 《复仇者之死》截图&lt;/p&gt;
 &lt;div class="figure align-center"&gt;
-&lt;img alt="搜索结果" src="http://seth-images.qiniudn.com/search-by-img-exp/2_1.jpg" /&gt;
+&lt;img alt="搜索结果" src="http://seth-images.qiniudn.com/search-by-img-exp/7_1.jpg" /&gt;
 &lt;/div&gt;
 &lt;p&gt;电影截图&lt;/p&gt;
 &lt;p&gt;结果&lt;/p&gt;
 &lt;div class="figure align-center"&gt;
-&lt;img alt="搜索结果" src="http://seth-images.qiniudn.com/search-by-img-exp/2_1.jpg" /&gt;
+&lt;img alt="搜索结果" src="http://seth-images.qiniudn.com/search-by-img-exp/7_1.jpg" /&gt;
 &lt;/div&gt;
 &lt;p&gt;截图结果&lt;/p&gt;
 &lt;p&gt;这个结果毫不意外，就算是Google，现在也不可能强大到真的根据图片的“内容”去搜索。不过我觉得，这种情况恰恰是人们最需要的。比如你走在路上，发现一个不明物体，兴致勃勃的拍张照片想去Google一下，结果得到的只是形状或颜色相似的另一些不明物体，这个时候你一定会对所谓的按图搜索感到无比失望。不过这确实是目前技术所限，不能奢求太多。&lt;/p&gt;

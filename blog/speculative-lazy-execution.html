@@ -31,7 +31,7 @@
     <div class="section" id="speculative-execution">
 <h2>Speculative Execution</h2>
 <p>Speculative Execution，直译过来就是“投机执行”（通常的说法貌似是“预测执行”，不过我觉得直译的更有味道一些），是一种性能优化方法。提高性能的重要方法之一是并行，比如流水线，利用不同部件之间的并行来屏蔽延迟，提高整体性能。但是如果前后两个任务之间存在依赖关系，比如下面这种情况，condition()和do_something()/do_something_else()之间不能并行，流水线就失效了。</p>
-<div class="highlight"><pre><span class="k">if</span> <span class="n">condition</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">()</span>
     <span class="n">do_something</span><span class="p">()</span>
 <span class="k">else</span>
     <span class="n">do_something_else</span><span class="p">()</span>

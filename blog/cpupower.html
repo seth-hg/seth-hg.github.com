@@ -31,12 +31,12 @@
     <p>夏天来了，气温越来越高，笔记本风扇吭哧吭哧的转个不停，听着实在揪心。现在的笔记本处理器都支持频率调整，可以在负载不重的情况下降低运行频率，减少能耗和发热。虽然Linx内核驱动已经相当完善，支持各种主流CPU的调频功能，但是默认的管理策略好像并不给力，总感觉运行Linux的时候温度要比运行windows的时候略高一些，还好可以自己调整。</p>
 <p>Linux内核中管理CPU频率的模块是cpufreq，这个模块提供了sysfs接口，通过/sys/devices/system/cpu/cpu[n]/cpufreq/目录里的文件，可以查看CPU运行状态。修改设置可以用命令行工具cpupower（也就是以前的cpufrequtils）。Fedora 17里这个工具包含在kernel-tools里。</p>
 <p>有两种方式可以达到降温的目的，一是把governor设置为powersave：</p>
-<div class="highlight"><pre>cpupower --cpu [n] frequency-set -g powersave
+<div class="highlight"><pre><span></span>cpupower --cpu <span class="o">[</span>n<span class="o">]</span> frequency-set -g powersave
 </pre></div>
 <p>--cpu指定CPU，对于多核处理器可以为每个核心分别进行设置。一般默认的governor是ondemand，但仍然是性能优先。很多情况下，比如看资料、写文档的时候，CPU的使用率都不是很高，完全可以切换到powersave模式，效果相当明显，在我的笔记本上，把两个核都调成powersave，能降温10度以上。如果这样有点慢的话，可以只调一个核。</p>
 <p>另外一种方法是直接设定CPU的运行频率或者频率上限，频率不能任意调整，CPU支持频率可以在scaling_available_frequencies文件里看到。</p>
-<div class="highlight"><pre>cpupower --cpu[n] --frequency-set -f [freq]
-cpupower --cpu[n] --frequency-set -u [max_freq]
+<div class="highlight"><pre><span></span>cpupower --cpu<span class="o">[</span>n<span class="o">]</span> --frequency-set -f <span class="o">[</span>freq<span class="o">]</span>
+cpupower --cpu<span class="o">[</span>n<span class="o">]</span> --frequency-set -u <span class="o">[</span>max_freq<span class="o">]</span>
 </pre></div>
 <p>补充一个工具 <a class="reference external" href="http://lm-sensors.org/">lm-sensors</a> ，可以通过硬件传感器监控CPU和显卡等硬件的温度，调整完之后可以用sensors命令看一下效果。</p>
 <p>补充：</p>

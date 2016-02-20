@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Life Sucks</title><link href="/blog/" rel="alternate"></link><link href="/blog/feeds/develop.atom.xml" rel="self"></link><id>/blog/</id><updated>2016-02-20T00:00:00+08:00</updated><entry><title>React Native开发环境搭建</title><link href="/blog/react-native-app-dev-osx.html" rel="alternate"></link><updated>2016-02-20T00:00:00+08:00</updated><author><name>Seth Huang</name></author><id>tag:,2016-02-20:blog/react-native-app-dev-osx.html</id><summary type="html">&lt;div class="section" id="homebrewnode-js"&gt;
+&lt;h2&gt;1. 用Homebrew安装Node.js&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;brew install node
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h2&gt;2. 安装React Native命令行工具&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;npm install -g react-native-cli
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="android-sdk"&gt;
+&lt;h2&gt;3. 安装Android SDK&lt;/h2&gt;
+&lt;p&gt;下载Android SDK，推荐从 &lt;a class="reference external" href="http://www.androiddevtools.cn/"&gt;AndroidDevTools&lt;/a&gt; 的镜像下载。解压到任意目录。设置环境变量ANDROID_HOME，编译时需要。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;ANDROID_HOME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;$HOME/Android/sdk
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id2"&gt;
+&lt;h2&gt;4. 创建项目&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;react-native-cli init HelloWorld
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id3"&gt;
+&lt;h2&gt;5. 编译和调试&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;react-native-cli run-android
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;该命令完成3件事：第一，启动一个web服务器，监听8081端口，React Native生成的App需要从服务器下载js脚本才能运行；第二，编译生成apk；第三，使用adb命令安装app到目标环境进行调试。&lt;/p&gt;
+&lt;p&gt;调试app至少需要一个目标环境，模拟器或者真实手机都可以。使用模拟器调试需要用SDK Manager图形界面创建一个模拟器并启动。使用手机调试需要安装手机对应的USB驱动，并打开手机的USB调试支持，将手机通过USB数据线连接到电脑。使用下面命令可以检查手机是否已经正确连接。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;adb devices -l
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="app"&gt;
+&lt;h2&gt;6. 运行App&lt;/h2&gt;
+&lt;p&gt;前面步骤完成后，HelloWorld将被安装到目标环境。直接运行会显示一个红色的错误界面，这是因为js没有正确加载，需要先设置服务器地址和端口。按菜单键或者摇动手机，App上会弹出菜单，选择Dev Settings -&amp;gt; Debug server host &amp;amp; port for device，填上开发机的IP地址和端口（8081）.然后选择Reload JS重新加载。&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry></feed>
